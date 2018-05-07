@@ -1,0 +1,103 @@
+use DataProtection;
+
+CREATE TABLE `Users` 
+(
+  `idUser` INT NOT NULL auto_increment,
+  
+`login` VARCHAR(100) NULL,
+ 
+ `password` VARCHAR(100) NULL,
+  
+`idStatus` INT null,
+ 
+`mailingAddress` VARCHAR(1000) NULL,
+`name` VARCHAR(1000) NULL,
+`surname` VARCHAR(1000) NULL,
+`patronimic` VARCHAR(1000) NULL,
+`post` VARCHAR(1000) NULL,
+`phone` VARCHAR(1000) NULL,
+`email` VARCHAR(1000) NULL,
+`idControl` INT NOT NULL,
+`idSubject` INT NULL ,
+ `idAuthorities` INT NULL ,
+PRIMARY KEY (`idUser`));
+
+CREATE TABLE `dataprotection`.`control` 
+(
+  `idControl` INT NOT NULL,
+ 
+ `title` INT NULL,
+  
+PRIMARY KEY (`idControl`));
+
+
+CREATE TABLE `Statuses`
+ (
+  `idStatus` INT NOT NULL auto_increment,
+  
+`title` VARCHAR(100) NULL,
+  
+PRIMARY KEY (`idStatus`));
+
+
+
+INSERT INTO `dataprotection`.`statuses` (`idStatus`, `title`) VALUES ('1', 'ADMIN');
+
+INSERT INTO `dataprotection`.`statuses` (`idStatus`, `title`) VALUES ('2', 'USER');
+
+
+ alter table Users 
+add CONSTRAINT idStatus
+    
+FOREIGN KEY (idStatus)
+    
+REFERENCES Statuses (idStatus);
+
+
+CREATE TABLE `SubjectRF`
+ (
+  `idSubject` INTEGER NOT NULL auto_increment, 
+  
+`titleSubject` VARCHAR(1000), 
+  
+PRIMARY KEY (`idSubject`)
+);
+
+CREATE TABLE Authorities 
+(
+  `idAuthorities` INTEGER NOT NULL auto_increment, 
+  
+`titleAuthorities` VARCHAR(1000), 
+  
+PRIMARY KEY (`idAuthorities`)
+);
+
+ALTER TABLE `dataprotection`.`users` 
+
+ADD INDEX `idSubject_idx` (`idSubject` ASC),
+
+ADD INDEX `idAuthorities_idx` (`idAuthorities` ASC);
+
+
+ALTER TABLE `dataprotection`.`users` 
+ADD CONSTRAINT `idSubject`
+  FOREIGN KEY (`idSubject`)
+  
+REFERENCES `dataprotection`.`subjectrf` (`idSubject`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+
+
+ADD CONSTRAINT `idAuthorities`
+  
+FOREIGN KEY (`idAuthorities`)
+  
+REFERENCES `dataprotection`.`authorities` (`idAuthorities`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+
+

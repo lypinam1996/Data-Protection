@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
+<head>
+    <title>Requests</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container" style="margin-top: 50px" th:switch="${count}">
+    <p align="center" style="font-size: 20pt" th:case="0">Нет заявок</p>
+    <div th:case="*">
+    <h3 align="center">Пользователи, которые подали запрос на регистрацию.</h3>
+    <table class="table table-hover" style="font-size: 9pt">
+        <tr>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Отчество</td>
+            <td>Должность</td>
+            <td>Контактный телефон</td>
+            <td>e-mail</td>
+            <td>Организация</td>
+            <td>Субъект РФ</td>
+            <td>Почтовый адрес</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.surname}">&nbsp;</td>
+            <td th:text="${u.name}">&nbsp;</td>
+            <td th:text="${u.patronimic}">&nbsp;</td>
+            <td th:text="${u.post}">&nbsp;</td>
+            <td th:text="${u.phone}">&nbsp;</td>
+            <td th:text="${u.email}">&nbsp;</td>
+            <td th:text="${u.authority == null ? '' :u.authority.titleAuthorities}">&nbsp;</td>
+            <td th:text="${u.subject == null ? '' : u.subject.titleSubject}">&nbsp;</td>
+            <td th:text="${u.mailingAddress}">&nbsp;</td>
+            <td>
+                <a th:href="@{${u.idUser}+'/confirm'}">Подтвердить регистрацию</a>
+            </td>
+            <td>
+                <a th:href="@{${u.idUser}+'/reject'}">Отклонить заявку</a>
+            </td>
+        </tr>
+    </table>
+    </div>
+</div>
+<form th:action="@{/mainAdmin}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
+</form>
+
+</body>
+</html>
