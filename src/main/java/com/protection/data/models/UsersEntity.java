@@ -1,6 +1,10 @@
 package com.protection.data.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "dataprotection", catalog = "")
@@ -19,6 +23,18 @@ public class UsersEntity {
     private SubjectrfEntity subject;
     private AuthoritiesEntity authority;
     private int control;
+    private List<OfficialEntity> officials;
+
+    @OneToMany(mappedBy = "user")
+    public List<OfficialEntity> getOfficials() {
+        return officials;
+    }
+
+    public void setOfficials(List<OfficialEntity> officials) {
+        this.officials = officials;
+    }
+
+
 
     public int getControl() {
         return control;

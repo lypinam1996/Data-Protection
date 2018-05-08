@@ -13,7 +13,7 @@
     <p align="center" style="font-size: 20pt" th:case="0">Нет заявок</p>
     <div th:case="*">
     <h3 align="center">Пользователи, которые подали запрос на регистрацию.</h3>
-    <table class="table table-hover" style="font-size: 9pt">
+    <table class="table table-hover" style="font-size: 9pt; overflow: scroll;">
         <tr>
             <td>Фамилия</td>
             <td>Имя</td>
@@ -36,6 +36,7 @@
             <td th:text="${u.email}">&nbsp;</td>
             <td th:text="${u.authority == null ? '' :u.authority.titleAuthorities}">&nbsp;</td>
             <td th:text="${u.subject == null ? '' : u.subject.titleSubject}">&nbsp;</td>
+            <td th:text="${u.mailingAddress}">&nbsp;</td>
             <td th:text="${u.mailingAddress}">&nbsp;</td>
             <td>
                 <a th:href="@{${u.idUser}+'/confirm'}">Подтвердить регистрацию</a>

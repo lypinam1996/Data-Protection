@@ -99,5 +99,551 @@ ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
 
+CREATE TABLE official
+(
+  `idOfficial` INTEGER NOT NULL auto_increment, 
+ 
+ `title` VARCHAR(500), 
+  
+`surname` VARCHAR(255), 
+ 
+ `name` VARCHAR(255), 
+  
+`patronymic` VARCHAR(255), 
+ 
+ `birth` DATETIME, 
+  
+`phone` VARCHAR(255),
+	
+email VARCHAR(255),
+ 
+ `institution` VARCHAR(255), 
+  
+`specialty` VARCHAR(255), 
+  
+`year` VARCHAR(255), 
+  
+`remark` VARCHAR(255),
+update` DATETIME NULL,
+ 
+ PRIMARY KEY (`idOfficial`)
+);
 
+CREATE TABLE usersofficials
+ (
+  `idUser` INTEGER NOT NULL, 
+  
+idOfficial INTEGER NOT NULL, 
+  
+PRIMARY KEY (`idUser`,idOfficial)
+);
+
+ALTER TABLE `dataprotection`.`usersofficials` 
+
+ADD CONSTRAINT `idUser11`
+  
+FOREIGN KEY (`idUser`)
+  
+REFERENCES `dataprotection`.`users` (`idUser`)
+  
+oN DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `dataprotection`.`usersofficials` 
+
+ADD INDEX `idOffi_idx` (`idOfficial` ASC);
+
+ALTER TABLE `dataprotection`.`usersofficials` 
+
+ADD CONSTRAINT `idOffi`
+  FOREIGN KEY (`idOfficial`)
+  
+REFERENCES `dataprotection`.`official` (`idOfficial`)
+ 
+ ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+use dataprotection;
+
+CREATE TABLE specialists 
+(
+  `idSpecialist` INTEGER NOT NULL auto_increment, 
+  
+`title` VARCHAR(500), 
+ 
+ `surname` VARCHAR(255), 
+  
+`name` VARCHAR(255), 
+ 
+ `patronymic` VARCHAR(255), 
+ 
+ `birth` DATETIME, 
+  
+`phone` VARCHAR(255),
+	
+email VARCHAR(255),
+  
+`institution` VARCHAR(255), 
+ 
+ `specialty` VARCHAR(255), 
+  
+`year` VARCHAR(255), 
+  
+`dateOfAppointment` datetime,
+   
+reconciliation VARCHAR(255), 
+  
+ workExperience VARCHAR(255), 
+   
+ `institution2` VARCHAR(255), 
+  
+`specialty2` VARCHAR(255), 
+  
+periodStudy VARCHAR(255), 
+  
+hours VARCHAR(255), 
+ 
+ `institution3` VARCHAR(255), 
+ 
+ `specialty3` VARCHAR(255), 
+ 
+ periodStudy3 VARCHAR(255), 
+  
+hours3 VARCHAR(255), 
+  
+updateTime datetime,
+  
+`idQuantity` int,
+PRIMARY KEY (`idSpecialist`)
+);
+
+use dataprotection;
+
+CREATE TABLE quantity 
+(
+  `idQuantity` INTEGER NOT NULL auto_increment, 
+
+	staff varchar(255),
+	
+established varchar(255),
+	
+nonStandard varchar(255),
+   
+ subdivision varchar(255),
+ 
+ PRIMARY KEY (`idQuantity`)
+);
+
+ALTER TABLE `dataprotection`.`specialists` 
+
+ADD INDEX `idQuantity_idx` (`idQuantity` ASC);
+
+ALTER TABLE `dataprotection`.`specialists` 
+
+ADD CONSTRAINT `idQuantity`
+ 
+ FOREIGN KEY (`idQuantity`)
+  
+REFERENCES `dataprotection`.`quantity` (`idQuantity`)
+  
+ON DELETE NO ACTION
+  
+ON UPDATE NO ACTION;
+
+
+use 
+CREATE TABLE financing 
+(
+  `idFinancing` INTEGER NOT NULL auto_increment, 
+	
+sSThisYear varchar(255),
+	
+sSNextYear varchar(255),
+	
+nosSThisYear varchar(255),
+    
+nosSNextYear varchar(255),
+	
+personalInformationThisYear varchar(255),
+    
+personalInformationNextYear varchar(255),
+   
+ updateTime datetime,
+  
+PRIMARY KEY (`idFinancing`)
+);
+
+use dataprotection;
+
+
+CREATE TABLE `stateInformationSystem` 
+(
+  `idStateInformationSystem` INTEGER NOT NULL DEFAULT 0, 
+  
+`title` VARCHAR(1000), 
+ 
+ `operator` VARCHAR(1000), 
+  
+`purpose` VARCHAR(1000), 
+ 
+ surname VARCHAR(1000), 
+  
+name VARCHAR(1000), 
+ 
+ patronimyc VARCHAR(1000), 
+ 
+ post VARCHAR(1000), 
+  
+phone VARCHAR(255), 
+  
+email VARCHAR(255), 
+  
+legalAct VARCHAR(1000), 
+  
+number VARCHAR(255), 
+  
+dateAct datetime,
+  
+subdivision VARCHAR(1000), 
+  
+legalActAboutCreating VARCHAR(1000),
+ 
+ numberAboutCreating  VARCHAR(255),
+  
+dateAboutCreating  datetime,
+  
+legalActAboutExploitation VARCHAR(1000),
+	
+numberAboutExploitation VARCHAR(255),
+    
+dateAboutExploitation datetime,
+	
+commissioning datetime,
+    
+restrictedAccessInformation INT,
+    
+cryptoProtection VARCHAR(1000),
+   
+separateParts VARCHAR(1000),
+   
+legalActRegister VARCHAR(1000),
+   
+numberRegister VARCHAR(1000),
+  
+ dateRegister datetime,
+   
+numberClassification VARCHAR(1000),
+   
+dateClassification datetime,
+  
+ threatsResults VARCHAR(1000),
+   
+threatsResultsDate datetime,
+   
+threatsResultsNumber VARCHAR(1000),
+  
+ dateOfAttestation DATETIME,
+	
+attestation VARCHAR(1000),   
+	
+attestationNumberLisence VARCHAR(1000),
+	
+attestationDate datetime,
+ 
+   
+attestationName VARCHAR(1000),
+    
+actAttestation VARCHAR(1000),
+    
+actNumberAttestation VARCHAR(1000),
+	
+actDateAttestation VARCHAR(1000),
+  
+idClass int,
+ 
+`dateOfUpdate` DATETIME,
+ PRIMARY KEY (`idStateInformationSystem`)
+) ;
+
+
+CREATE TABLE `typeOfCryptoProtection` 
+(
+  `idtypeOfCryptoProtection` INTEGER NOT NULL DEFAULT 0, 
+
+ title varchar(100),
+  
+PRIMARY KEY (`idtypeOfCryptoProtection`)
+) ;
+
+
+ALTER TABLE `dataprotection`.`stateinformationsystem` 
+
+ADD CONSTRAINT `idtypeOfCryptoProtection` 
+  
+FOREIGN KEY (`idClass`)
+  
+REFERENCES `dataprotection`.`typeofcryptoprotection` (`idtypeOfCryptoProtection`)
+  
+ON DELETE NO ACTION
+  
+ON UPDATE NO ACTION;
+
+CREATE TABLE `personalData` 
+
+(	`idPersonalData` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100), 
+
+PRIMARY KEY (`idPersonalData`));
+
+CREATE TABLE `categoryOfSubject` 
+
+(	`idCategoryOfSubject` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100),
+ 
+PRIMARY KEY (`idCategoryOfSubject`));
+
+CREATE TABLE `yesNo` 
+
+(	`idYesNo` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100), 
+
+PRIMARY KEY (`idYesNo`));
+
+CREATE TABLE `countSubjects`
+ 
+(	`idCountSubjects` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100), 
+
+PRIMARY KEY (`idCountSubjects`));
+
+CREATE TABLE `typeThreat` 
+
+(	`idTypeThreat` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100), 
+
+PRIMARY KEY (`idTypeThreat`));
+
+CREATE TABLE `securityLevel`
+ 
+(	`idSecuritylevel` INTEGER NOT NULL DEFAULT 0,
+
+title varchar(100), 
+
+PRIMARY KEY (`idSecuritylevel`));
+
+CREATE TABLE `personalInformationSystem` 
+
+(	`idPersonalInformationSystem` INTEGER NOT NULL DEFAULT 0, 
+	
+`title` VARCHAR(1000), 
+	
+`operator` VARCHAR(1000), 
+	
+`purpose` VARCHAR(1000), 
+	
+surname VARCHAR(1000), 
+	
+name VARCHAR(1000), 
+	
+patronimyc VARCHAR(1000), 
+	
+post VARCHAR(1000), 
+	
+phone VARCHAR(255),  
+	
+email VARCHAR(255), 
+	
+legalAct VARCHAR(1000), 
+	
+number VARCHAR(255), 
+	
+dateAct datetime,
+	
+subdivision VARCHAR(1000), 
+	
+legalActAboutCreating VARCHAR(1000), 
+	
+numberAboutCreating  VARCHAR(255),
+	
+dateAboutCreating  datetime,
+	
+legalActAboutExploitation VARCHAR(1000),	
+	
+numberAboutExploitation VARCHAR(255),
+	
+dateAboutExploitation datetime,	
+	
+commissioning datetime,
+ 
+  idPersonalData INTEGER,
+  
+ idCategoryOfSubject INTEGER,
+   
+idYesNo INTEGER,
+  
+  idyesno2 integer,
+idCountSubjects INTEGER,
+
+   
+ idTypeThreat INTEGER,
+    
+idSecuritylevel INTEGER,
+    
+personSecuritylevel VARCHAR(1000),
+    
+dateSecuritylevel datetime,    
+
+	cryptoProtection VARCHAR(1000),
+	
+separateParts VARCHAR(1000),
+	
+legalActRegister VARCHAR(1000),
+	
+numberRegister VARCHAR(1000),  
+	
+dateRegister datetime,  
+	
+threatsResults VARCHAR(1000),   
+	
+threatsResultsDate datetime,
+	
+threatsResultsNumber VARCHAR(1000),
+	
+`dateOfUpdate` DATETIME,
+      
+ dateOfAttestation DATETIME,
+	
+attestation VARCHAR(1000),   
+	
+attestationNumberLisence VARCHAR(1000),
+	
+attestationDate datetime,
+   
+attestationName VARCHAR(1000),
+    
+actAttestation VARCHAR(1000),
+    
+actNumberAttestation VARCHAR(1000),
+	
+actDateAttestation datetime,
+ 
+PRIMARY KEY (`idPersonalInformationSystem`)
+) ;
+
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idPersonalData_idx` (`idPersonalData` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idPersonalData`
+ 
+ FOREIGN KEY (`idPersonalData`)
+  
+REFERENCES `dataprotection`.`personaldata` (`idPersonalData`)
+  
+ON DELETE NO ACTION
+ 
+ ON UPDATE NO ACTION;
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idCategoryOfSubject _idx` 
+(`idCategoryOfSubject` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idCategoryOfSubject `
+  
+FOREIGN KEY (`idCategoryOfSubject`)
+  
+REFERENCES `dataprotection`.`categoryofsubject` (`idCategoryOfSubject`)
+  
+ON DELETE NO ACTION
+  
+ON UPDATE NO ACTION;
+
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idYesNo _idx` (`idYesNo` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idYesNo `
+  FOREIGN KEY (`idYesNo`)
+  
+REFERENCES `dataprotection`.`yesno` (`idYesNo`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idyesno2 _idx` (`idyesno2` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem`
+ 
+ADD CONSTRAINT `idyesno2 `
+  FOREIGN KEY (`idyesno2`)
+  
+REFERENCES `dataprotection`.`yesno` (`idYesNo`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idCountSubjects _idx` (`idCountSubjects` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idCountSubjects `
+  
+FOREIGN KEY (`idCountSubjects`)
+  
+REFERENCES `dataprotection`.`countsubjects` (`idCountSubjects`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idTypeThreat _idx` (`idTypeThreat` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idTypeThreat `
+  FOREIGN KEY (`idTypeThreat`)
+  
+REFERENCES `dataprotection`.`typethreat` (`idTypeThreat`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD INDEX `idSecuritylevel_idx` (`idSecuritylevel` ASC);
+
+ALTER TABLE `dataprotection`.`personalinformationsystem` 
+
+ADD CONSTRAINT `idSecuritylevel`
+ 
+ FOREIGN KEY (`idSecuritylevel`)
+  
+REFERENCES `dataprotection`.`securitylevel` (`idSecuritylevel`)
+  
+ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
