@@ -32,7 +32,7 @@ public class UserDAOImplementation extends AbstractDAO<Integer,UsersEntity> impl
 
     @Override
     public void saveUser(UsersEntity user) {
-        getSession().save(user);
+        getSession().saveOrUpdate(user);
 
     }
 

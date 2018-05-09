@@ -1,20 +1,23 @@
 package com.protection.data.controllers;
 
+import com.protection.data.models.AuthoritiesEntity;
 import com.protection.data.models.OfficialEntity;
+import com.protection.data.models.SubjectrfEntity;
 import com.protection.data.models.UsersEntity;
-import com.protection.data.services.OfficialHistoryService;
-import com.protection.data.services.OfficialService;
-import com.protection.data.services.UserService;
+import com.protection.data.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,7 +27,13 @@ public class MainController {
     UserService userService;
 
     @Autowired
+    SubjectService subjectService;
+
+    @Autowired
     OfficialService officialService;
+
+    @Autowired
+    AuthorityService authoritiesService;
 
     @Autowired
     OfficialHistoryService officialhistoryService;
@@ -45,6 +54,41 @@ public class MainController {
             modelAndView.setViewName("mainPage");
         }
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/seeUser", method = RequestMethod.GET)
+    public ModelAndView getOfficials(Model model) throws IOException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user = userService.FindByLogin(auth.getName());
+        List<UsersEntity> users = new ArrayList<>();
+        users.add(user);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("users", users);
+        modelAndView.setViewName("seeUser");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/editUser", method = RequestMethod.GET)
+    public ModelAndView addOfficials(@PathVariable String id) {
+        UsersEntity usersEntity = userService.findById(Integer.parseInt(id));
+        List<SubjectrfEntity> subjects = subjectService.findAllSubjects();
+        List<AuthoritiesEntity> authorities = authoritiesService.findAllAuthorities();
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("authorities", authorities);
+        model.addObject("subjects", subjects);
+        model.addObject("user", usersEntity);
+        model.setViewName("editUser");
+        return model;
+    }
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+    public String editOfficial(@ModelAttribute("user") UsersEntity user, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user2 = userService.FindByLogin(auth.getName());
+        user.setStatus(user2.getStatus());
+        userService.updateUser(user);
+        return "redirect:" + "/home";
     }
 
 }

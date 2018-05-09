@@ -13,4 +13,5 @@ public interface UserService {
     List<UsersEntity> findAllUsersWhereControlEquals1();
     void confirmRegistration(UsersEntity user);
     void deleteUser(int id_lock);
+    void updateUser(UsersEntity user);
 }

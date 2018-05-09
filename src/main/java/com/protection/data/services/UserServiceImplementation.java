@@ -48,6 +48,10 @@ public class UserServiceImplementation implements UserService {
         user.setControl(1);
         userDao.saveUser(user);
     }
+    @Override
+    public void updateUser(UsersEntity user) {
+        userDao.saveUser(user);
+    }
 
 
     @Override
