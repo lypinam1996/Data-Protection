@@ -10,4 +10,6 @@ public interface OfficialDAO {
     List<OfficialEntity> findAllOfficials();
     List<OfficialEntity> findOfficials(UsersEntity user);
     void saveOfficial(OfficialEntity official);
+    void updateOfficial(OfficialEntity official);
+    void deleteUser(int id);
 }

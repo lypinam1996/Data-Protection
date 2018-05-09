@@ -165,6 +165,38 @@ REFERENCES `dataprotection`.`official` (`idOfficial`)
   ON UPDATE NO ACTION;
 
 
+
+CREATE TABLE officialHistory
+(
+  `idOfficialHistory` INTEGER NOT NULL auto_increment, 
+ 
+ `title` VARCHAR(500), 
+  
+`surname` VARCHAR(255), 
+ 
+ `name` VARCHAR(255), 
+  
+`patronymic` VARCHAR(255), 
+ 
+ `birth` DATETIME, 
+  
+`phone` VARCHAR(255),
+	
+email VARCHAR(255),
+ 
+ `institution` VARCHAR(255), 
+  
+`specialty` VARCHAR(255), 
+  
+`year` VARCHAR(255), 
+  
+`remark` VARCHAR(255),
+updateDate DATETIME NULL,
+idUser int,
+idOfficial int,
+ 
+ PRIMARY KEY (idOfficialHistory));
+
 use dataprotection;
 
 CREATE TABLE specialists 

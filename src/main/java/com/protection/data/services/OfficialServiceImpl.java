@@ -39,10 +39,15 @@ public class OfficialServiceImpl implements OfficialService{
         official.saveOfficial(official1);
     }
 
-   /* @Override
-    public void updateOfficial(OfficialEntity official1){
+    @Override
+    public void updateOfficial(OfficialEntity official1) {
+        official.updateOfficial(official1);
+    }
 
-        official.saveOfficial(official1);
-    }*/
+    @Override
+    public void deleteUser(int id) {
+        official.deleteUser(id);
+    }
+
 
 }

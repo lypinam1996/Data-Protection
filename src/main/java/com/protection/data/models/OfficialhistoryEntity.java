@@ -1,39 +1,40 @@
 package com.protection.data.models;
 
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "official", schema = "dataprotection", catalog = "")
-public class OfficialEntity {
-    private int idOfficial;
+@Table(name = "officialhistory", schema = "dataprotection", catalog = "")
+public class OfficialhistoryEntity {
+    private int idOfficialHistory;
     private String title;
     private String surname;
     private String name;
     private String patronymic;
-    private Date birth ;
+    private Timestamp birth;
     private String phone;
     private String email;
     private String institution;
     private String specialty;
     private String year;
     private String remark;
+    private Date updateDate;
     private UsersEntity user;
-    private List<OfficialhistoryEntity> officialhistory;
+    private OfficialEntity officials;
 
-    @OneToMany(mappedBy = "officials")
-    public List<OfficialhistoryEntity> getOfficialhistory() {
-        return officialhistory;
+    @ManyToOne
+    @JoinColumn(name = "idOfficial", referencedColumnName = "idOfficial")
+    public OfficialEntity getOfficials() {
+        return officials;
     }
 
-    public void setOfficialhistory(List<OfficialhistoryEntity> officialhistory) {
-        this.officialhistory = officialhistory;
+    public void setOfficials(OfficialEntity officials) {
+        this.officials = officials;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+   @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     public UsersEntity getUser() {
         return user;
     }
@@ -43,13 +44,13 @@ public class OfficialEntity {
     }
 
     @Id
-    @Column(name = "idOfficial")
-    public int getIdOfficial() {
-        return idOfficial;
+    @Column(name = "idOfficialHistory")
+    public int getIdOfficialHistory() {
+        return idOfficialHistory;
     }
 
-    public void setIdOfficial(int idOfficial) {
-        this.idOfficial = idOfficial;
+    public void setIdOfficialHistory(int idOfficialHistory) {
+        this.idOfficialHistory = idOfficialHistory;
     }
 
     @Basic
@@ -94,11 +95,11 @@ public class OfficialEntity {
 
     @Basic
     @Column(name = "birth")
-    public Date getBirth() {
+    public Timestamp getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(Timestamp birth) {
         this.birth = birth;
     }
 
@@ -162,14 +163,24 @@ public class OfficialEntity {
         this.remark = remark;
     }
 
+    @Basic
+    @Column(name = "updateDate")
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OfficialEntity that = (OfficialEntity) o;
+        OfficialhistoryEntity that = (OfficialhistoryEntity) o;
 
-        if (idOfficial != that.idOfficial) return false;
+        if (idOfficialHistory != that.idOfficialHistory) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -181,13 +192,14 @@ public class OfficialEntity {
         if (specialty != null ? !specialty.equals(that.specialty) : that.specialty != null) return false;
         if (year != null ? !year.equals(that.year) : that.year != null) return false;
         if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
+        if (updateDate != null ? !updateDate.equals(that.updateDate) : that.updateDate != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idOfficial;
+        int result = idOfficialHistory;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -199,6 +211,7 @@ public class OfficialEntity {
         result = 31 * result + (specialty != null ? specialty.hashCode() : 0);
         result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (updateDate != null ? updateDate.hashCode() : 0);
         return result;
     }
 }

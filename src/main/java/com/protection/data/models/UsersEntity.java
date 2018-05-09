@@ -24,6 +24,19 @@ public class UsersEntity {
     private AuthoritiesEntity authority;
     private int control;
     private List<OfficialEntity> officials;
+    private List<OfficialhistoryEntity> officialsHistory;
+
+    @OneToMany(mappedBy = "user")
+    public List<OfficialhistoryEntity> getOfficialsHistory() {
+        return officialsHistory;
+    }
+
+    public void setOfficialsHistory(List<OfficialhistoryEntity> officialsHistory) {
+        this.officialsHistory = officialsHistory;
+    }
+
+
+
 
     @OneToMany(mappedBy = "user")
     public List<OfficialEntity> getOfficials() {

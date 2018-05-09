@@ -8,7 +8,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<form th:action="@{/mainAdmin}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
+</form>
 <div class="container" style="margin-top: 50px" th:switch="${count}">
     <p align="center" style="font-size: 20pt" th:case="0">Нет заявок</p>
     <div th:case="*">
@@ -48,12 +53,7 @@
     </table>
     </div>
 </div>
-<form th:action="@{/mainAdmin}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
-</form>
-<form th:action="@{/logout}" method="post">
-    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
-</form>
+
 
 </body>
 </html>

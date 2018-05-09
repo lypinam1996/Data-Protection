@@ -40,8 +40,8 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
-    public ModelAndView registration(){
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public ModelAndView registration() {
         List<SubjectrfEntity> subjects = subjectService.findAllSubjects();
         List<AuthoritiesEntity> authorities = authority.findAllAuthorities();
         ModelAndView modelAndView = new ModelAndView();
@@ -52,6 +52,7 @@ public class AuthenticationController {
         modelAndView.setViewName("registration");
         return modelAndView;
     }
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@ModelAttribute("user") @Valid UsersEntity user, BindingResult bindingResult) throws Exception {
         GmailSender sender = new GmailSender("lypinam1996@gmail.com", "1996090871Ml");//зарегистрировать на гугле почту откуда будет приходить письмо

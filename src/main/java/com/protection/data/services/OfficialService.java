@@ -11,4 +11,6 @@ public interface OfficialService {
     List<OfficialEntity> findAllOfficials();
     List<OfficialEntity> findOfficials(UsersEntity user);
     void saveOfficial(OfficialEntity official);
+    void updateOfficial(OfficialEntity official1);
+    void deleteUser(int id);
 }
