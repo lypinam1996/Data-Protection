@@ -1,9 +1,6 @@
 package com.protection.data.controllers;
 
-import com.protection.data.models.AuthoritiesEntity;
-import com.protection.data.models.OfficialEntity;
-import com.protection.data.models.SubjectrfEntity;
-import com.protection.data.models.UsersEntity;
+import com.protection.data.models.*;
 import com.protection.data.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,6 +33,9 @@ public class MainController {
     AuthorityService authoritiesService;
 
     @Autowired
+    QuantityService quantityService;
+
+    @Autowired
     OfficialHistoryService officialhistoryService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -51,6 +51,9 @@ public class MainController {
             List<OfficialEntity> officials = officialService.findAllOfficials();
             int count = officials.size();
             modelAndView.addObject("count", count);
+            List<QuantityEntity> quantity = quantityService.findAllQuantities();
+            int count2 = quantity.size();
+            modelAndView.addObject("count2", count2);
             modelAndView.setViewName("mainPage");
         }
         return modelAndView;

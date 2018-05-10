@@ -103,7 +103,7 @@ public class OfficialController {
     public ModelAndView deleteOfficial(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         officialService.deleteUser(id);
-        model.setViewName("deleteOfficials");
+        model.setViewName("delete");
         return model;
     }
 

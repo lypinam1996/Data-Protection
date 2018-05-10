@@ -19,6 +19,7 @@
 
 <div class="container">
     <h2 align="center">Регистрация</h2>
+    <span th:utext="${successMessage}"></span>
     <form autocomplete="off" action="#" th:action="@{/registration}"
           th:object="${user}" method="post" class="form-horizontal"
           role="form">
@@ -82,7 +83,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Зарегистрировать</button>
         </div>
-        <span th:utext="${successMessage}"></span>
+
     </form>
 </div>
 </body>

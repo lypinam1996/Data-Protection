@@ -1,30 +1,29 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
-import java.util.List;
+import java.sql.Date;
 
 @Entity
-@Table(name = "quantity", schema = "dataprotection", catalog = "")
-public class QuantityEntity {
-    private int idQuantity;
+@Table(name = "quantityhistory", schema = "dataprotection", catalog = "")
+public class QuantityhistoryEntity {
+    private int idQuantityHistory;
     private String staff;
     private String established;
     private String nonStandard;
     private String subdivision;
-    private List<SpecialistsEntity> specialists;
+    private Date dateUpdate;
     private UsersEntity user;
-    private List<QuantityhistoryEntity> quantityhistory;
+    private QuantityEntity quantitise;
 
-    @OneToMany(mappedBy = "quantitise")
-    public List<QuantityhistoryEntity> getQuantityhistory() {
-        return quantityhistory;
+    @ManyToOne
+    @JoinColumn(name = "idQuantity", referencedColumnName = "idQuantity")
+    public QuantityEntity getQuantitise() {
+        return quantitise;
     }
 
-    public void setQuantityhistory(List<QuantityhistoryEntity> quantityhistory) {
-        this.quantityhistory = quantityhistory;
+    public void setQuantitise(QuantityEntity quantitise) {
+        this.quantitise = quantitise;
     }
-
-
 
 
     @ManyToOne
@@ -37,23 +36,14 @@ public class QuantityEntity {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "quantity")
-    public List<SpecialistsEntity> getSpecialists() {
-        return specialists;
-    }
-
-    public void setSpecialists(List<SpecialistsEntity> specialists) {
-        this.specialists = specialists;
-    }
-
     @Id
-    @Column(name = "idQuantity")
-    public int getIdQuantity() {
-        return idQuantity;
+    @Column(name = "idQuantityHistory")
+    public int getIdQuantityHistory() {
+        return idQuantityHistory;
     }
 
-    public void setIdQuantity(int idQuantity) {
-        this.idQuantity = idQuantity;
+    public void setIdQuantityHistory(int idQuantityHistory) {
+        this.idQuantityHistory = idQuantityHistory;
     }
 
     @Basic
@@ -96,29 +86,41 @@ public class QuantityEntity {
         this.subdivision = subdivision;
     }
 
+    @Basic
+    @Column(name = "dateUpdate")
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(Date dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        QuantityEntity that = (QuantityEntity) o;
+        QuantityhistoryEntity that = (QuantityhistoryEntity) o;
 
-        if (idQuantity != that.idQuantity) return false;
+        if (idQuantityHistory != that.idQuantityHistory) return false;
         if (staff != null ? !staff.equals(that.staff) : that.staff != null) return false;
         if (established != null ? !established.equals(that.established) : that.established != null) return false;
         if (nonStandard != null ? !nonStandard.equals(that.nonStandard) : that.nonStandard != null) return false;
         if (subdivision != null ? !subdivision.equals(that.subdivision) : that.subdivision != null) return false;
+        if (dateUpdate != null ? !dateUpdate.equals(that.dateUpdate) : that.dateUpdate != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idQuantity;
+        int result = idQuantityHistory;
         result = 31 * result + (staff != null ? staff.hashCode() : 0);
         result = 31 * result + (established != null ? established.hashCode() : 0);
         result = 31 * result + (nonStandard != null ? nonStandard.hashCode() : 0);
         result = 31 * result + (subdivision != null ? subdivision.hashCode() : 0);
+        result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
         return result;
     }
 }

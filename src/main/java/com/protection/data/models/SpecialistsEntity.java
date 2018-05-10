@@ -3,9 +3,6 @@ package com.protection.data.models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "specialists", schema = "dataprotection", catalog = "")
 public class SpecialistsEntity {
@@ -32,6 +29,28 @@ public class SpecialistsEntity {
     private String periodStudy3;
     private String hours3;
     private Timestamp updateTime;
+    private QuantityEntity quantity;
+    private UsersEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UsersEntity user) {
+        this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idQuantity", referencedColumnName = "idQuantity")
+    public QuantityEntity getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(QuantityEntity quantity) {
+        this.quantity = quantity;
+    }
 
     @Id
     @Column(name = "idSpecialist")
