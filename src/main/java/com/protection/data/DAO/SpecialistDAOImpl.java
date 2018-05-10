@@ -1,5 +1,6 @@
 package com.protection.data.DAO;
 
+import com.protection.data.models.QuantityEntity;
 import com.protection.data.models.SpecialistsEntity;
 import com.protection.data.models.UsersEntity;
 import org.hibernate.Criteria;
@@ -33,9 +34,10 @@ public class SpecialistDAOImpl extends AbstractDAO<Integer,SpecialistsEntity> im
     }
 
     @Override
-    public List<SpecialistsEntity> findSpecialist(UsersEntity user){
+    public List<SpecialistsEntity> findSpecialist(UsersEntity user, QuantityEntity id){
         Criteria criteria = getSession().createCriteria(SpecialistsEntity.class);
         criteria.add(Restrictions.eq("user", user));
+        criteria.add(Restrictions.eq("quantity", id));
         return (List<SpecialistsEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
     @Override
@@ -49,5 +51,13 @@ public class SpecialistDAOImpl extends AbstractDAO<Integer,SpecialistsEntity> im
         Query query = getSession().createSQLQuery("DELETE from specialists where idSpecialist=:id");
         query.setInteger("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public int findMaxSpecials() {
+        Query query = getSession().createSQLQuery("select idSpecialist from specialists where idSpecialist>=all(select idSpecialist from specialists)");
+        List<Integer> max = query.list();
+        int reslt = max.get(0);
+        return reslt;
     }
 }

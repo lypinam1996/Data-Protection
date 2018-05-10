@@ -1,6 +1,7 @@
 package com.protection.data.services;
 
 import com.protection.data.DAO.SpecialistDAO;
+import com.protection.data.models.QuantityEntity;
 import com.protection.data.models.SpecialistsEntity;
 import com.protection.data.models.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class SpecialistServiceImpl implements SpecialistService {
     }
 
     @Override
-    public List<SpecialistsEntity> findSpecialist(UsersEntity user) {
-        return specialist.findSpecialist(user);
+    public List<SpecialistsEntity> findSpecialist(UsersEntity user, QuantityEntity id) {
+        return specialist.findSpecialist(user,id);
     }
 
     @Override
@@ -45,5 +46,10 @@ public class SpecialistServiceImpl implements SpecialistService {
     @Override
     public void deleteSpecialist(int id) {
         specialist.deleteSpecialist(id);
+    }
+
+    @Override
+    public int findMaxSpecials() {
+        return specialist.findMaxSpecials();
     }
 }

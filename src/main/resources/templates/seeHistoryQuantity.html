@@ -8,13 +8,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-<form th:action="@{/home}" method="get">
+<form th:action="@{/home}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
     <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
 </form>
-<form th:action="@{/logout}" method="post">
+<form th:action="@{/seeQuantity}" method="get" style="position: fixed; right: 0px;left: 0px;top:76px">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Просмотреть заполненную информацию</button>
+</form>
+<form th:action="@{/logout}" method="post" style="position: fixed; right: 0px;left: 0px;top:38px">
     <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
 </form>
-<div class="container" style="margin-top: 50px">
+
+<div style="margin-top: 150px">
         <h3 align="center">Наименования подразделений по защите информации и количество специалистов в них.</h3>
         <table class="table table-hover" style="font-size: 8pt">
             <tr>

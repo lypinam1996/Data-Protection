@@ -28,6 +28,16 @@ public class UsersEntity {
     private List<SpecialistsEntity> specialists;
     private List<QuantityEntity> quantities;
     private List<QuantityhistoryEntity> quantityhistory;
+    private List<SpecialistshistoryEntity> specialistshistory;
+
+    @OneToMany(mappedBy = "user")
+    public List<SpecialistshistoryEntity> getSpecialistshistory() {
+        return specialistshistory;
+    }
+
+    public void setSpecialistshistory(List<SpecialistshistoryEntity> specialistshistory) {
+        this.specialistshistory = specialistshistory;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<QuantityhistoryEntity> getQuantityhistory() {

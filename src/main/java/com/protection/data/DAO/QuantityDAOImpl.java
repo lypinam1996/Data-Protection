@@ -50,4 +50,13 @@ public class QuantityDAOImpl extends AbstractDAO<Integer,QuantityEntity> impleme
         query.setInteger("id", id);
         query.executeUpdate();
     }
+
+    @Override
+    public int findMaxOfficial() {
+        Query query = getSession().createSQLQuery("select idQuantity from quantity where idQuantity>=all(select idQuantity from quantity)");
+        List<Integer> max = query.list();
+        int reslt = max.get(0);
+        return reslt;
+    }
+
 }

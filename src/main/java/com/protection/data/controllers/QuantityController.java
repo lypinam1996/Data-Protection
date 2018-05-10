@@ -69,6 +69,11 @@ public class QuantityController {
         UsersEntity user = userService.FindByLogin(auth.getName());
         quantity.setUser(user);
         quantityService.saveQuantity(quantity);
+        QuantityhistoryEntity quantityhistory = new QuantityhistoryEntity();
+        quantityhistory.setUser(user);
+        int max = quantityService.findMaxOfficial();
+        QuantityEntity newQuantity = quantityService.findById(max);
+        quantityHistoryService.saveQuantity(newQuantity,quantityhistory);
         QuantityEntity quantity2 = new QuantityEntity();
         model.addAttribute("quantity", quantity2);
         model.addAttribute("successMessage", "Добавление прошло успешно");

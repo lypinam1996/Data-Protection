@@ -13,4 +13,5 @@ public interface OfficialService {
     void saveOfficial(OfficialEntity official);
     void updateOfficial(OfficialEntity official1);
     void deleteUser(int id);
+    int findMaxOfficial();
 }

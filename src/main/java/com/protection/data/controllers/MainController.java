@@ -48,10 +48,10 @@ public class MainController {
         if (user.getStatus().getTitle().equals("ADMIN")) {
             modelAndView.setViewName("adminMainPage");
         } else {
-            List<OfficialEntity> officials = officialService.findAllOfficials();
+            List<OfficialEntity> officials = officialService.findOfficials(user);
             int count = officials.size();
             modelAndView.addObject("count", count);
-            List<QuantityEntity> quantity = quantityService.findAllQuantities();
+            List<QuantityEntity> quantity = quantityService.findQuantities(user);
             int count2 = quantity.size();
             modelAndView.addObject("count2", count2);
             modelAndView.setViewName("mainPage");

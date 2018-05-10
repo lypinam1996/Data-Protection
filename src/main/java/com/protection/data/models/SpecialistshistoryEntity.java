@@ -2,12 +2,14 @@ package com.protection.data.models;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
+/**
+ * Created by lypin on 10.05.2018.
+ */
 @Entity
-@Table(name = "specialists", schema = "dataprotection", catalog = "")
-public class SpecialistsEntity {
-    private int idSpecialist;
+@Table(name = "specialistshistory", schema = "dataprotection", catalog = "")
+public class SpecialistshistoryEntity {
+    private int idSpecialistHistory;
     private String title;
     private String surname;
     private String name;
@@ -29,40 +31,20 @@ public class SpecialistsEntity {
     private String specialty3;
     private String periodStudy3;
     private String hours3;
-    private QuantityEntity quantity;
-    private UsersEntity user;
+    private Date dateUpdate;
     private String reconciliationNumber;
     private Date reconciliationDate;
-    private List<SpecialistshistoryEntity> specialistshistory;
+    private SpecialistsEntity specialist;
+    private UsersEntity user;
 
-
-    @OneToMany(mappedBy = "specialist")
-    public List<SpecialistshistoryEntity> getSpecialistshistory() {
-        return specialistshistory;
+    @ManyToOne
+    @JoinColumn(name = "idSpecialist", referencedColumnName = "idSpecialist")
+    public SpecialistsEntity getSpecialist() {
+        return specialist;
     }
 
-    public void setSpecialistshistory(List<SpecialistshistoryEntity> specialistshistory) {
-        this.specialistshistory = specialistshistory;
-    }
-
-    @Basic
-    @Column(name = "reconciliationDate")
-    public Date getReconciliationDate() {
-        return reconciliationDate;
-    }
-
-    public void setReconciliationDate(Date reconciliationDate) {
-        this.reconciliationDate = reconciliationDate;
-    }
-
-    @Basic
-    @Column(name = "reconciliationNumber")
-    public String getReconciliationNumber() {
-        return reconciliationNumber;
-    }
-
-    public void setReconciliationNumber(String reconciliationNumber) {
-        this.reconciliationNumber = reconciliationNumber;
+    public void setSpecialist(SpecialistsEntity specialist) {
+        this.specialist = specialist;
     }
 
     @ManyToOne
@@ -75,24 +57,14 @@ public class SpecialistsEntity {
         this.user = user;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "idQuantity", referencedColumnName = "idQuantity")
-    public QuantityEntity getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(QuantityEntity quantity) {
-        this.quantity = quantity;
-    }
-
     @Id
-    @Column(name = "idSpecialist")
-    public int getIdSpecialist() {
-        return idSpecialist;
+    @Column(name = "idSpecialistHistory")
+    public int getIdSpecialistHistory() {
+        return idSpecialistHistory;
     }
 
-    public void setIdSpecialist(int idSpecialist) {
-        this.idSpecialist = idSpecialist;
+    public void setIdSpecialistHistory(int idSpecialistHistory) {
+        this.idSpecialistHistory = idSpecialistHistory;
     }
 
     @Basic
@@ -305,14 +277,44 @@ public class SpecialistsEntity {
         this.hours3 = hours3;
     }
 
+    @Basic
+    @Column(name = "dateUpdate")
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(Date dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
+
+    @Basic
+    @Column(name = "reconciliationNumber")
+    public String getReconciliationNumber() {
+        return reconciliationNumber;
+    }
+
+    public void setReconciliationNumber(String reconciliationNumber) {
+        this.reconciliationNumber = reconciliationNumber;
+    }
+
+    @Basic
+    @Column(name = "reconciliationDate")
+    public Date getReconciliationDate() {
+        return reconciliationDate;
+    }
+
+    public void setReconciliationDate(Date reconciliationDate) {
+        this.reconciliationDate = reconciliationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SpecialistsEntity that = (SpecialistsEntity) o;
+        SpecialistshistoryEntity that = (SpecialistshistoryEntity) o;
 
-        if (idSpecialist != that.idSpecialist) return false;
+        if (idSpecialistHistory != that.idSpecialistHistory) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -337,13 +339,18 @@ public class SpecialistsEntity {
         if (specialty3 != null ? !specialty3.equals(that.specialty3) : that.specialty3 != null) return false;
         if (periodStudy3 != null ? !periodStudy3.equals(that.periodStudy3) : that.periodStudy3 != null) return false;
         if (hours3 != null ? !hours3.equals(that.hours3) : that.hours3 != null) return false;
+        if (dateUpdate != null ? !dateUpdate.equals(that.dateUpdate) : that.dateUpdate != null) return false;
+        if (reconciliationNumber != null ? !reconciliationNumber.equals(that.reconciliationNumber) : that.reconciliationNumber != null)
+            return false;
+        if (reconciliationDate != null ? !reconciliationDate.equals(that.reconciliationDate) : that.reconciliationDate != null)
+            return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idSpecialist;
+        int result = idSpecialistHistory;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -365,6 +372,9 @@ public class SpecialistsEntity {
         result = 31 * result + (specialty3 != null ? specialty3.hashCode() : 0);
         result = 31 * result + (periodStudy3 != null ? periodStudy3.hashCode() : 0);
         result = 31 * result + (hours3 != null ? hours3.hashCode() : 0);
+        result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
+        result = 31 * result + (reconciliationNumber != null ? reconciliationNumber.hashCode() : 0);
+        result = 31 * result + (reconciliationDate != null ? reconciliationDate.hashCode() : 0);
         return result;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("OfficialDAO")
-public class OfficailDAOImpl extends AbstractDAO<Integer,OfficialEntity> implements OfficialDAO{
+public class OfficailDAOImpl extends AbstractDAO<Integer,OfficialEntity> implements OfficialDAO {
 
     @Override
     public OfficialEntity findById(int id) {
@@ -33,11 +33,12 @@ public class OfficailDAOImpl extends AbstractDAO<Integer,OfficialEntity> impleme
     }
 
     @Override
-    public List<OfficialEntity> findOfficials(UsersEntity user){
+    public List<OfficialEntity> findOfficials(UsersEntity user) {
         Criteria criteria = getSession().createCriteria(OfficialEntity.class);
         criteria.add(Restrictions.eq("user", user));
         return (List<OfficialEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
     @Override
     public void saveOfficial(OfficialEntity official) {
         getSession().saveOrUpdate(official);
@@ -69,5 +70,13 @@ public class OfficailDAOImpl extends AbstractDAO<Integer,OfficialEntity> impleme
         Query query = getSession().createSQLQuery("DELETE from official where idOfficial=:id");
         query.setInteger("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public int findMaxOfficial() {
+        Query query = getSession().createSQLQuery("select idOfficial from official where idOfficial>=all(select idOfficial from official)");
+        List<Integer> officialEntity = query.list();
+        int reslt = officialEntity.get(0);
+        return reslt;
     }
 }

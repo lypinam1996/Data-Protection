@@ -37,7 +37,6 @@ public class OfficialController {
     public ModelAndView getOfficials(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
-        System.out.println(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
         List<OfficialEntity> officials = officialService.findOfficials(user);
         modelAndView.addObject("officials", officials);
@@ -72,6 +71,11 @@ public class OfficialController {
         official.setUser(user);
         officialService.saveOfficial(official);
         OfficialEntity official2 = new OfficialEntity();
+        OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
+        officialhistory.setUser(user);
+        int max = officialService.findMaxOfficial();
+        OfficialEntity newOfficial = officialService.findById(max);
+        officialhistoryService.saveOfficial(newOfficial,officialhistory);
         model.addAttribute("official", official2);
         model.addAttribute("successMessage", "Добавление прошло успешно");
         return "addOfficials";

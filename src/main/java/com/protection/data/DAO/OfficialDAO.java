@@ -12,4 +12,5 @@ public interface OfficialDAO {
     void saveOfficial(OfficialEntity official);
     void updateOfficial(OfficialEntity official);
     void deleteUser(int id);
+    int findMaxOfficial();
 }

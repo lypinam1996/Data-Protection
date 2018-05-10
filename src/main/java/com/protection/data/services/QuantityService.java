@@ -12,4 +12,5 @@ public interface QuantityService {
     List<QuantityEntity> findQuantities(UsersEntity user);
     void saveQuantity(QuantityEntity quantity);
     void deleteQuantity(int id);
+    int findMaxOfficial();
 }

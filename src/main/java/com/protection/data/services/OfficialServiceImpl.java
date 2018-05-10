@@ -49,5 +49,10 @@ public class OfficialServiceImpl implements OfficialService{
         official.deleteUser(id);
     }
 
+    @Override
+    public int findMaxOfficial() {
+        return official.findMaxOfficial();
+    }
+
 
 }

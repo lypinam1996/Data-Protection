@@ -46,4 +46,9 @@ public class QuantityServiceImpl implements QuantityService{
     public void deleteQuantity(int id) {
         quantity.deleteQuantity(id);
     }
+
+    @Override
+    public int findMaxOfficial() {
+        return quantity.findMaxOfficial();
+    }
 }
