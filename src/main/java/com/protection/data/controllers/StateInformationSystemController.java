@@ -1,7 +1,11 @@
 package com.protection.data.controllers;
 
+import com.protection.data.models.StateinformationsystehistoryEntity;
 import com.protection.data.models.StateinformationsystemEntity;
+import com.protection.data.models.TypeofcryptoprotectionEntity;
 import com.protection.data.models.UsersEntity;
+import com.protection.data.services.CryptoProtectionService;
+import com.protection.data.services.StateInformationHistoryService;
 import com.protection.data.services.StateInformationService;
 import com.protection.data.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,9 +31,14 @@ public class StateInformationSystemController {
     @Autowired
     StateInformationService stateInformationService;
 
+    @Autowired
+    StateInformationHistoryService stateInformationHistoryService;
+    @Autowired
+    CryptoProtectionService cryptoProtectionService;
+
 
     @RequestMapping(value = "/seeStates", method = RequestMethod.GET)
-    public ModelAndView getOfficials(Model model) throws IOException {
+    public ModelAndView getStates(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
@@ -37,71 +48,70 @@ public class StateInformationSystemController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/{id}/seeHistoryOfficials", method = RequestMethod.GET)
-    public ModelAndView getHistoryOfficials(@PathVariable String id) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+    @RequestMapping(value = "/{id}/seeHistiryStates", method = RequestMethod.GET)
+    public ModelAndView getHistoryStates(@PathVariable String id) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        OfficialEntity officialEntity = officialService.findById(Integer.parseInt(id));
-        List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(user,officialEntity);
-        modelAndView.addObject("officials", history);
-        modelAndView.setViewName("/seeHistoryOfficials");
+        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
+        modelAndView.addObject("states", history);
+        modelAndView.setViewName("seeHistoryStates");
         return modelAndView;
     }
 
 
-    @RequestMapping(value = "/addOfficials", method = RequestMethod.GET)
+    @RequestMapping(value = "/addStates", method = RequestMethod.GET)
     public String getSongs(Model model) {
-        OfficialEntity official = new OfficialEntity();
-        model.addAttribute("official", official);
-        return "addOfficials";
+        List<TypeofcryptoprotectionEntity> typeofcryptoprotectionEntities = cryptoProtectionService.findAllSubjects();
+        StateinformationsystemEntity stateinformationsystemEntity = new StateinformationsystemEntity();
+        model.addAttribute("types", typeofcryptoprotectionEntities);
+        model.addAttribute("state", stateinformationsystemEntity);
+        return "addStates";
     }
 
-    @RequestMapping(value = "/addOfficials", method = RequestMethod.POST)
-    public String saveOfficials(@ModelAttribute("official") OfficialEntity official, Model model) {
+    @RequestMapping(value = "/addStates", method = RequestMethod.POST)
+    public String saveOfficials(@ModelAttribute("state") StateinformationsystemEntity stateinformationsystemEntity, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
-        official.setUser(user);
-        officialService.saveOfficial(official);
-        OfficialEntity official2 = new OfficialEntity();
-        OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
-        officialhistory.setUser(user);
-        int max = officialService.findMaxOfficial();
-        OfficialEntity newOfficial = officialService.findById(max);
-        officialhistoryService.saveOfficial(newOfficial,officialhistory);
-        model.addAttribute("official", official2);
+        stateinformationsystemEntity.setUser(user);
+        stateInformationService.saveStateInformation(stateinformationsystemEntity);
+
+        StateinformationsystemEntity stateinformationsystemEntity1 = new StateinformationsystemEntity();
+        StateinformationsystehistoryEntity stateHistory= new StateinformationsystehistoryEntity();
+        int max = stateInformationService.findMaxOfficial();
+        StateinformationsystemEntity newOfficial = stateInformationService.findById(max);
+        stateInformationHistoryService.saveStateInformationHistory(newOfficial,stateHistory);
+        model.addAttribute("state", stateinformationsystemEntity1);
         model.addAttribute("successMessage", "Добавление прошло успешно");
-        return "addOfficials";
+        return "addStates";
     }
 
 
-    @RequestMapping(value = "/{id}/editOfficials", method = RequestMethod.GET)
-    public ModelAndView addOfficials(@PathVariable String id) {
-        OfficialEntity official = officialService.findById(Integer.parseInt(id));
+    @RequestMapping(value = "/{id}/editStates", method = RequestMethod.GET)
+    public ModelAndView addStates(@PathVariable String id) {
+        StateinformationsystemEntity state = stateInformationService.findById(Integer.parseInt(id));
         ModelAndView model = new ModelAndView();
-        model.addObject("official", official);
-        model.setViewName("editOfficials");
+        model.addObject("state", state);
+        model.setViewName("editStates");
         return model;
     }
 
-    @RequestMapping(value = "/editOfficials", method = RequestMethod.POST)
-    public String editOfficial(@ModelAttribute("official") OfficialEntity official, Model model) {
+    @RequestMapping(value = "/editStates", method = RequestMethod.POST)
+    public String editOfficial(@ModelAttribute("state") StateinformationsystemEntity statesEnt, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
-        official.setUser(user);
-        officialService.saveOfficial(official);
-        OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
-        officialhistory.setUser(user);
-        officialhistoryService.saveOfficial(official,officialhistory);
-        return "redirect:" + "/seeOfficials";
+        statesEnt.setUser(user);
+        stateInformationService.saveStateInformation(statesEnt);
+        StateinformationsystehistoryEntity history = new StateinformationsystehistoryEntity();
+        stateInformationHistoryService.saveStateInformationHistory(statesEnt,history);
+        return "redirect:" + "/seeStates";
     }
 
-    @RequestMapping(value = "/{id}/deleteOfficials", method = RequestMethod.GET)
-    public ModelAndView deleteOfficial(@PathVariable int id){
+    @RequestMapping(value = "/{id}/deleteStates", method = RequestMethod.GET)
+    public ModelAndView deleteState(@PathVariable int id){
         ModelAndView model = new ModelAndView();
-        officialService.deleteUser(id);
+        stateInformationService.deleteUser(id);
         model.setViewName("delete");
         return model;
-    }*/
+    }
 
 }

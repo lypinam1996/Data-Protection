@@ -45,7 +45,6 @@ public class StateinformationsystehistoryEntity {
     private String attestation;
     private String attestationNumberLisence;
     private Date attestationDate;
-    private Integer idClass;
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
@@ -414,15 +413,6 @@ public class StateinformationsystehistoryEntity {
         this.attestationDate = attestationDate;
     }
 
-    @Basic
-    @Column(name = "idClass")
-    public Integer getIdClass() {
-        return idClass;
-    }
-
-    public void setIdClass(Integer idClass) {
-        this.idClass = idClass;
-    }
 
     @Basic
     @Column(name = "attestationName")

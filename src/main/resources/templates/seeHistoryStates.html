@@ -11,6 +11,9 @@
 <form th:action="@{/home}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
     <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
 </form>
+<form th:action="@{/seeStates}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Назад</button>
+</form>
 <form th:action="@{/logout}" method="post" style="position: fixed; right: 0px;left: 0px;top:38px">
     <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
 </form>
@@ -50,8 +53,6 @@
                  <td>   с </td>
                 <td>привлечением</td>
                 <td>лицензиата</td>
-                <td></td>
-                <td></td>
                 <td></td>
             </tr>
 
@@ -96,9 +97,7 @@
                 <td>Лицензия на осуществление деятельности по технической защите конфиденциальной информации</td>
                 <td>Номер</td>
                 <td>Дата</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Дата обновления</td>
             </tr>
             <tr th:each="o : ${states}">
                 <td th:text="${o.title}">&nbsp;</td>
@@ -136,23 +135,16 @@
                 <td th:text="${o.threatsResults}">&nbsp;</td>
                 <td th:text="${o.threatsResultsDate}">&nbsp;</td>
                 <td th:text="${o.threatsResultsNumber}">&nbsp;</td>
-                <td th:text="${o.attestationName}">&nbsp;</td>
+
+                <td th:text="${o.dateOfAttestation}">&nbsp;</td>
                 <td th:text="${o.actAttestation}">&nbsp;</td>
                 <td th:text="${o.actNumberAttestation}">&nbsp;</td>
                 <td th:text="${o.actDateAttestation}">&nbsp;</td>
-                <td th:text="${o.dateOfAttestation}">&nbsp;</td>
+                <td th:text="${o.attestationName}">&nbsp;</td>
                 <td th:text="${o.attestation}">&nbsp;</td>
                 <td th:text="${o.attestationNumberLisence}">&nbsp;</td>
                 <td th:text="${o.attestationDate}">&nbsp;</td>
-                <td>
-                    <a th:href="@{${o.idStateInformationSystem}+'/editStates'}">Редактировать</a>
-                </td>
-                <td>
-                    <a th:href="@{${o.idStateInformationSystem}+'/seeHistiryStates'}">История</a>
-                </td>
-                <td>
-                    <a th:href="@{${o.idStateInformationSystem}+'/deleteStates'}">Удалить</a>
-                </td>
+                <td th:text="${o.dateUpdate}">&nbsp;</td>
             </tr>
         </table>
 </div>

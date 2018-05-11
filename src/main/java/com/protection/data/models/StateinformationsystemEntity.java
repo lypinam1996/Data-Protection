@@ -460,7 +460,7 @@ public class StateinformationsystemEntity {
         return actDateAttestation;
     }
 
-   /* @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -578,7 +578,7 @@ public class StateinformationsystemEntity {
         result = 31 * result + (actNumberAttestation != null ? actNumberAttestation.hashCode() : 0);
         result = 31 * result + (actDateAttestation != null ? actDateAttestation.hashCode() : 0);
         return result;
-    }*/
+    }
 
     public void setActDateAttestation(Date actDateAttestation) {
         this.actDateAttestation = actDateAttestation;
