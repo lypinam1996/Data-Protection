@@ -29,6 +29,26 @@ public class UsersEntity {
     private List<QuantityEntity> quantities;
     private List<QuantityhistoryEntity> quantityhistory;
     private List<SpecialistshistoryEntity> specialistshistory;
+    private List<StateinformationsystemEntity> stateinformationsystem;
+    private List<PersonalinformationsystemEntity> personalinformationsystem;
+
+    @OneToMany(mappedBy = "user")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystem() {
+        return personalinformationsystem;
+    }
+
+    public void setPersonalinformationsystem(List<PersonalinformationsystemEntity> personalinformationsystem) {
+        this.personalinformationsystem = personalinformationsystem;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<StateinformationsystemEntity> getStateinformationsystem() {
+        return stateinformationsystem;
+    }
+
+    public void setStateinformationsystem(List<StateinformationsystemEntity> stateinformationsystem) {
+        this.stateinformationsystem = stateinformationsystem;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<SpecialistshistoryEntity> getSpecialistshistory() {

@@ -1,15 +1,16 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "countsubjects", schema = "dataprotection", catalog = "")
 public class CountsubjectsEntity {
     private int idCountSubjects;
     private String title;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdCountSubjects;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdCountSubjects;
 
     @Id
     @Column(name = "idCountSubjects")
@@ -49,5 +50,23 @@ public class CountsubjectsEntity {
         int result = idCountSubjects;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "countsubjectsByIdCountSubjects")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdCountSubjects() {
+        return personalinformationsystemsByIdCountSubjects;
+    }
+
+    public void setPersonalinformationsystemsByIdCountSubjects(List<PersonalinformationsystemEntity> personalinformationsystemsByIdCountSubjects) {
+        this.personalinformationsystemsByIdCountSubjects = personalinformationsystemsByIdCountSubjects;
+    }
+
+    @OneToMany(mappedBy = "countsubjectsByIdCountSubjects")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdCountSubjects() {
+        return personalinformationsystemhistoriesByIdCountSubjects;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdCountSubjects(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdCountSubjects) {
+        this.personalinformationsystemhistoriesByIdCountSubjects = personalinformationsystemhistoriesByIdCountSubjects;
     }
 }

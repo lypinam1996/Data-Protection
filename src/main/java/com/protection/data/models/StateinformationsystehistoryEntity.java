@@ -2,13 +2,11 @@ package com.protection.data.models;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Collection;
 
 @Entity
-@Table(name = "personalinformationsystem", schema = "dataprotection", catalog = "")
-public class PersonalinformationsystemEntity {
-    private int idPersonalInformationSystem;
+@Table(name = "stateinformationsystehistory", schema = "dataprotection", catalog = "")
+public class StateinformationsystehistoryEntity {
+    private int idStateInformationSystemHistory;
     private String title;
     private String operator;
     private String purpose;
@@ -28,53 +26,39 @@ public class PersonalinformationsystemEntity {
     private String legalActAboutExploitation;
     private String numberAboutExploitation;
     private Date dateAboutExploitation;
-    private Timestamp commissioning;
-    private String personSecuritylevel;
-    private Date dateSecuritylevel;
+    private Date commissioning;
+    private Integer restrictedAccessInformation;
     private String cryptoProtection;
     private String separateParts;
     private String legalActRegister;
     private String numberRegister;
     private Date dateRegister;
+    private String numberClassification;
+    private Date dateClassification;
     private String threatsResults;
-    private Timestamp threatsResultsDate;
+    private Date threatsResultsDate;
     private String threatsResultsNumber;
     private Date dateOfAttestation;
     private String attestation;
     private String attestationNumberLisence;
     private Date attestationDate;
+    private Integer idClass;
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
     private Date actDateAttestation;
-    private PersonaldataEntity personaldataByIdPersonalData;
-    private CategoryofsubjectEntity categoryofsubjectByIdCategoryOfSubject;
-    private YesnoEntity yesnoByIdYesNo;
-    private CountsubjectsEntity countsubjectsByIdCountSubjects;
-    private TypethreatEntity typethreatByIdTypeThreat;
-    private SecuritylevelEntity securitylevelByIdSecuritylevel;
-    private YesnoEntity yesnoByIdyesno2;
-    private Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem;
-    private UsersEntity user;
-
-    @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    public UsersEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
+    private Date dateUpdate;
+    private StateinformationsystemEntity stateinformationsystemByIdStateInformationSystem;
+    private TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass;
 
     @Id
-    @Column(name = "idPersonalInformationSystem")
-    public int getIdPersonalInformationSystem() {
-        return idPersonalInformationSystem;
+    @Column(name = "idStateInformationSystemHistory")
+    public int getIdStateInformationSystemHistory() {
+        return idStateInformationSystemHistory;
     }
 
-    public void setIdPersonalInformationSystem(int idPersonalInformationSystem) {
-        this.idPersonalInformationSystem = idPersonalInformationSystem;
+    public void setIdStateInformationSystemHistory(int idStateInformationSystemHistory) {
+        this.idStateInformationSystemHistory = idStateInformationSystemHistory;
     }
 
     @Basic
@@ -269,32 +253,22 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "commissioning")
-    public Timestamp getCommissioning() {
+    public Date getCommissioning() {
         return commissioning;
     }
 
-    public void setCommissioning(Timestamp commissioning) {
+    public void setCommissioning(Date commissioning) {
         this.commissioning = commissioning;
     }
 
     @Basic
-    @Column(name = "personSecuritylevel")
-    public String getPersonSecuritylevel() {
-        return personSecuritylevel;
+    @Column(name = "restrictedAccessInformation")
+    public Integer getRestrictedAccessInformation() {
+        return restrictedAccessInformation;
     }
 
-    public void setPersonSecuritylevel(String personSecuritylevel) {
-        this.personSecuritylevel = personSecuritylevel;
-    }
-
-    @Basic
-    @Column(name = "dateSecuritylevel")
-    public Date getDateSecuritylevel() {
-        return dateSecuritylevel;
-    }
-
-    public void setDateSecuritylevel(Date dateSecuritylevel) {
-        this.dateSecuritylevel = dateSecuritylevel;
+    public void setRestrictedAccessInformation(Integer restrictedAccessInformation) {
+        this.restrictedAccessInformation = restrictedAccessInformation;
     }
 
     @Basic
@@ -348,6 +322,26 @@ public class PersonalinformationsystemEntity {
     }
 
     @Basic
+    @Column(name = "numberClassification")
+    public String getNumberClassification() {
+        return numberClassification;
+    }
+
+    public void setNumberClassification(String numberClassification) {
+        this.numberClassification = numberClassification;
+    }
+
+    @Basic
+    @Column(name = "dateClassification")
+    public Date getDateClassification() {
+        return dateClassification;
+    }
+
+    public void setDateClassification(Date dateClassification) {
+        this.dateClassification = dateClassification;
+    }
+
+    @Basic
     @Column(name = "threatsResults")
     public String getThreatsResults() {
         return threatsResults;
@@ -359,11 +353,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "threatsResultsDate")
-    public Timestamp getThreatsResultsDate() {
+    public Date getThreatsResultsDate() {
         return threatsResultsDate;
     }
 
-    public void setThreatsResultsDate(Timestamp threatsResultsDate) {
+    public void setThreatsResultsDate(Date threatsResultsDate) {
         this.threatsResultsDate = threatsResultsDate;
     }
 
@@ -418,6 +412,16 @@ public class PersonalinformationsystemEntity {
     }
 
     @Basic
+    @Column(name = "idClass")
+    public Integer getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(Integer idClass) {
+        this.idClass = idClass;
+    }
+
+    @Basic
     @Column(name = "attestationName")
     public String getAttestationName() {
         return attestationName;
@@ -457,14 +461,24 @@ public class PersonalinformationsystemEntity {
         this.actDateAttestation = actDateAttestation;
     }
 
+    @Basic
+    @Column(name = "dateUpdate")
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(Date dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonalinformationsystemEntity that = (PersonalinformationsystemEntity) o;
+        StateinformationsystehistoryEntity that = (StateinformationsystehistoryEntity) o;
 
-        if (idPersonalInformationSystem != that.idPersonalInformationSystem) return false;
+        if (idStateInformationSystemHistory != that.idStateInformationSystemHistory) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (operator != null ? !operator.equals(that.operator) : that.operator != null) return false;
         if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
@@ -492,9 +506,7 @@ public class PersonalinformationsystemEntity {
             return false;
         if (commissioning != null ? !commissioning.equals(that.commissioning) : that.commissioning != null)
             return false;
-        if (personSecuritylevel != null ? !personSecuritylevel.equals(that.personSecuritylevel) : that.personSecuritylevel != null)
-            return false;
-        if (dateSecuritylevel != null ? !dateSecuritylevel.equals(that.dateSecuritylevel) : that.dateSecuritylevel != null)
+        if (restrictedAccessInformation != null ? !restrictedAccessInformation.equals(that.restrictedAccessInformation) : that.restrictedAccessInformation != null)
             return false;
         if (cryptoProtection != null ? !cryptoProtection.equals(that.cryptoProtection) : that.cryptoProtection != null)
             return false;
@@ -505,6 +517,10 @@ public class PersonalinformationsystemEntity {
         if (numberRegister != null ? !numberRegister.equals(that.numberRegister) : that.numberRegister != null)
             return false;
         if (dateRegister != null ? !dateRegister.equals(that.dateRegister) : that.dateRegister != null) return false;
+        if (numberClassification != null ? !numberClassification.equals(that.numberClassification) : that.numberClassification != null)
+            return false;
+        if (dateClassification != null ? !dateClassification.equals(that.dateClassification) : that.dateClassification != null)
+            return false;
         if (threatsResults != null ? !threatsResults.equals(that.threatsResults) : that.threatsResults != null)
             return false;
         if (threatsResultsDate != null ? !threatsResultsDate.equals(that.threatsResultsDate) : that.threatsResultsDate != null)
@@ -518,6 +534,7 @@ public class PersonalinformationsystemEntity {
             return false;
         if (attestationDate != null ? !attestationDate.equals(that.attestationDate) : that.attestationDate != null)
             return false;
+        if (idClass != null ? !idClass.equals(that.idClass) : that.idClass != null) return false;
         if (attestationName != null ? !attestationName.equals(that.attestationName) : that.attestationName != null)
             return false;
         if (actAttestation != null ? !actAttestation.equals(that.actAttestation) : that.actAttestation != null)
@@ -526,13 +543,14 @@ public class PersonalinformationsystemEntity {
             return false;
         if (actDateAttestation != null ? !actDateAttestation.equals(that.actDateAttestation) : that.actDateAttestation != null)
             return false;
+        if (dateUpdate != null ? !dateUpdate.equals(that.dateUpdate) : that.dateUpdate != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idPersonalInformationSystem;
+        int result = idStateInformationSystemHistory;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (operator != null ? operator.hashCode() : 0);
         result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
@@ -553,13 +571,14 @@ public class PersonalinformationsystemEntity {
         result = 31 * result + (numberAboutExploitation != null ? numberAboutExploitation.hashCode() : 0);
         result = 31 * result + (dateAboutExploitation != null ? dateAboutExploitation.hashCode() : 0);
         result = 31 * result + (commissioning != null ? commissioning.hashCode() : 0);
-        result = 31 * result + (personSecuritylevel != null ? personSecuritylevel.hashCode() : 0);
-        result = 31 * result + (dateSecuritylevel != null ? dateSecuritylevel.hashCode() : 0);
+        result = 31 * result + (restrictedAccessInformation != null ? restrictedAccessInformation.hashCode() : 0);
         result = 31 * result + (cryptoProtection != null ? cryptoProtection.hashCode() : 0);
         result = 31 * result + (separateParts != null ? separateParts.hashCode() : 0);
         result = 31 * result + (legalActRegister != null ? legalActRegister.hashCode() : 0);
         result = 31 * result + (numberRegister != null ? numberRegister.hashCode() : 0);
         result = 31 * result + (dateRegister != null ? dateRegister.hashCode() : 0);
+        result = 31 * result + (numberClassification != null ? numberClassification.hashCode() : 0);
+        result = 31 * result + (dateClassification != null ? dateClassification.hashCode() : 0);
         result = 31 * result + (threatsResults != null ? threatsResults.hashCode() : 0);
         result = 31 * result + (threatsResultsDate != null ? threatsResultsDate.hashCode() : 0);
         result = 31 * result + (threatsResultsNumber != null ? threatsResultsNumber.hashCode() : 0);
@@ -567,89 +586,32 @@ public class PersonalinformationsystemEntity {
         result = 31 * result + (attestation != null ? attestation.hashCode() : 0);
         result = 31 * result + (attestationNumberLisence != null ? attestationNumberLisence.hashCode() : 0);
         result = 31 * result + (attestationDate != null ? attestationDate.hashCode() : 0);
+        result = 31 * result + (idClass != null ? idClass.hashCode() : 0);
         result = 31 * result + (attestationName != null ? attestationName.hashCode() : 0);
         result = 31 * result + (actAttestation != null ? actAttestation.hashCode() : 0);
         result = 31 * result + (actNumberAttestation != null ? actNumberAttestation.hashCode() : 0);
         result = 31 * result + (actDateAttestation != null ? actDateAttestation.hashCode() : 0);
+        result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idPersonalData", referencedColumnName = "idPersonalData")
-    public PersonaldataEntity getPersonaldataByIdPersonalData() {
-        return personaldataByIdPersonalData;
+    @JoinColumn(name = "idStateInformationSystem", referencedColumnName = "idStateInformationSystem")
+    public StateinformationsystemEntity getStateinformationsystemByIdStateInformationSystem() {
+        return stateinformationsystemByIdStateInformationSystem;
     }
 
-    public void setPersonaldataByIdPersonalData(PersonaldataEntity personaldataByIdPersonalData) {
-        this.personaldataByIdPersonalData = personaldataByIdPersonalData;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idCategoryOfSubject", referencedColumnName = "idCategoryOfSubject")
-    public CategoryofsubjectEntity getCategoryofsubjectByIdCategoryOfSubject() {
-        return categoryofsubjectByIdCategoryOfSubject;
-    }
-
-    public void setCategoryofsubjectByIdCategoryOfSubject(CategoryofsubjectEntity categoryofsubjectByIdCategoryOfSubject) {
-        this.categoryofsubjectByIdCategoryOfSubject = categoryofsubjectByIdCategoryOfSubject;
+    public void setStateinformationsystemByIdStateInformationSystem(StateinformationsystemEntity stateinformationsystemByIdStateInformationSystem) {
+        this.stateinformationsystemByIdStateInformationSystem = stateinformationsystemByIdStateInformationSystem;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idYesNo", referencedColumnName = "idYesNo")
-    public YesnoEntity getYesnoByIdYesNo() {
-        return yesnoByIdYesNo;
+    @JoinColumn(name = "idClass", referencedColumnName = "idtypeOfCryptoProtection")
+    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByIdClass() {
+        return typeofcryptoprotectionByIdClass;
     }
 
-    public void setYesnoByIdYesNo(YesnoEntity yesnoByIdYesNo) {
-        this.yesnoByIdYesNo = yesnoByIdYesNo;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idCountSubjects", referencedColumnName = "idCountSubjects")
-    public CountsubjectsEntity getCountsubjectsByIdCountSubjects() {
-        return countsubjectsByIdCountSubjects;
-    }
-
-    public void setCountsubjectsByIdCountSubjects(CountsubjectsEntity countsubjectsByIdCountSubjects) {
-        this.countsubjectsByIdCountSubjects = countsubjectsByIdCountSubjects;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idTypeThreat", referencedColumnName = "idTypeThreat")
-    public TypethreatEntity getTypethreatByIdTypeThreat() {
-        return typethreatByIdTypeThreat;
-    }
-
-    public void setTypethreatByIdTypeThreat(TypethreatEntity typethreatByIdTypeThreat) {
-        this.typethreatByIdTypeThreat = typethreatByIdTypeThreat;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idSecuritylevel", referencedColumnName = "idSecuritylevel")
-    public SecuritylevelEntity getSecuritylevelByIdSecuritylevel() {
-        return securitylevelByIdSecuritylevel;
-    }
-
-    public void setSecuritylevelByIdSecuritylevel(SecuritylevelEntity securitylevelByIdSecuritylevel) {
-        this.securitylevelByIdSecuritylevel = securitylevelByIdSecuritylevel;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idyesno2", referencedColumnName = "idYesNo")
-    public YesnoEntity getYesnoByIdyesno2() {
-        return yesnoByIdyesno2;
-    }
-
-    public void setYesnoByIdyesno2(YesnoEntity yesnoByIdyesno2) {
-        this.yesnoByIdyesno2 = yesnoByIdyesno2;
-    }
-
-    @OneToMany(mappedBy = "personalinformationsystemByIdPersonalInformationSystem")
-    public Collection<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdPersonalInformationSystem() {
-        return personalinformationsystemhistoriesByIdPersonalInformationSystem;
-    }
-
-    public void setPersonalinformationsystemhistoriesByIdPersonalInformationSystem(Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem) {
-        this.personalinformationsystemhistoriesByIdPersonalInformationSystem = personalinformationsystemhistoriesByIdPersonalInformationSystem;
+    public void setTypeofcryptoprotectionByIdClass(TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass) {
+        this.typeofcryptoprotectionByIdClass = typeofcryptoprotectionByIdClass;
     }
 }

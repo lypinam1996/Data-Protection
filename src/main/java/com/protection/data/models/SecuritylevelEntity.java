@@ -1,15 +1,16 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "securitylevel", schema = "dataprotection", catalog = "")
 public class SecuritylevelEntity {
     private int idSecuritylevel;
     private String title;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdSecuritylevel;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdSecuritylevel;
 
     @Id
     @Column(name = "idSecuritylevel")
@@ -49,5 +50,23 @@ public class SecuritylevelEntity {
         int result = idSecuritylevel;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "securitylevelByIdSecuritylevel")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdSecuritylevel() {
+        return personalinformationsystemsByIdSecuritylevel;
+    }
+
+    public void setPersonalinformationsystemsByIdSecuritylevel(List<PersonalinformationsystemEntity> personalinformationsystemsByIdSecuritylevel) {
+        this.personalinformationsystemsByIdSecuritylevel = personalinformationsystemsByIdSecuritylevel;
+    }
+
+    @OneToMany(mappedBy = "securitylevelByIdSecuritylevel")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdSecuritylevel() {
+        return personalinformationsystemhistoriesByIdSecuritylevel;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdSecuritylevel(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdSecuritylevel) {
+        this.personalinformationsystemhistoriesByIdSecuritylevel = personalinformationsystemhistoriesByIdSecuritylevel;
     }
 }

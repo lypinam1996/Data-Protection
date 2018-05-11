@@ -1,15 +1,18 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "yesno", schema = "dataprotection", catalog = "")
 public class YesnoEntity {
     private int idYesNo;
     private String title;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdYesNo;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdYesNo_0;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdYesNo;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdYesNo_0;
 
     @Id
     @Column(name = "idYesNo")
@@ -49,5 +52,41 @@ public class YesnoEntity {
         int result = idYesNo;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "yesnoByIdYesNo")
+    public Collection<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdYesNo() {
+        return personalinformationsystemsByIdYesNo;
+    }
+
+    public void setPersonalinformationsystemsByIdYesNo(List<PersonalinformationsystemEntity> personalinformationsystemsByIdYesNo) {
+        this.personalinformationsystemsByIdYesNo = personalinformationsystemsByIdYesNo;
+    }
+
+    @OneToMany(mappedBy = "yesnoByIdyesno2")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdYesNo_0() {
+        return personalinformationsystemsByIdYesNo_0;
+    }
+
+    public void setPersonalinformationsystemsByIdYesNo_0(List<PersonalinformationsystemEntity> personalinformationsystemsByIdYesNo_0) {
+        this.personalinformationsystemsByIdYesNo_0 = personalinformationsystemsByIdYesNo_0;
+    }
+
+    @OneToMany(mappedBy = "yesnoByIdYesNo")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdYesNo() {
+        return personalinformationsystemhistoriesByIdYesNo;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdYesNo(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdYesNo) {
+        this.personalinformationsystemhistoriesByIdYesNo = personalinformationsystemhistoriesByIdYesNo;
+    }
+
+    @OneToMany(mappedBy = "yesnoByIdyesno2")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdYesNo_0() {
+        return personalinformationsystemhistoriesByIdYesNo_0;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdYesNo_0(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdYesNo_0) {
+        this.personalinformationsystemhistoriesByIdYesNo_0 = personalinformationsystemhistoriesByIdYesNo_0;
     }
 }

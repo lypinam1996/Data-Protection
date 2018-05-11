@@ -3,12 +3,14 @@ package com.protection.data.models;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Collection;
 
+/**
+ * Created by lypin on 11.05.2018.
+ */
 @Entity
-@Table(name = "personalinformationsystem", schema = "dataprotection", catalog = "")
-public class PersonalinformationsystemEntity {
-    private int idPersonalInformationSystem;
+@Table(name = "personalinformationsystemhistory", schema = "dataprotection", catalog = "")
+public class PersonalinformationsystemhistoryEntity {
+    private int idPersonalInformationSystemHistory;
     private String title;
     private String operator;
     private String purpose;
@@ -54,27 +56,16 @@ public class PersonalinformationsystemEntity {
     private TypethreatEntity typethreatByIdTypeThreat;
     private SecuritylevelEntity securitylevelByIdSecuritylevel;
     private YesnoEntity yesnoByIdyesno2;
-    private Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem;
-    private UsersEntity user;
-
-    @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    public UsersEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
+    private PersonalinformationsystemEntity personalinformationsystemByIdPersonalInformationSystem;
 
     @Id
-    @Column(name = "idPersonalInformationSystem")
-    public int getIdPersonalInformationSystem() {
-        return idPersonalInformationSystem;
+    @Column(name = "idPersonalInformationSystemHistory")
+    public int getIdPersonalInformationSystemHistory() {
+        return idPersonalInformationSystemHistory;
     }
 
-    public void setIdPersonalInformationSystem(int idPersonalInformationSystem) {
-        this.idPersonalInformationSystem = idPersonalInformationSystem;
+    public void setIdPersonalInformationSystemHistory(int idPersonalInformationSystemHistory) {
+        this.idPersonalInformationSystemHistory = idPersonalInformationSystemHistory;
     }
 
     @Basic
@@ -462,9 +453,9 @@ public class PersonalinformationsystemEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonalinformationsystemEntity that = (PersonalinformationsystemEntity) o;
+        PersonalinformationsystemhistoryEntity that = (PersonalinformationsystemhistoryEntity) o;
 
-        if (idPersonalInformationSystem != that.idPersonalInformationSystem) return false;
+        if (idPersonalInformationSystemHistory != that.idPersonalInformationSystemHistory) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (operator != null ? !operator.equals(that.operator) : that.operator != null) return false;
         if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
@@ -532,7 +523,7 @@ public class PersonalinformationsystemEntity {
 
     @Override
     public int hashCode() {
-        int result = idPersonalInformationSystem;
+        int result = idPersonalInformationSystemHistory;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (operator != null ? operator.hashCode() : 0);
         result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
@@ -644,12 +635,13 @@ public class PersonalinformationsystemEntity {
         this.yesnoByIdyesno2 = yesnoByIdyesno2;
     }
 
-    @OneToMany(mappedBy = "personalinformationsystemByIdPersonalInformationSystem")
-    public Collection<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdPersonalInformationSystem() {
-        return personalinformationsystemhistoriesByIdPersonalInformationSystem;
+    @ManyToOne
+    @JoinColumn(name = "idPersonalInformationSystem", referencedColumnName = "idPersonalInformationSystem")
+    public PersonalinformationsystemEntity getPersonalinformationsystemByIdPersonalInformationSystem() {
+        return personalinformationsystemByIdPersonalInformationSystem;
     }
 
-    public void setPersonalinformationsystemhistoriesByIdPersonalInformationSystem(Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem) {
-        this.personalinformationsystemhistoriesByIdPersonalInformationSystem = personalinformationsystemhistoriesByIdPersonalInformationSystem;
+    public void setPersonalinformationsystemByIdPersonalInformationSystem(PersonalinformationsystemEntity personalinformationsystemByIdPersonalInformationSystem) {
+        this.personalinformationsystemByIdPersonalInformationSystem = personalinformationsystemByIdPersonalInformationSystem;
     }
 }

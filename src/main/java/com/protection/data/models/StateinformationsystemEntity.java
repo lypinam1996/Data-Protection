@@ -1,11 +1,10 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "stateinformationsystem", schema = "dataprotection", catalog = "")
 public class StateinformationsystemEntity {
@@ -21,35 +20,47 @@ public class StateinformationsystemEntity {
     private String email;
     private String legalAct;
     private String number;
-    private Timestamp dateAct;
+    private Date dateAct;
     private String subdivision;
     private String legalActAboutCreating;
     private String numberAboutCreating;
-    private Timestamp dateAboutCreating;
+    private Date dateAboutCreating;
     private String legalActAboutExploitation;
     private String numberAboutExploitation;
-    private Timestamp dateAboutExploitation;
-    private Timestamp commissioning;
+    private Date dateAboutExploitation;
+    private Date commissioning;
     private Integer restrictedAccessInformation;
     private String cryptoProtection;
     private String separateParts;
     private String legalActRegister;
     private String numberRegister;
-    private Timestamp dateRegister;
+    private Date dateRegister;
     private String numberClassification;
-    private Timestamp dateClassification;
+    private Date dateClassification;
     private String threatsResults;
-    private Timestamp threatsResultsDate;
+    private Date threatsResultsDate;
     private String threatsResultsNumber;
-    private Timestamp dateOfAttestation;
+    private Date dateOfAttestation;
     private String attestation;
     private String attestationNumberLisence;
-    private Timestamp attestationDate;
-    private Timestamp dateOfUpdate;
+    private Date attestationDate;
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
-    private Timestamp actDateAttestation;
+    private Date actDateAttestation;
+    private List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdStateInformationSystem;
+    private TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass;
+    private UsersEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UsersEntity user) {
+        this.user = user;
+    }
 
     @Id
     @Column(name = "idStateInformationSystem")
@@ -173,11 +184,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAct")
-    public Timestamp getDateAct() {
+    public Date getDateAct() {
         return dateAct;
     }
 
-    public void setDateAct(Timestamp dateAct) {
+    public void setDateAct(Date dateAct) {
         this.dateAct = dateAct;
     }
 
@@ -213,11 +224,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAboutCreating")
-    public Timestamp getDateAboutCreating() {
+    public Date getDateAboutCreating() {
         return dateAboutCreating;
     }
 
-    public void setDateAboutCreating(Timestamp dateAboutCreating) {
+    public void setDateAboutCreating(Date dateAboutCreating) {
         this.dateAboutCreating = dateAboutCreating;
     }
 
@@ -243,21 +254,21 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAboutExploitation")
-    public Timestamp getDateAboutExploitation() {
+    public Date getDateAboutExploitation() {
         return dateAboutExploitation;
     }
 
-    public void setDateAboutExploitation(Timestamp dateAboutExploitation) {
+    public void setDateAboutExploitation(Date dateAboutExploitation) {
         this.dateAboutExploitation = dateAboutExploitation;
     }
 
     @Basic
     @Column(name = "commissioning")
-    public Timestamp getCommissioning() {
+    public Date getCommissioning() {
         return commissioning;
     }
 
-    public void setCommissioning(Timestamp commissioning) {
+    public void setCommissioning(Date commissioning) {
         this.commissioning = commissioning;
     }
 
@@ -313,11 +324,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateRegister")
-    public Timestamp getDateRegister() {
+    public Date getDateRegister() {
         return dateRegister;
     }
 
-    public void setDateRegister(Timestamp dateRegister) {
+    public void setDateRegister(Date dateRegister) {
         this.dateRegister = dateRegister;
     }
 
@@ -333,11 +344,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateClassification")
-    public Timestamp getDateClassification() {
+    public Date getDateClassification() {
         return dateClassification;
     }
 
-    public void setDateClassification(Timestamp dateClassification) {
+    public void setDateClassification(Date dateClassification) {
         this.dateClassification = dateClassification;
     }
 
@@ -353,11 +364,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "threatsResultsDate")
-    public Timestamp getThreatsResultsDate() {
+    public Date getThreatsResultsDate() {
         return threatsResultsDate;
     }
 
-    public void setThreatsResultsDate(Timestamp threatsResultsDate) {
+    public void setThreatsResultsDate(Date threatsResultsDate) {
         this.threatsResultsDate = threatsResultsDate;
     }
 
@@ -373,11 +384,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "dateOfAttestation")
-    public Timestamp getDateOfAttestation() {
+    public Date getDateOfAttestation() {
         return dateOfAttestation;
     }
 
-    public void setDateOfAttestation(Timestamp dateOfAttestation) {
+    public void setDateOfAttestation(Date dateOfAttestation) {
         this.dateOfAttestation = dateOfAttestation;
     }
 
@@ -403,22 +414,12 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "attestationDate")
-    public Timestamp getAttestationDate() {
+    public Date getAttestationDate() {
         return attestationDate;
     }
 
-    public void setAttestationDate(Timestamp attestationDate) {
+    public void setAttestationDate(Date attestationDate) {
         this.attestationDate = attestationDate;
-    }
-
-    @Basic
-    @Column(name = "dateOfUpdate")
-    public Timestamp getDateOfUpdate() {
-        return dateOfUpdate;
-    }
-
-    public void setDateOfUpdate(Timestamp dateOfUpdate) {
-        this.dateOfUpdate = dateOfUpdate;
     }
 
     @Basic
@@ -453,11 +454,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "actDateAttestation")
-    public Timestamp getActDateAttestation() {
+    public Date getActDateAttestation() {
         return actDateAttestation;
     }
 
-    public void setActDateAttestation(Timestamp actDateAttestation) {
+    public void setActDateAttestation(Date actDateAttestation) {
         this.actDateAttestation = actDateAttestation;
     }
 
@@ -524,7 +525,6 @@ public class StateinformationsystemEntity {
             return false;
         if (attestationDate != null ? !attestationDate.equals(that.attestationDate) : that.attestationDate != null)
             return false;
-        if (dateOfUpdate != null ? !dateOfUpdate.equals(that.dateOfUpdate) : that.dateOfUpdate != null) return false;
         if (attestationName != null ? !attestationName.equals(that.attestationName) : that.attestationName != null)
             return false;
         if (actAttestation != null ? !actAttestation.equals(that.actAttestation) : that.actAttestation != null)
@@ -575,11 +575,29 @@ public class StateinformationsystemEntity {
         result = 31 * result + (attestation != null ? attestation.hashCode() : 0);
         result = 31 * result + (attestationNumberLisence != null ? attestationNumberLisence.hashCode() : 0);
         result = 31 * result + (attestationDate != null ? attestationDate.hashCode() : 0);
-        result = 31 * result + (dateOfUpdate != null ? dateOfUpdate.hashCode() : 0);
         result = 31 * result + (attestationName != null ? attestationName.hashCode() : 0);
         result = 31 * result + (actAttestation != null ? actAttestation.hashCode() : 0);
         result = 31 * result + (actNumberAttestation != null ? actNumberAttestation.hashCode() : 0);
         result = 31 * result + (actDateAttestation != null ? actDateAttestation.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "stateinformationsystemByIdStateInformationSystem")
+    public List<StateinformationsystehistoryEntity> getStateinformationsystehistoriesByIdStateInformationSystem() {
+        return stateinformationsystehistoriesByIdStateInformationSystem;
+    }
+
+    public void setStateinformationsystehistoriesByIdStateInformationSystem(List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdStateInformationSystem) {
+        this.stateinformationsystehistoriesByIdStateInformationSystem = stateinformationsystehistoriesByIdStateInformationSystem;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idClass", referencedColumnName = "idtypeOfCryptoProtection")
+    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByIdClass() {
+        return typeofcryptoprotectionByIdClass;
+    }
+
+    public void setTypeofcryptoprotectionByIdClass(TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass) {
+        this.typeofcryptoprotectionByIdClass = typeofcryptoprotectionByIdClass;
     }
 }

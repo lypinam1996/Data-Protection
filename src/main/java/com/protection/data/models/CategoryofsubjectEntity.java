@@ -1,15 +1,16 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "categoryofsubject", schema = "dataprotection", catalog = "")
 public class CategoryofsubjectEntity {
     private int idCategoryOfSubject;
     private String title;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdCategoryOfSubject;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdCategoryOfSubject;
 
     @Id
     @Column(name = "idCategoryOfSubject")
@@ -49,5 +50,23 @@ public class CategoryofsubjectEntity {
         int result = idCategoryOfSubject;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "categoryofsubjectByIdCategoryOfSubject")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdCategoryOfSubject() {
+        return personalinformationsystemsByIdCategoryOfSubject;
+    }
+
+    public void setPersonalinformationsystemsByIdCategoryOfSubject(List<PersonalinformationsystemEntity> personalinformationsystemsByIdCategoryOfSubject) {
+        this.personalinformationsystemsByIdCategoryOfSubject = personalinformationsystemsByIdCategoryOfSubject;
+    }
+
+    @OneToMany(mappedBy = "categoryofsubjectByIdCategoryOfSubject")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdCategoryOfSubject() {
+        return personalinformationsystemhistoriesByIdCategoryOfSubject;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdCategoryOfSubject(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdCategoryOfSubject) {
+        this.personalinformationsystemhistoriesByIdCategoryOfSubject = personalinformationsystemhistoriesByIdCategoryOfSubject;
     }
 }

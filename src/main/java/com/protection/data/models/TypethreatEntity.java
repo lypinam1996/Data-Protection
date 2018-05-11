@@ -1,15 +1,15 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
+import java.util.List;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "typethreat", schema = "dataprotection", catalog = "")
 public class TypethreatEntity {
     private int idTypeThreat;
     private String title;
+    private List<PersonalinformationsystemEntity> personalinformationsystemsByIdTypeThreat;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdTypeThreat;
 
     @Id
     @Column(name = "idTypeThreat")
@@ -49,5 +49,23 @@ public class TypethreatEntity {
         int result = idTypeThreat;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "typethreatByIdTypeThreat")
+    public List<PersonalinformationsystemEntity> getPersonalinformationsystemsByIdTypeThreat() {
+        return personalinformationsystemsByIdTypeThreat;
+    }
+
+    public void setPersonalinformationsystemsByIdTypeThreat(List<PersonalinformationsystemEntity> personalinformationsystemsByIdTypeThreat) {
+        this.personalinformationsystemsByIdTypeThreat = personalinformationsystemsByIdTypeThreat;
+    }
+
+    @OneToMany(mappedBy = "typethreatByIdTypeThreat")
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdTypeThreat() {
+        return personalinformationsystemhistoriesByIdTypeThreat;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdTypeThreat(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdTypeThreat) {
+        this.personalinformationsystemhistoriesByIdTypeThreat = personalinformationsystemhistoriesByIdTypeThreat;
     }
 }

@@ -3,9 +3,6 @@ package com.protection.data.models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by lypin on 08.05.2018.
- */
 @Entity
 @Table(name = "financing", schema = "dataprotection", catalog = "")
 public class FinancingEntity {
