@@ -4,14 +4,16 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * Created by lypin on 11.05.2018.
+ */
 @Entity
 @Table(name = "typeofcryptoprotection", schema = "dataprotection", catalog = "")
 public class TypeofcryptoprotectionEntity {
     private int idtypeOfCryptoProtection;
     private String title;
-    private List<StateinformationsystemEntity> stateinformationsystemsByIdtypeOfCryptoProtection;
     private List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdtypeOfCryptoProtection;
+    private List<StateinformationsystemEntity> stateinformationsystemsByIdtypeOfCryptoProtection;
 
     @Id
     @Column(name = "idtypeOfCryptoProtection")
@@ -53,21 +55,21 @@ public class TypeofcryptoprotectionEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "typeofcryptoprotectionByIdClass")
-    public List<StateinformationsystemEntity> getStateinformationsystemsByIdtypeOfCryptoProtection() {
-        return stateinformationsystemsByIdtypeOfCryptoProtection;
-    }
-
-    public void setStateinformationsystemsByIdtypeOfCryptoProtection(List<StateinformationsystemEntity> stateinformationsystemsByIdtypeOfCryptoProtection) {
-        this.stateinformationsystemsByIdtypeOfCryptoProtection = stateinformationsystemsByIdtypeOfCryptoProtection;
-    }
-
-    @OneToMany(mappedBy = "typeofcryptoprotectionByIdClass")
+    @OneToMany(mappedBy = "typeofcryptoprotectionByTypeofcryptoprotection")
     public List<StateinformationsystehistoryEntity> getStateinformationsystehistoriesByIdtypeOfCryptoProtection() {
         return stateinformationsystehistoriesByIdtypeOfCryptoProtection;
     }
 
     public void setStateinformationsystehistoriesByIdtypeOfCryptoProtection(List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdtypeOfCryptoProtection) {
         this.stateinformationsystehistoriesByIdtypeOfCryptoProtection = stateinformationsystehistoriesByIdtypeOfCryptoProtection;
+    }
+
+    @OneToMany(mappedBy = "typeofcryptoprotectionByTypeofcryptoprotection")
+    public List<StateinformationsystemEntity> getStateinformationsystemsByIdtypeOfCryptoProtection() {
+        return stateinformationsystemsByIdtypeOfCryptoProtection;
+    }
+
+    public void setStateinformationsystemsByIdtypeOfCryptoProtection(List<StateinformationsystemEntity> stateinformationsystemsByIdtypeOfCryptoProtection) {
+        this.stateinformationsystemsByIdtypeOfCryptoProtection = stateinformationsystemsByIdtypeOfCryptoProtection;
     }
 }

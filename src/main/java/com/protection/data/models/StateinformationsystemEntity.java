@@ -1,8 +1,10 @@
 package com.protection.data.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -49,8 +51,8 @@ public class StateinformationsystemEntity {
     private String actNumberAttestation;
     private Date actDateAttestation;
     private List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdStateInformationSystem;
-    private TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass;
     private UsersEntity user;
+    private TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection;
 
     @ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -458,11 +460,7 @@ public class StateinformationsystemEntity {
         return actDateAttestation;
     }
 
-    public void setActDateAttestation(Date actDateAttestation) {
-        this.actDateAttestation = actDateAttestation;
-    }
-
-    @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -580,6 +578,10 @@ public class StateinformationsystemEntity {
         result = 31 * result + (actNumberAttestation != null ? actNumberAttestation.hashCode() : 0);
         result = 31 * result + (actDateAttestation != null ? actDateAttestation.hashCode() : 0);
         return result;
+    }*/
+
+    public void setActDateAttestation(Date actDateAttestation) {
+        this.actDateAttestation = actDateAttestation;
     }
 
     @OneToMany(mappedBy = "stateinformationsystemByIdStateInformationSystem")
@@ -592,12 +594,12 @@ public class StateinformationsystemEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClass", referencedColumnName = "idtypeOfCryptoProtection")
-    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByIdClass() {
-        return typeofcryptoprotectionByIdClass;
+    @JoinColumn(name = "typeofcryptoprotection", referencedColumnName = "idtypeOfCryptoProtection")
+    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByTypeofcryptoprotection() {
+        return typeofcryptoprotectionByTypeofcryptoprotection;
     }
 
-    public void setTypeofcryptoprotectionByIdClass(TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass) {
-        this.typeofcryptoprotectionByIdClass = typeofcryptoprotectionByIdClass;
+    public void setTypeofcryptoprotectionByTypeofcryptoprotection(TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection) {
+        this.typeofcryptoprotectionByTypeofcryptoprotection = typeofcryptoprotectionByTypeofcryptoprotection;
     }
 }

@@ -3,7 +3,7 @@ package com.protection.data.models;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "personalinformationsystem", schema = "dataprotection", catalog = "")
@@ -54,8 +54,8 @@ public class PersonalinformationsystemEntity {
     private TypethreatEntity typethreatByIdTypeThreat;
     private SecuritylevelEntity securitylevelByIdSecuritylevel;
     private YesnoEntity yesnoByIdyesno2;
-    private Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem;
-    private UsersEntity user;
+    private List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem;
+   private UsersEntity user;
 
     @ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -645,11 +645,11 @@ public class PersonalinformationsystemEntity {
     }
 
     @OneToMany(mappedBy = "personalinformationsystemByIdPersonalInformationSystem")
-    public Collection<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdPersonalInformationSystem() {
+    public List<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdPersonalInformationSystem() {
         return personalinformationsystemhistoriesByIdPersonalInformationSystem;
     }
 
-    public void setPersonalinformationsystemhistoriesByIdPersonalInformationSystem(Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem) {
+    public void setPersonalinformationsystemhistoriesByIdPersonalInformationSystem(List<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdPersonalInformationSystem) {
         this.personalinformationsystemhistoriesByIdPersonalInformationSystem = personalinformationsystemhistoriesByIdPersonalInformationSystem;
     }
 }

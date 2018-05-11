@@ -81,7 +81,7 @@ public class StateInformationHistoryDAOImpl extends AbstractDAO<Integer, Statein
         stateinformationsystehistory.setThreatsResultsDate(stateinformationsystem.getThreatsResultsDate());
         stateinformationsystehistory.setThreatsResultsNumber(stateinformationsystem.getThreatsResultsNumber());
         stateinformationsystehistory.setTitle(stateinformationsystem.getTitle());
-        stateinformationsystehistory.setTypeofcryptoprotectionByIdClass(stateinformationsystem.getTypeofcryptoprotectionByIdClass());
+       // stateinformationsystehistory.setTypeofcryptoprotectionByIdClass(stateinformationsystem.getTypeofcryptoprotectionByIdClass());
         getSession().save(stateinformationsystehistory);
     }
 }
