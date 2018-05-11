@@ -1,8 +1,10 @@
 package com.protection.data.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -49,8 +51,8 @@ public class StateinformationsystemEntity {
     private String actNumberAttestation;
     private Date actDateAttestation;
     private List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdStateInformationSystem;
-    private TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass;
     private UsersEntity user;
+    private TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection;
 
     @ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -458,10 +460,6 @@ public class StateinformationsystemEntity {
         return actDateAttestation;
     }
 
-    public void setActDateAttestation(Date actDateAttestation) {
-        this.actDateAttestation = actDateAttestation;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -582,6 +580,10 @@ public class StateinformationsystemEntity {
         return result;
     }
 
+    public void setActDateAttestation(Date actDateAttestation) {
+        this.actDateAttestation = actDateAttestation;
+    }
+
     @OneToMany(mappedBy = "stateinformationsystemByIdStateInformationSystem")
     public List<StateinformationsystehistoryEntity> getStateinformationsystehistoriesByIdStateInformationSystem() {
         return stateinformationsystehistoriesByIdStateInformationSystem;
@@ -592,12 +594,12 @@ public class StateinformationsystemEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClass", referencedColumnName = "idtypeOfCryptoProtection")
-    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByIdClass() {
-        return typeofcryptoprotectionByIdClass;
+    @JoinColumn(name = "typeofcryptoprotection", referencedColumnName = "idtypeOfCryptoProtection")
+    public TypeofcryptoprotectionEntity getTypeofcryptoprotectionByTypeofcryptoprotection() {
+        return typeofcryptoprotectionByTypeofcryptoprotection;
     }
 
-    public void setTypeofcryptoprotectionByIdClass(TypeofcryptoprotectionEntity typeofcryptoprotectionByIdClass) {
-        this.typeofcryptoprotectionByIdClass = typeofcryptoprotectionByIdClass;
+    public void setTypeofcryptoprotectionByTypeofcryptoprotection(TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection) {
+        this.typeofcryptoprotectionByTypeofcryptoprotection = typeofcryptoprotectionByTypeofcryptoprotection;
     }
 }

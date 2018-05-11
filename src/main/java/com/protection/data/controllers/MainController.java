@@ -36,6 +36,9 @@ public class MainController {
     QuantityService quantityService;
 
     @Autowired
+    StateInformationService stateInformationService;
+
+    @Autowired
     OfficialHistoryService officialhistoryService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -54,12 +57,16 @@ public class MainController {
             List<QuantityEntity> quantity = quantityService.findQuantities(user);
             int count2 = quantity.size();
             modelAndView.addObject("count2", count2);
+            List<StateinformationsystemEntity> states   = stateInformationService.findStateInformation(user);
+            int count3 = states.size();
+             modelAndView.addObject("states", states);
+            modelAndView.addObject("count3", count3);
             modelAndView.setViewName("mainPage");
         }
         return modelAndView;
     }
 
-    @RequestMapping(value = "/seeUser", method = RequestMethod.GET)
+   @RequestMapping(value = "/seeUser", method = RequestMethod.GET)
     public ModelAndView getOfficials(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
