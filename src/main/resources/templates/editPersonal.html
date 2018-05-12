@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit personal information system</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<form th:action="@{/home}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
+</form>
+<form th:action="@{/seePersonals}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Просмотреть заполненную информацию</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
+</form>
+<div class="container " style="margin-top: 50px">
+    <h3 align="center">Сведения об информационной системе персональных данных и (или) отдельных её частях.</h3>
+    <span th:utext="${successMessage}"></span>
+    <form autocomplete="off" th:action="@{/addPersonal}"
+          th:object="${personal}" method="post" class="form-horizontal"
+          role="form">
+        <div class="form-group">
+            <input type="hidden" th:field="*{idPersonalInformationSystem}" placeholder="Наименование ИСПДн"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{title}" placeholder="Наименование ИСПДн"
+                               class="form-control"/>
+        </div>
+        <div class="form-group">
+            ИСПДн является государственной (муниципальной) системой?
+            <select class="form-control" th:field="*{yesnoByIdYesNo}" placeholder="Класс защищённости">
+                <option th:each="yesnoByIdYesNo:${yesno}" th:value="${{yesnoByIdYesNo}}" th:text="${yesnoByIdYesNo.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{operator}"
+                               placeholder="Наименование оператора ИСПДн" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{purpose}"
+                   placeholder="Цель обработки персональных данных" class="form-control"  />
+        </div>
+        <div class="form-group">Ответственный за обеспечение безопасности персональных данных в ГИС	системе	(сотрудник	или	подразделение)</div>
+        <input type="radio" name="switch-div_kotoriy_menayetsa" value="1" th:text="Сотрудник"/>
+        <input type="radio" name="switch-div_kotoriy_menayetsa" value="0" checked="checked" th:text="Подразделение"/>
+        <div id="div_kotoriy_menayetsa">
+            <div class="form-group">
+                <input type="text" th:field="*{name}"
+                       placeholder="Имя сотрудника" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{surname}" th:value="''"
+                       placeholder="Фамилия сотрудника" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{patronimyc}"
+                       placeholder="Отчество сотрудника" class="form-control"  />
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{post}"
+                       placeholder="Должность сотрудника" class="form-control"  />
+            </div></div>
+        <div id="div_kotoriy_menayetsa2">
+            <div class="form-group">
+                <input type="text" th:field="*{subdivision}"
+                       placeholder="Наименование подразделения" class="form-control"  />
+            </div></div>
+
+        <div class="form-group">
+            <input type="text" th:field="*{phone}"
+                   placeholder="Контактный телефон" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="email" th:field="*{email}"
+                   placeholder="e-mail" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{legalAct}"
+                   placeholder="Правовой акт о возложении обязанностей (название)" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{number}"
+                   placeholder="Номер акта" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{dateAct}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{legalActAboutCreating}"
+                   placeholder="Нормативно правовой акт о создании ГИС (название)" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{numberAboutCreating}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{dateAboutCreating}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{legalActAboutExploitation}"
+                   placeholder="Нормативно правовой акт о порядке и сроках ввода в эксплуатацию ГИС (название)" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{numberAboutExploitation}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{dateAboutExploitation}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{commissioning}" required="required"
+                   placeholder="Дата ввода в эксплуатацию" class="form-control"  />
+        </div>
+        <div class="form-group">
+            Категории обрабатываемых данных
+            <select class="form-control" th:field="*{personaldataByIdPersonalData}" placeholder="Класс защищённости">
+                <option th:each="data:${data}" th:value="${{data}}" th:text="${data.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{cryptoProtection}"
+                   placeholder="Тип криптозащиты" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{separateParts}"
+                   placeholder="Сведения об отдельных частях ГИС" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{legalActRegister}"
+                   placeholder="Включение в Pеестр операторов, осуществляющих обработку персональных данных " class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{numberRegister}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{dateRegister}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            Категории субъектов, персональные данные которых обрабатываются
+            <select class="form-control" th:field="*{categoryofsubjectByIdCategoryOfSubject}" placeholder="Класс защищённости">
+                <option th:each="category:${category}" th:value="${{category}}" th:text="${category.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            Количество субъектов персональных данных
+            <select class="form-control" th:field="*{countsubjectsByIdCountSubjects}" placeholder="Класс защищённости">
+                <option th:each="coount:${coount}" th:value="${{coount}}" th:text="${coount.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            Тип актуальных угроз безопасности
+            <select class="form-control" th:field="*{typethreatByIdTypeThreat}" placeholder="Класс защищённости">
+                <option th:each="types:${types}" th:value="${{types}}" th:text="${types.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            Уровень защищённости персональных данных, который необходимо обеспечить при их обработке в ИСПДн
+            <select class="form-control" th:field="*{securitylevelByIdSecuritylevel}" placeholder="Класс защищённости">
+                <option th:each="level:${level}" th:value="${{level}}" th:text="${level.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            Использование в ИСПДн шифровальных (криптографических) средств информации
+            <select class="form-control" th:field="*{yesnoByIdyesno2}" placeholder="Класс защищённости">
+                <option th:each="yesno:${yesno}" th:value="${{yesno}}" th:text="${yesno.title}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">Модель угроз безопасности информации</div>
+        <div class="form-group">
+            <input type="text" th:field="*{threatsResults}"
+                   placeholder="Результаты рассмотрения ФСТЕК РФ" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{threatsResultsDate}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{threatsResultsNumber}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">Оценка эффективности реализованных в рамках системы защиты персональных данных мер по обеспечению безопасности персональных данных в ГИС</div>
+        <input type="radio" name="switch-div_kotoriy_menayetsa2" value="1" th:text="Лицензиатом"/>
+        <input type="radio" name="switch-div_kotoriy_menayetsa2" value="0" checked="checked" th:text="Самостоятельно"/>
+
+        <div class="form-group">
+            <input type="date" th:field="*{dateOfAttestation}" required="required"
+                   placeholder="Дата проведения" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{actAttestation}"
+                   placeholder="Наименование документа" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{actNumberAttestation}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{actDateAttestation}" required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div>
+        <div id="div_kotoriy_menayetsa3">
+        <div class="form-group">
+            <input type="text" th:field="*{attestationName}"
+                   placeholder="Наименование привлечённого лицензиата" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{attestation}"
+                   placeholder="Лицензия на осуществление деятельности по технической защите конфиденциальной информации" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{attestationNumberLisence}"
+                   placeholder="Номер" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <input type="date" th:field="*{attestationDate}"  required="required"
+                   placeholder="Дата" class="form-control"  />
+        </div></div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+        </div>
+
+    </form>
+</div>
+<script>
+
+    $('input[type=radio][name=switch-div_kotoriy_menayetsa]').change(function() {
+        $('#div_kotoriy_menayetsa').toggle(
+            $('input[type=radio][name=switch-div_kotoriy_menayetsa]:checked').val() == 1 ? true : false);
+    })
+        .change();
+    $('input[type=radio][name=switch-div_kotoriy_menayetsa]').change(function() {
+        $('#div_kotoriy_menayetsa2').toggle(
+            $('input[type=radio][name=switch-div_kotoriy_menayetsa]:checked').val() == 0 ? true : false);
+    })
+        .change();
+    $('input[type=radio][name=switch-div_kotoriy_menayetsa2]').change(function() {
+        $('#div_kotoriy_menayetsa3').toggle(
+            $('input[type=radio][name=switch-div_kotoriy_menayetsa2]:checked').val() == 1 ? true : false);
+    })
+        .change();
+
+
+</script>
+
+
+</body>
+
+
+
+</html>

@@ -101,32 +101,43 @@ public class PersonalController {
     }
 
 
-   /* @RequestMapping(value = "/{id}/editStates", method = RequestMethod.GET)
-    public ModelAndView addPersonals(@PathVariable String id) {
-        StateinformationsystemEntity state = stateInformationService.findById(Integer.parseInt(id));
-        ModelAndView model = new ModelAndView();
-        model.addObject("state", state);
-        model.setViewName("editStates");
-        return model;
+    @RequestMapping(value = "/{id}/editPersonal", method = RequestMethod.GET)
+    public String addPersonals(@PathVariable String id, Model model) {
+        List<PersonaldataEntity>  data= personalDataService.findAll();
+        List<CategoryofsubjectEntity>  category= categoryOfSubjectService.findAll();
+        List<YesnoEntity>  yesno= yesNoService.findAll();
+        List<CountsubjectsEntity>  coount= countSubjectsService.findAll();
+        List<TypethreatEntity>  types= typeThreatService.findAll();
+        List<SecuritylevelEntity>  level= securityLevelService.findAll();
+        model.addAttribute("data", data);
+        model.addAttribute("category", category);
+        model.addAttribute("yesno", yesno);
+        model.addAttribute("coount", coount);
+        model.addAttribute("types", types);
+        model.addAttribute("level", level);
+        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
+
+        model.addAttribute("personal", personal);
+        return "editPersonal";
     }
 
-    @RequestMapping(value = "/editStates", method = RequestMethod.POST)
-    public String editPersonals(@ModelAttribute("state") StateinformationsystemEntity statesEnt, Model model) {
+    @RequestMapping(value = "/editPersonal", method = RequestMethod.POST)
+    public String editPersonals(@ModelAttribute("personal") PersonalinformationsystemEntity personal, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
-        statesEnt.setUser(user);
-        stateInformationService.saveStateInformation(statesEnt);
-        StateinformationsystehistoryEntity history = new StateinformationsystehistoryEntity();
-        stateInformationHistoryService.saveStateInformationHistory(statesEnt,history);
-        return "redirect:" + "/seeStates";
+        personal.setUser(user);
+        personalService.savePersonal(personal);
+        PersonalinformationsystemhistoryEntity history = new PersonalinformationsystemhistoryEntity();
+        personalInformationSystemHistoryService.saveHistory(personal,history);
+        return "redirect:" + "/seePersonals";
     }
 
-    @RequestMapping(value = "/{id}/deleteStates", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/deletePersonal", method = RequestMethod.GET)
     public ModelAndView deletePersonals(@PathVariable int id){
         ModelAndView model = new ModelAndView();
-        stateInformationService.deleteUser(id);
+        personalService.deletePersonal(id);
         model.setViewName("delete");
         return model;
-    }*/
+    }
 
 }
