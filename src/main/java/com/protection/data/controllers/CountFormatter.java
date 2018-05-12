@@ -15,6 +15,7 @@ public class CountFormatter implements Formatter<CountsubjectsEntity> {
     public CountsubjectsEntity parse(String s, Locale locale) throws ParseException {
         CountsubjectsEntity authority = new CountsubjectsEntity();
         String[] data = s.split("_");
+        authority.setIdCountSubjects(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +24,7 @@ public class CountFormatter implements Formatter<CountsubjectsEntity> {
     @Override
     public String print(CountsubjectsEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdCountSubjects()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }

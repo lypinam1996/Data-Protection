@@ -18,7 +18,7 @@ public class PersonalDAOImpl extends AbstractDAO<Integer, Personalinformationsys
 
     @Override
     public void deletePersonal(int id) {
-        Query query = getSession().createSQLQuery("DELETE from stateinformationsystem where idStateInformationSystem=:id");
+        Query query = getSession().createSQLQuery("DELETE from personalinformationsystem where idPersonalInformationSystem=:id");
         query.setInteger("id", id);
         query.executeUpdate();
 
@@ -26,7 +26,7 @@ public class PersonalDAOImpl extends AbstractDAO<Integer, Personalinformationsys
 
     @Override
     public int findMaxPersonal() {
-        Query query = getSession().createSQLQuery("select idStateInformationSystem from stateinformationsystem where idStateInformationSystem>=all(select idStateInformationSystem from stateinformationsystem)");
+        Query query = getSession().createSQLQuery("select idPersonalInformationSystem from personalinformationsystem where idPersonalInformationSystem>=all(select idPersonalInformationSystem from personalinformationsystem)");
         List<Integer> max = query.list();
         int result = max.get(0);
         return result;

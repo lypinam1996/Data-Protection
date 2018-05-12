@@ -15,6 +15,7 @@ public class PersonalDataFormatter implements Formatter<PersonaldataEntity> {
     public PersonaldataEntity parse(String s, Locale locale) throws ParseException {
         PersonaldataEntity authority = new PersonaldataEntity();
         String[] data = s.split("_");
+        authority.setIdPersonalData(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +24,7 @@ public class PersonalDataFormatter implements Formatter<PersonaldataEntity> {
     @Override
     public String print(PersonaldataEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdPersonalData()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }

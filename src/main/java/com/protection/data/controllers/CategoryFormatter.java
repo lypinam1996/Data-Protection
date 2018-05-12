@@ -14,7 +14,9 @@ public class CategoryFormatter implements Formatter<CategoryofsubjectEntity> {
     @Override
     public CategoryofsubjectEntity parse(String s, Locale locale) throws ParseException {
         CategoryofsubjectEntity authority = new CategoryofsubjectEntity();
+
         String[] data = s.split("_");
+        authority.setIdCategoryOfSubject(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +25,7 @@ public class CategoryFormatter implements Formatter<CategoryofsubjectEntity> {
     @Override
     public String print(CategoryofsubjectEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdCategoryOfSubject()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }

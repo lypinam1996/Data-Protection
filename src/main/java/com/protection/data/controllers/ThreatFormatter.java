@@ -15,6 +15,7 @@ public class ThreatFormatter implements Formatter<TypethreatEntity> {
     public TypethreatEntity parse(String s, Locale locale) throws ParseException {
         TypethreatEntity authority = new TypethreatEntity();
         String[] data = s.split("_");
+        authority.setIdTypeThreat(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +24,7 @@ public class ThreatFormatter implements Formatter<TypethreatEntity> {
     @Override
     public String print(TypethreatEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdTypeThreat()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }

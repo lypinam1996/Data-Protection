@@ -15,6 +15,7 @@ public class SecurtyFormatter implements Formatter<SecuritylevelEntity> {
     public SecuritylevelEntity parse(String s, Locale locale) throws ParseException {
         SecuritylevelEntity authority = new SecuritylevelEntity();
         String[] data = s.split("_");
+        authority.setIdSecuritylevel(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +24,7 @@ public class SecurtyFormatter implements Formatter<SecuritylevelEntity> {
     @Override
     public String print(SecuritylevelEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdSecuritylevel()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }

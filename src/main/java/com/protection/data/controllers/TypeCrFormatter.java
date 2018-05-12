@@ -15,6 +15,7 @@ public class TypeCrFormatter implements Formatter<TypeofcryptoprotectionEntity> 
     public TypeofcryptoprotectionEntity parse(String s, Locale locale) throws ParseException {
         TypeofcryptoprotectionEntity authority = new TypeofcryptoprotectionEntity();
         String[] data = s.split("_");
+        authority.setIdtypeOfCryptoProtection(Integer.parseInt(data[0]));
         authority.setTitle(data[1]);
         return authority;
 
@@ -23,7 +24,7 @@ public class TypeCrFormatter implements Formatter<TypeofcryptoprotectionEntity> 
     @Override
     public String print(TypeofcryptoprotectionEntity authoritiesEntity, Locale locale) {
         String res="";
-       // res = String.valueOf(authoritiesEntity.getIdAuthorities()) + "_" + authoritiesEntity.getTitleAuthorities();
+        res = String.valueOf(authoritiesEntity.getIdtypeOfCryptoProtection()) + "_" + authoritiesEntity.getTitle();
         return res;
     }
 }
