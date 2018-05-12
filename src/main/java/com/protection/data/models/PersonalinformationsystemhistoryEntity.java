@@ -30,7 +30,7 @@ public class PersonalinformationsystemhistoryEntity {
     private String legalActAboutExploitation;
     private String numberAboutExploitation;
     private Date dateAboutExploitation;
-    private Timestamp commissioning;
+    private Date commissioning;
     private String personSecuritylevel;
     private Date dateSecuritylevel;
     private String cryptoProtection;
@@ -39,7 +39,7 @@ public class PersonalinformationsystemhistoryEntity {
     private String numberRegister;
     private Date dateRegister;
     private String threatsResults;
-    private Timestamp threatsResultsDate;
+    private Date threatsResultsDate;
     private String threatsResultsNumber;
     private Date dateOfAttestation;
     private String attestation;
@@ -57,6 +57,17 @@ public class PersonalinformationsystemhistoryEntity {
     private SecuritylevelEntity securitylevelByIdSecuritylevel;
     private YesnoEntity yesnoByIdyesno2;
     private PersonalinformationsystemEntity personalinformationsystemByIdPersonalInformationSystem;
+    private Date dateUpdate;
+
+    @Basic
+    @Column(name = "dateUpdate")
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(Date dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
 
     @Id
     @Column(name = "idPersonalInformationSystemHistory")
@@ -260,11 +271,11 @@ public class PersonalinformationsystemhistoryEntity {
 
     @Basic
     @Column(name = "commissioning")
-    public Timestamp getCommissioning() {
+    public Date getCommissioning() {
         return commissioning;
     }
 
-    public void setCommissioning(Timestamp commissioning) {
+    public void setCommissioning(Date commissioning) {
         this.commissioning = commissioning;
     }
 
@@ -350,11 +361,11 @@ public class PersonalinformationsystemhistoryEntity {
 
     @Basic
     @Column(name = "threatsResultsDate")
-    public Timestamp getThreatsResultsDate() {
+    public Date getThreatsResultsDate() {
         return threatsResultsDate;
     }
 
-    public void setThreatsResultsDate(Timestamp threatsResultsDate) {
+    public void setThreatsResultsDate(Date threatsResultsDate) {
         this.threatsResultsDate = threatsResultsDate;
     }
 

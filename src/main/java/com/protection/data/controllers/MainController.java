@@ -39,6 +39,9 @@ public class MainController {
     StateInformationService stateInformationService;
 
     @Autowired
+    PersonalService personalService;
+
+    @Autowired
     OfficialHistoryService officialhistoryService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -59,8 +62,11 @@ public class MainController {
             modelAndView.addObject("count2", count2);
             List<StateinformationsystemEntity> states   = stateInformationService.findStateInformation(user);
             int count3 = states.size();
+            List<PersonalinformationsystemEntity> personal   = personalService.findPersonal(user);
+            int count4 = personal.size();
              modelAndView.addObject("states", states);
             modelAndView.addObject("count3", count3);
+            modelAndView.addObject("count4", count4);
             modelAndView.setViewName("mainPage");
         }
         return modelAndView;

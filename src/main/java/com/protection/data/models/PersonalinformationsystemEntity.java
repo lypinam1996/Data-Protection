@@ -28,7 +28,7 @@ public class PersonalinformationsystemEntity {
     private String legalActAboutExploitation;
     private String numberAboutExploitation;
     private Date dateAboutExploitation;
-    private Timestamp commissioning;
+    private Date commissioning;
     private String personSecuritylevel;
     private Date dateSecuritylevel;
     private String cryptoProtection;
@@ -37,7 +37,7 @@ public class PersonalinformationsystemEntity {
     private String numberRegister;
     private Date dateRegister;
     private String threatsResults;
-    private Timestamp threatsResultsDate;
+    private Date threatsResultsDate;
     private String threatsResultsNumber;
     private Date dateOfAttestation;
     private String attestation;
@@ -269,11 +269,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "commissioning")
-    public Timestamp getCommissioning() {
+    public Date getCommissioning() {
         return commissioning;
     }
 
-    public void setCommissioning(Timestamp commissioning) {
+    public void setCommissioning(Date commissioning) {
         this.commissioning = commissioning;
     }
 
@@ -359,11 +359,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "threatsResultsDate")
-    public Timestamp getThreatsResultsDate() {
+    public Date getThreatsResultsDate() {
         return threatsResultsDate;
     }
 
-    public void setThreatsResultsDate(Timestamp threatsResultsDate) {
+    public void setThreatsResultsDate(Date threatsResultsDate) {
         this.threatsResultsDate = threatsResultsDate;
     }
 
