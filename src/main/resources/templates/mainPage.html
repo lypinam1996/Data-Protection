@@ -68,6 +68,19 @@
                 </p>
             </div>
         </tr>
+        <tr>
+            <td >Текущее и планируемое финансирование мероприятий
+            </td>
+            <div th:switch="${count5}">
+                <p th:case="0">
+                <td><a th:href="@{'/addFinancing'}">Добавить</a></td>
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{'/addFinancing'}">Добавить</a></td>
+                <td><a th:href="@{'/seeFinancing'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
     </table>
 </div>
 

@@ -40,6 +40,8 @@ public class MainController {
 
     @Autowired
     PersonalService personalService;
+    @Autowired
+    FinancinService financinService;
 
     @Autowired
     OfficialHistoryService officialhistoryService;
@@ -64,9 +66,12 @@ public class MainController {
             int count3 = states.size();
             List<PersonalinformationsystemEntity> personal   = personalService.findPersonal(user);
             int count4 = personal.size();
+            List<FinancingEntity> financing   = financinService.findFinancing(user);
+            int count5 = financing.size();
              modelAndView.addObject("states", states);
             modelAndView.addObject("count3", count3);
             modelAndView.addObject("count4", count4);
+            modelAndView.addObject("count5", count5);
             modelAndView.setViewName("mainPage");
         }
         return modelAndView;

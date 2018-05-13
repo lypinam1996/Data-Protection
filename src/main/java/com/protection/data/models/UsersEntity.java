@@ -31,6 +31,16 @@ public class UsersEntity {
     private List<SpecialistshistoryEntity> specialistshistory;
     private List<StateinformationsystemEntity> stateinformationsystem;
     private List<PersonalinformationsystemEntity> personalinformationsystem;
+    private List<FinancingEntity> financing;
+
+    @OneToMany(mappedBy = "user")
+    public List<FinancingEntity> getFinancing() {
+        return financing;
+    }
+
+    public void setFinancing(List<FinancingEntity> financing) {
+        this.financing = financing;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<PersonalinformationsystemEntity> getPersonalinformationsystem() {

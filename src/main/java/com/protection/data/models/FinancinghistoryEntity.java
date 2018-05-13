@@ -1,42 +1,34 @@
 package com.protection.data.models;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Collection;
+import java.sql.Date;
 
+/**
+ * Created by lypin on 12.05.2018.
+ */
 @Entity
-@Table(name = "financing", schema = "dataprotection", catalog = "")
-public class FinancingEntity {
-    private int idFinancing;
+@Table(name = "financinghistory", schema = "dataprotection", catalog = "")
+public class FinancinghistoryEntity {
+    private int idfinancinghistory;
     private String sSThisYear;
     private String sSNextYear;
     private String nosSThisYear;
     private String nosSNextYear;
     private String personalInformationThisYear;
     private String personalInformationNextYear;
-    private Collection<FinancinghistoryEntity> financinghistoriesByIdFinancing;
-    private UsersEntity user;
+    private FinancingEntity financingByIdFinancing;
     private String allThisYear;
     private String allNextYear;
-
-    @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    public UsersEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
+    private Date updateDate;
 
     @Id
-    @Column(name = "idFinancing")
-    public int getIdFinancing() {
-        return idFinancing;
+    @Column(name = "idfinancinghistory")
+    public int getIdfinancinghistory() {
+        return idfinancinghistory;
     }
 
-    public void setIdFinancing(int idFinancing) {
-        this.idFinancing = idFinancing;
+    public void setIdfinancinghistory(int idfinancinghistory) {
+        this.idfinancinghistory = idfinancinghistory;
     }
 
     @Basic
@@ -104,9 +96,9 @@ public class FinancingEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FinancingEntity that = (FinancingEntity) o;
+        FinancinghistoryEntity that = (FinancinghistoryEntity) o;
 
-        if (idFinancing != that.idFinancing) return false;
+        if (idfinancinghistory != that.idfinancinghistory) return false;
         if (sSThisYear != null ? !sSThisYear.equals(that.sSThisYear) : that.sSThisYear != null) return false;
         if (sSNextYear != null ? !sSNextYear.equals(that.sSNextYear) : that.sSNextYear != null) return false;
         if (nosSThisYear != null ? !nosSThisYear.equals(that.nosSThisYear) : that.nosSThisYear != null) return false;
@@ -116,30 +108,29 @@ public class FinancingEntity {
         if (personalInformationNextYear != null ? !personalInformationNextYear.equals(that.personalInformationNextYear) : that.personalInformationNextYear != null)
             return false;
 
-
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idFinancing;
+        int result = idfinancinghistory;
         result = 31 * result + (sSThisYear != null ? sSThisYear.hashCode() : 0);
         result = 31 * result + (sSNextYear != null ? sSNextYear.hashCode() : 0);
         result = 31 * result + (nosSThisYear != null ? nosSThisYear.hashCode() : 0);
         result = 31 * result + (nosSNextYear != null ? nosSNextYear.hashCode() : 0);
         result = 31 * result + (personalInformationThisYear != null ? personalInformationThisYear.hashCode() : 0);
         result = 31 * result + (personalInformationNextYear != null ? personalInformationNextYear.hashCode() : 0);
-
         return result;
     }
 
-    @OneToMany(mappedBy = "financingByIdFinancing")
-    public Collection<FinancinghistoryEntity> getFinancinghistoriesByIdFinancing() {
-        return financinghistoriesByIdFinancing;
+    @ManyToOne
+    @JoinColumn(name = "idFinancing", referencedColumnName = "idFinancing")
+    public FinancingEntity getFinancingByIdFinancing() {
+        return financingByIdFinancing;
     }
 
-    public void setFinancinghistoriesByIdFinancing(Collection<FinancinghistoryEntity> financinghistoriesByIdFinancing) {
-        this.financinghistoriesByIdFinancing = financinghistoriesByIdFinancing;
+    public void setFinancingByIdFinancing(FinancingEntity financingByIdFinancing) {
+        this.financingByIdFinancing = financingByIdFinancing;
     }
 
     @Basic
@@ -160,5 +151,15 @@ public class FinancingEntity {
 
     public void setAllNextYear(String allNextYear) {
         this.allNextYear = allNextYear;
+    }
+
+    @Basic
+    @Column(name = "updateDate")
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }
