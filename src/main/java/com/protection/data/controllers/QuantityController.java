@@ -43,13 +43,31 @@ public class QuantityController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/{id1}/{id}/seeQuantity", method = RequestMethod.GET)
+    public ModelAndView getQuantities2(Model model,@PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ModelAndView modelAndView = new ModelAndView();
+        List<QuantityEntity> quantities = quantityService.findQuantities(user);
+        modelAndView.addObject("quantities", quantities);
+        modelAndView.setViewName("seeQuantity2");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/seeHistoryQuantity", method = RequestMethod.GET)
     public ModelAndView getHistoryOfficials(@PathVariable String id) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
         QuantityEntity quantityEntity = quantityService.findById(Integer.parseInt(id));
-        List<QuantityhistoryEntity> history = quantityHistoryService.findQuantities(user,quantityEntity);
+        List<QuantityhistoryEntity> history = quantityHistoryService.findQuantities(quantityEntity);
+        modelAndView.addObject("quantities", history);
+        modelAndView.setViewName("/seeHistoryQuantity");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryQuantity", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficials2(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        QuantityEntity quantityEntity = quantityService.findById(Integer.parseInt(id));
+        List<QuantityhistoryEntity> history = quantityHistoryService.findQuantities(quantityEntity);
         modelAndView.addObject("quantities", history);
         modelAndView.setViewName("/seeHistoryQuantity");
         return modelAndView;
@@ -70,7 +88,6 @@ public class QuantityController {
         quantity.setUser(user);
         quantityService.saveQuantity(quantity);
         QuantityhistoryEntity quantityhistory = new QuantityhistoryEntity();
-        quantityhistory.setUser(user);
         int max = quantityService.findMaxOfficial();
         QuantityEntity newQuantity = quantityService.findById(max);
         quantityHistoryService.saveQuantity(newQuantity,quantityhistory);
@@ -90,20 +107,35 @@ public class QuantityController {
         return model;
     }
 
+    @RequestMapping(value = "/{id1}/{id2}/{id}/editQuantity", method = RequestMethod.GET)
+    public ModelAndView addOfficials2(@PathVariable String id) {
+        QuantityEntity quantity = quantityService.findById(Integer.parseInt(id));
+        ModelAndView model = new ModelAndView();
+        model.addObject("quantity", quantity);
+        model.setViewName("editQuantity");
+        return model;
+    }
+
+
     @RequestMapping(value = "/editQuantity", method = RequestMethod.POST)
     public String editOfficial(@ModelAttribute("quantity") QuantityEntity quantity, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+        UsersEntity user = userService.FindByLogin(quantity.getUser().getLogin());
         quantity.setUser(user);
         quantityService.saveQuantity(quantity);
         QuantityhistoryEntity quantityhistory = new QuantityhistoryEntity();
-        quantityhistory.setUser(user);
         quantityHistoryService.saveQuantity(quantity,quantityhistory);
-        return "redirect:" + "/seeQuantity";
+        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeQuantity";
     }
 
     @RequestMapping(value = "/{id}/deleteQuantity", method = RequestMethod.GET)
     public ModelAndView deleteQuantity(@PathVariable int id){
+        ModelAndView model = new ModelAndView();
+        quantityService.deleteQuantity(id);
+        model.setViewName("delete");
+        return model;
+    }
+    @RequestMapping(value = "/{id2}/{id3}/{id}/deleteQuantity", method = RequestMethod.GET)
+    public ModelAndView deleteQuantity2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         quantityService.deleteQuantity(id);
         model.setViewName("delete");

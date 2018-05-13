@@ -12,7 +12,6 @@ public class QuantityhistoryEntity {
     private String nonStandard;
     private String subdivision;
     private Date dateUpdate;
-    private UsersEntity user;
     private QuantityEntity quantitise;
 
     @ManyToOne
@@ -26,15 +25,6 @@ public class QuantityhistoryEntity {
     }
 
 
-    @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    public UsersEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
 
     @Id
     @Column(name = "idQuantityHistory")

@@ -34,7 +34,7 @@ public class FinancingServiceImpl implements FinancinService{
 
     @Override
     public List<FinancingEntity> findFinancing(UsersEntity user) {
-        return financingDAO.findAllFinancing();
+        return financingDAO.findFinancing(user);
     }
 
     @Override

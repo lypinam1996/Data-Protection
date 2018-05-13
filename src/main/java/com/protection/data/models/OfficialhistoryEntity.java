@@ -20,7 +20,6 @@ public class OfficialhistoryEntity {
     private String year;
     private String remark;
     private Date updateDate;
-    private UsersEntity user;
     private OfficialEntity officials;
 
     @ManyToOne
@@ -33,15 +32,6 @@ public class OfficialhistoryEntity {
         this.officials = officials;
     }
 
-    @ManyToOne
-   @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    public UsersEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
 
     @Id
     @Column(name = "idOfficialHistory")

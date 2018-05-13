@@ -35,7 +35,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter{
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .usersByUsernameQuery("select login, password, idStatus from Users  where login=?")
-                .authoritiesByUsernameQuery("select u.login, s.title from Users u join Statuses s on(u.idStatus = s.idStatus) where u.login=?").dataSource(dataSource).passwordEncoder(passwordEncoder);
+                .authoritiesByUsernameQuery("select u.login, s.title from Users u join Statuses s on(u.idStatus = s.idStatus) where u.login=? and control=2").dataSource(dataSource).passwordEncoder(passwordEncoder);
     }
 
 

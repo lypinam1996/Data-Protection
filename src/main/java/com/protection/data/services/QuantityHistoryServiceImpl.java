@@ -3,7 +3,6 @@ package com.protection.data.services;
 import com.protection.data.DAO.QuantityHistoryDAO;
 import com.protection.data.models.QuantityEntity;
 import com.protection.data.models.QuantityhistoryEntity;
-import com.protection.data.models.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +33,8 @@ public class QuantityHistoryServiceImpl implements QuantityHistoryService{
     }
 
     @Override
-    public List<QuantityhistoryEntity> findQuantities(UsersEntity user, QuantityEntity quantityEntity) {
-        return quantity.findQuantities(user,quantityEntity);
+    public List<QuantityhistoryEntity> findQuantities( QuantityEntity quantityEntity) {
+        return quantity.findQuantities(quantityEntity);
     }
 
     @Override

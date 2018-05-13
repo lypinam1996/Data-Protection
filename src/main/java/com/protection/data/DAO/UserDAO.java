@@ -12,4 +12,5 @@ public interface UserDAO {
     List<UsersEntity> findAllUsersWhereControlEquals1();
     void confirmRegistration(UsersEntity user);
     void deleteUser(int id_lock);
+    List<UsersEntity> findAllUsersWhereControlEquals2();
 }

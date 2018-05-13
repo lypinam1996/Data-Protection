@@ -24,10 +24,8 @@ public class UsersEntity {
     private AuthoritiesEntity authority;
     private int control;
     private List<OfficialEntity> officials;
-    private List<OfficialhistoryEntity> officialsHistory;
     private List<SpecialistsEntity> specialists;
     private List<QuantityEntity> quantities;
-    private List<QuantityhistoryEntity> quantityhistory;
     private List<SpecialistshistoryEntity> specialistshistory;
     private List<StateinformationsystemEntity> stateinformationsystem;
     private List<PersonalinformationsystemEntity> personalinformationsystem;
@@ -69,14 +67,6 @@ public class UsersEntity {
         this.specialistshistory = specialistshistory;
     }
 
-    @OneToMany(mappedBy = "user")
-    public List<QuantityhistoryEntity> getQuantityhistory() {
-        return quantityhistory;
-    }
-
-    public void setQuantityhistory(List<QuantityhistoryEntity> quantityhistory) {
-        this.quantityhistory = quantityhistory;
-    }
 
     @OneToMany(mappedBy = "user")
     public List<QuantityEntity> getQuantities() {
@@ -95,18 +85,6 @@ public class UsersEntity {
     public void setSpecialists(List<SpecialistsEntity> specialists) {
         this.specialists = specialists;
     }
-
-    @OneToMany(mappedBy = "user")
-    public List<OfficialhistoryEntity> getOfficialsHistory() {
-        return officialsHistory;
-    }
-
-    public void setOfficialsHistory(List<OfficialhistoryEntity> officialsHistory) {
-        this.officialsHistory = officialsHistory;
-    }
-
-
-
 
     @OneToMany(mappedBy = "user")
     public List<OfficialEntity> getOfficials() {

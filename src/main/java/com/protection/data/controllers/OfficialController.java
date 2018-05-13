@@ -44,18 +44,37 @@ public class OfficialController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/{id1}/{id}/seeOfficials", method = RequestMethod.GET)
+    public ModelAndView getOfficials2(Model model,@PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ModelAndView modelAndView = new ModelAndView();
+        List<OfficialEntity> officials = officialService.findOfficials(user);
+        modelAndView.addObject("officials", officials);
+        modelAndView.setViewName("seeOfficials");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/seeHistoryOfficials", method = RequestMethod.GET)
     public ModelAndView getHistoryOfficials(@PathVariable String id) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
         OfficialEntity officialEntity = officialService.findById(Integer.parseInt(id));
-        List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(user,officialEntity);
+        List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(officialEntity);
         modelAndView.addObject("officials", history);
         modelAndView.setViewName("/seeHistoryOfficials");
         return modelAndView;
     }
 
+
+
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryOfficials", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficials2(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        OfficialEntity officialEntity = officialService.findById(Integer.parseInt(id));
+        List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(officialEntity);
+        modelAndView.addObject("officials", history);
+        modelAndView.setViewName("/seeHistoryOfficials");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/addOfficials", method = RequestMethod.GET)
     public String getSongs(Model model) {
@@ -72,7 +91,6 @@ public class OfficialController {
         officialService.saveOfficial(official);
         OfficialEntity official2 = new OfficialEntity();
         OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
-        officialhistory.setUser(user);
         int max = officialService.findMaxOfficial();
         OfficialEntity newOfficial = officialService.findById(max);
         officialhistoryService.saveOfficial(newOfficial,officialhistory);
@@ -91,20 +109,35 @@ public class OfficialController {
         return model;
     }
 
+    @RequestMapping(value = "/{id1}/{id2}/{id}/editOfficials", method = RequestMethod.GET)
+    public ModelAndView addOfficials2(@PathVariable String id) {
+        OfficialEntity official = officialService.findById(Integer.parseInt(id));
+        ModelAndView model = new ModelAndView();
+        model.addObject("official", official);
+        model.setViewName("editOfficials");
+        return model;
+    }
+
     @RequestMapping(value = "/editOfficials", method = RequestMethod.POST)
     public String editOfficial(@ModelAttribute("official") OfficialEntity official, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+        UsersEntity user = userService.FindByLogin(official.getUser().getLogin());
         official.setUser(user);
         officialService.saveOfficial(official);
         OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
-        officialhistory.setUser(user);
         officialhistoryService.saveOfficial(official,officialhistory);
-        return "redirect:" + "/seeOfficials";
+        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeOfficials";
     }
 
     @RequestMapping(value = "/{id}/deleteOfficials", method = RequestMethod.GET)
     public ModelAndView deleteOfficial(@PathVariable int id){
+        ModelAndView model = new ModelAndView();
+        officialService.deleteUser(id);
+        model.setViewName("delete");
+        return model;
+    }
+
+    @RequestMapping(value = "/{id2}/{id1}/{id}/deleteOfficials", method = RequestMethod.GET)
+    public ModelAndView deleteOfficial2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         officialService.deleteUser(id);
         model.setViewName("delete");

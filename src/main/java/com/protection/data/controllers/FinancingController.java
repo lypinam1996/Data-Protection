@@ -47,8 +47,28 @@ public class FinancingController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/{id1}/{id}/seeFinancing", method = RequestMethod.GET)
+    public ModelAndView getAllFinancing2(Model model,@PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ModelAndView modelAndView = new ModelAndView();
+        List<FinancingEntity> financing = financinService.findFinancing(user);
+        modelAndView.addObject("financing", financing);
+        modelAndView.setViewName("seeFinancing");
+        return modelAndView;
+    }
+
    @RequestMapping(value = "/{id}/seeHistoryFinancing", method = RequestMethod.GET)
     public ModelAndView getHistoryFinancing(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        FinancingEntity financing = financinService.findById(Integer.parseInt(id));
+        List<FinancinghistoryEntity> history = financingHistoryService.findFinancing(financing);
+        modelAndView.addObject("financing", history);
+        modelAndView.setViewName("seeHistoryFinancing");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryFinancing", method = RequestMethod.GET)
+    public ModelAndView getHistoryFinancing2(@PathVariable String id) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         FinancingEntity financing = financinService.findById(Integer.parseInt(id));
         List<FinancinghistoryEntity> history = financingHistoryService.findFinancing(financing);
@@ -90,19 +110,33 @@ public class FinancingController {
         return "editFinancing";
     }
 
+    @RequestMapping(value = "/{id1}/{id2}/{id}/editFinancing", method = RequestMethod.GET)
+    public String addFinancing2(@PathVariable String id, Model model) {
+        FinancingEntity financing = financinService.findById(Integer.parseInt(id));
+        model.addAttribute("financing", financing);
+        return "editFinancing";
+    }
+
     @RequestMapping(value = "/editFinancing", method = RequestMethod.POST)
     public String editFinancing(@ModelAttribute("financing") FinancingEntity financing, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+        UsersEntity user = userService.FindByLogin(financing.getUser().getLogin());
         financing.setUser(user);
         financinService.saveFinancing(financing);
         FinancinghistoryEntity history = new FinancinghistoryEntity();
         financingHistoryService.saveFinancing(financing,history);
-        return "redirect:" + "/seeFinancing";
+        return "redirect:/"+ user.getIdUser()+"/"+ user.getIdUser()+"/seeFinancing";
     }
 
-    @RequestMapping(value = "/{id}/deleteFinancing", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/{id3}/{id2}/{id}/deleteFinancing", method = RequestMethod.GET)
     public ModelAndView deleteFinancing(@PathVariable int id){
+        ModelAndView model = new ModelAndView();
+        financinService.deleteFinancing(id);
+        model.setViewName("delete");
+        return model;
+    }
+    @RequestMapping(value = "/{id}/deleteFinancing", method = RequestMethod.GET)
+    public ModelAndView deleteFinancing2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         financinService.deleteFinancing(id);
         model.setViewName("delete");

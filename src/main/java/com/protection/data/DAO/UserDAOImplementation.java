@@ -44,6 +44,14 @@ public class UserDAOImplementation extends AbstractDAO<Integer,UsersEntity> impl
     }
 
     @Override
+    public List<UsersEntity> findAllUsersWhereControlEquals2(){
+        Criteria criteria = getSession().createCriteria(UsersEntity.class);
+        criteria.add(Restrictions.eq("control", 2));
+        return (List<UsersEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
+
+
+    @Override
     public void confirmRegistration(UsersEntity user){
         Criteria criteria = getSession().createCriteria(UsersEntity.class);
         criteria.add(Restrictions.eq("idUser", user.getIdUser()));

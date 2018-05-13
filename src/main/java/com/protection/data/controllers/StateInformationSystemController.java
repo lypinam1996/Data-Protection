@@ -48,8 +48,28 @@ public class StateInformationSystemController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/{id1}/{id}/seeStates", method = RequestMethod.GET)
+    public ModelAndView getStates2(Model model,@PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ModelAndView modelAndView = new ModelAndView();
+        List<StateinformationsystemEntity> states = stateInformationService.findStateInformation(user);
+        modelAndView.addObject("states", states);
+        modelAndView.setViewName("seeStates");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/seeHistiryStates", method = RequestMethod.GET)
     public ModelAndView getHistoryStates(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
+        modelAndView.addObject("states", history);
+        modelAndView.setViewName("seeHistoryStates");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistiryStates", method = RequestMethod.GET)
+    public ModelAndView getHistoryStates2(@PathVariable String id) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
         List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
@@ -95,19 +115,34 @@ public class StateInformationSystemController {
         return model;
     }
 
+    @RequestMapping(value = "/{id1}/{id2}/{id}/editStates", method = RequestMethod.GET)
+    public ModelAndView addStates2(@PathVariable String id) {
+        StateinformationsystemEntity state = stateInformationService.findById(Integer.parseInt(id));
+        ModelAndView model = new ModelAndView();
+        model.addObject("state", state);
+        model.setViewName("editStates");
+        return model;
+    }
+
     @RequestMapping(value = "/editStates", method = RequestMethod.POST)
     public String editOfficial(@ModelAttribute("state") StateinformationsystemEntity statesEnt, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+        UsersEntity user = userService.FindByLogin(statesEnt.getUser().getLogin());
         statesEnt.setUser(user);
         stateInformationService.saveStateInformation(statesEnt);
         StateinformationsystehistoryEntity history = new StateinformationsystehistoryEntity();
         stateInformationHistoryService.saveStateInformationHistory(statesEnt,history);
-        return "redirect:" + "/seeStates";
+        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeStates";
     }
 
     @RequestMapping(value = "/{id}/deleteStates", method = RequestMethod.GET)
     public ModelAndView deleteState(@PathVariable int id){
+        ModelAndView model = new ModelAndView();
+        stateInformationService.deleteUser(id);
+        model.setViewName("delete");
+        return model;
+    }
+    @RequestMapping(value = "/{id3}/{id2}/{id}/deleteStates", method = RequestMethod.GET)
+    public ModelAndView deleteState2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         stateInformationService.deleteUser(id);
         model.setViewName("delete");

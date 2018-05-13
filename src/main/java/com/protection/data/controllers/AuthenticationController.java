@@ -8,8 +8,6 @@ import com.protection.data.services.AuthorityService;
 import com.protection.data.services.SubjectService;
 import com.protection.data.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,7 +34,7 @@ public class AuthenticationController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return modelAndView;
     }
 
@@ -79,8 +77,7 @@ public class AuthenticationController {
 
     @RequestMapping("/")
     String index() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.print(auth.getName());
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return "index";
     }
 }

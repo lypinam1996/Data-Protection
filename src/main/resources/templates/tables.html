@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
+<head>
+    <title>MainPage</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
+</form>
+
+<div class="container" style="margin-top: 50px">
+    <h3 align="center">Таблицы для заполнения</h3>
+    <table class="table table-hover" th:object="${users}">
+        <tr>
+            <td >Сведения о должностных лицах, в полномочие которых входит руководство деятельностью по защите информации.</td>
+            <div th:switch="${count}">
+                <p th:case="0">
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{${users.idUser}+'/seeOfficials'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
+        <tr>
+            <td >Сведения о структурных подразделениях, штатных специалиста, нештатных специалистах (ответственных должностных лицах) по защите информации.</td>
+            <div th:switch="${count2}">
+                <p th:case="0"><td></td>
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{${users.idUser}+'/seeQuantity'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
+
+        <tr>
+            <td >Сведения о государственных информационных системах и (или) отдельных их частях.</td>
+            <div th:switch="${count3}">
+                <p th:case="0"><td></td>
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{${users.idUser}+'/seeStates'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
+        <tr>
+            <td >Сведения об информационных системах персональных данных и (или) отдельных их частях.</td>
+            <div th:switch="${count4}">
+                <p th:case="0"><td></td>
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{${users.idUser}+'/seePersonals'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
+        <tr>
+            <td >Текущее и планируемое финансирование мероприятий
+            </td>
+            <div th:switch="${count5}">
+                <p th:case="0"><td></td>
+                </p>
+                <p th:case="*">
+                <td><a th:href="@{${users.idUser}+'/seeFinancing'}">Просмотреть</a></td>
+                </p>
+            </div>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

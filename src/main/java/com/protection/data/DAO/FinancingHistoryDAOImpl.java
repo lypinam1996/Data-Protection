@@ -41,7 +41,7 @@ public class FinancingHistoryDAOImpl extends AbstractDAO<Integer,Financinghistor
 
     @Override
     public void deleteFinancing(int id) {
-        Query query = getSession().createSQLQuery("DELETE from quantity where idQuantity=:id");
+        Query query = getSession().createSQLQuery("DELETE from financing where idFinancing=:id");
         query.setInteger("id", id);
         query.executeUpdate();
     }

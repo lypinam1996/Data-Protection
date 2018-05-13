@@ -2,7 +2,6 @@ package com.protection.data.DAO;
 
 import com.protection.data.models.QuantityEntity;
 import com.protection.data.models.QuantityhistoryEntity;
-import com.protection.data.models.UsersEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -36,9 +35,8 @@ public class QuantityHistoryDAOImpl extends AbstractDAO<Integer,QuantityhistoryE
     }
 
     @Override
-    public List<QuantityhistoryEntity> findQuantities(UsersEntity user, QuantityEntity quantityEntity){
+    public List<QuantityhistoryEntity> findQuantities( QuantityEntity quantityEntity){
         Criteria criteria = getSession().createCriteria(QuantityhistoryEntity.class);
-        criteria.add(Restrictions.eq("user", user));
         criteria.add(Restrictions.eq("quantitise",quantityEntity));
         return (List<QuantityhistoryEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }

@@ -53,8 +53,30 @@ public class PersonalController {
         return modelAndView;
     }
 
+
+
+    @RequestMapping(value = "/{id1}/{id}/seePersonals", method = RequestMethod.GET)
+    public ModelAndView getAllPersonals2(Model model,@PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ModelAndView modelAndView = new ModelAndView();
+        List<PersonalinformationsystemEntity> personal = personalService.findPersonal(user);
+        modelAndView.addObject("personals", personal);
+        modelAndView.setViewName("seePersonals");
+        return modelAndView;
+    }
+
    @RequestMapping(value = "/{id}/seeHistoryPersonals", method = RequestMethod.GET)
     public ModelAndView getHistoryPersonals(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
+        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
+        modelAndView.addObject("personals", history);
+        modelAndView.setViewName("seeHistoryPersonals");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryPersonals", method = RequestMethod.GET)
+    public ModelAndView getHistoryPersonals2(@PathVariable String id) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
         List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
@@ -121,15 +143,34 @@ public class PersonalController {
         return "editPersonal";
     }
 
+    @RequestMapping(value = "/{id2}/{id1}/{id}/editPersonal", method = RequestMethod.GET)
+    public String addPersonals2(@PathVariable String id, Model model) {
+        List<PersonaldataEntity>  data= personalDataService.findAll();
+        List<CategoryofsubjectEntity>  category= categoryOfSubjectService.findAll();
+        List<YesnoEntity>  yesno= yesNoService.findAll();
+        List<CountsubjectsEntity>  coount= countSubjectsService.findAll();
+        List<TypethreatEntity>  types= typeThreatService.findAll();
+        List<SecuritylevelEntity>  level= securityLevelService.findAll();
+        model.addAttribute("data", data);
+        model.addAttribute("category", category);
+        model.addAttribute("yesno", yesno);
+        model.addAttribute("coount", coount);
+        model.addAttribute("types", types);
+        model.addAttribute("level", level);
+        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
+
+        model.addAttribute("personal", personal);
+        return "editPersonal";
+    }
+
     @RequestMapping(value = "/editPersonal", method = RequestMethod.POST)
     public String editPersonals(@ModelAttribute("personal") PersonalinformationsystemEntity personal, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersEntity user = userService.FindByLogin(auth.getName());
+        UsersEntity user = userService.FindByLogin(personal.getUser().getLogin());
         personal.setUser(user);
         personalService.savePersonal(personal);
         PersonalinformationsystemhistoryEntity history = new PersonalinformationsystemhistoryEntity();
         personalInformationSystemHistoryService.saveHistory(personal,history);
-        return "redirect:" + "/seePersonals";
+        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seePersonals";
     }
 
     @RequestMapping(value = "/{id}/deletePersonal", method = RequestMethod.GET)
@@ -139,5 +180,14 @@ public class PersonalController {
         model.setViewName("delete");
         return model;
     }
+
+    @RequestMapping(value = "/{id2}/{id3}/{id}/deletePersonal", method = RequestMethod.GET)
+    public ModelAndView deletePersonals2(@PathVariable int id){
+        ModelAndView model = new ModelAndView();
+        personalService.deletePersonal(id);
+        model.setViewName("delete");
+        return model;
+    }
+
 
 }

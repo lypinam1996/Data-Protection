@@ -37,6 +37,10 @@
                                class="form-control"/>
         </div>
         <div class="form-group">
+            <input type="hidden" th:field="*{user.login}" placeholder="Наименование должности"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
             ИСПДн является государственной (муниципальной) системой?
             <select class="form-control" th:field="*{yesnoByIdYesNo}" placeholder="Класс защищённости">
                 <option th:each="yesnoByIdYesNo:${yesno}" th:value="${{yesnoByIdYesNo}}" th:text="${yesnoByIdYesNo.title}">

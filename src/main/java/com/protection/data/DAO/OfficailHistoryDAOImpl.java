@@ -2,7 +2,6 @@ package com.protection.data.DAO;
 
 import com.protection.data.models.OfficialEntity;
 import com.protection.data.models.OfficialhistoryEntity;
-import com.protection.data.models.UsersEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -36,9 +35,8 @@ public class OfficailHistoryDAOImpl extends AbstractDAO<Integer,OfficialhistoryE
     }
 
     @Override
-    public List<OfficialhistoryEntity> findOfficials(UsersEntity user,OfficialEntity officialEntity){
+    public List<OfficialhistoryEntity> findOfficials(OfficialEntity officialEntity){
         Criteria criteria = getSession().createCriteria(OfficialhistoryEntity.class);
-        criteria.add(Restrictions.eq("user", user));
         criteria.add(Restrictions.eq("officials",officialEntity));
         return (List<OfficialhistoryEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }

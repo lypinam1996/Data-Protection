@@ -53,6 +53,11 @@ public class UserServiceImplementation implements UserService {
         userDao.saveUser(user);
     }
 
+    @Override
+    public List<UsersEntity> findAllUsersWhereControlEquals2() {
+        return userDao.findAllUsersWhereControlEquals2();
+    }
+
 
     @Override
     public List<UsersEntity> findAllUsersWhereControlEquals1() {

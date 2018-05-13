@@ -1,4 +1,4 @@
-package com.protection.data.controllers;
+package com.protection.data.controllers.Formatters;
 
 import com.protection.data.models.SpecialistshistoryEntity;
 import org.slf4j.Logger;
