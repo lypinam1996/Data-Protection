@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
+<head>
+    <title>Officials</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<form th:action="@{/home}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
+    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
+</form>
+<form th:action="@{/logout}" method="post" style="position: fixed; right: 0px;left: 0px;top:38px">
+    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
+</form>
+<div style="margin-top: 100px">
+        <h3 align="center">Сведения о должностных лицах,
+            в полномочии которых входит руководство деятельностью по защите информации, которые вы уже ввели.</h3>
+        <table class="table table-hover" style="font-size: 8pt">
+            <tr>
+                <td>Субъект РФ</td>
+                <td>Наименование органа власти</td>
+                <td>Почтовый адрес</td>
+                <td>Наименование должности</td>
+                <td>Фамилия</td>
+                <td>Имя</td>
+                <td>Отчество</td>
+                <td>Дата рождения</td>
+                <td>Контактный телефон</td>
+                <td>e-mail</td>
+                <td>Наименование высшего учебного заведения, где обучался</td>
+                <td>Специальность по диплому</td>
+                <td>Год окончания</td>
+                <td>Примечание</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr th:each="o : ${officials}">
+                <td th:text="${o.user.subject.titleSubject}">&nbsp;</td>
+                <td th:text="${o.user.authority.titleAuthorities}">&nbsp;</td>
+                <td th:text="${o.user.mailingAddress}">&nbsp;</td>
+                <td th:text="${o.title}">&nbsp;</td>
+                <td th:text="${o.surname}">&nbsp;</td>
+                <td th:text="${o.name}">&nbsp;</td>
+                <td th:text="${o.patronymic}">&nbsp;</td>
+                <div th:switch="${o.birth}">
+                    <p th:case="null"></p>
+                    <p th:case="*"><td th:text="${#dates.format(o.birth, 'dd-MM-yy')}">&nbsp;</td></p>
+                </div>
+                <td th:text="${o.phone}">&nbsp;</td>
+                <td th:text="${o.email}">&nbsp;</td>
+                <td th:text="${o.institution}">&nbsp;</td>
+                <td th:text="${o.specialty}">&nbsp;</td>
+                <td th:text="${o.year}">&nbsp;</td>
+                <td th:text="${o.remark}">&nbsp;</td>
+                <td>
+                    <a th:href="@{${o.idOfficial}+'/editOfficials'}">Редактировать</a>
+                </td>
+                <td>
+                    <a th:href="@{${o.idOfficial}+'/seeHistoryOfficial'}">История</a>
+                </td>
+                <td>
+                    <a th:href="@{${o.idOfficial}+'/deleteOfficials'}">Удалить</a>
+                </td>
+            </tr>
+        </table>
+</div>
+
+
+</body>
+</html>

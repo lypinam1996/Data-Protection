@@ -21,6 +21,7 @@ public class OfficialhistoryEntity {
     private String remark;
     private Date updateDate;
     private OfficialEntity officials;
+    private UsersEntity usersByIdUser;
 
     @ManyToOne
     @JoinColumn(name = "idOfficial", referencedColumnName = "idOfficial")
@@ -31,7 +32,6 @@ public class OfficialhistoryEntity {
     public void setOfficials(OfficialEntity officials) {
         this.officials = officials;
     }
-
 
     @Id
     @Column(name = "idOfficialHistory")
@@ -203,5 +203,15 @@ public class OfficialhistoryEntity {
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
         result = 31 * result + (updateDate != null ? updateDate.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUsersByIdUser() {
+        return usersByIdUser;
+    }
+
+    public void setUsersByIdUser(UsersEntity usersByIdUser) {
+        this.usersByIdUser = usersByIdUser;
     }
 }

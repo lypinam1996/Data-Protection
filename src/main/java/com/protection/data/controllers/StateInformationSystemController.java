@@ -48,6 +48,15 @@ public class StateInformationSystemController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/seeState", method = RequestMethod.GET)
+    public ModelAndView getStates3(Model model) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<StateinformationsystemEntity> states = stateInformationService.findAllStateInformation();
+        modelAndView.addObject("states", states);
+        modelAndView.setViewName("seeState");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id1}/{id}/seeStates", method = RequestMethod.GET)
     public ModelAndView getStates2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
@@ -65,6 +74,16 @@ public class StateInformationSystemController {
         List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
         modelAndView.addObject("states", history);
         modelAndView.setViewName("seeHistoryStates");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/seeHistiryState", method = RequestMethod.GET)
+    public ModelAndView getHistoryStates3(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
+        modelAndView.addObject("states", history);
+        modelAndView.setViewName("seeHistoryState");
         return modelAndView;
     }
 
@@ -97,6 +116,7 @@ public class StateInformationSystemController {
 
         StateinformationsystemEntity stateinformationsystemEntity1 = new StateinformationsystemEntity();
         StateinformationsystehistoryEntity stateHistory= new StateinformationsystehistoryEntity();
+        stateHistory.setUsersByIdUser(user);
         int max = stateInformationService.findMaxOfficial();
         StateinformationsystemEntity newOfficial = stateInformationService.findById(max);
         stateInformationHistoryService.saveStateInformationHistory(newOfficial,stateHistory);
@@ -130,6 +150,7 @@ public class StateInformationSystemController {
         statesEnt.setUser(user);
         stateInformationService.saveStateInformation(statesEnt);
         StateinformationsystehistoryEntity history = new StateinformationsystehistoryEntity();
+        history.setUsersByIdUser(user);
         stateInformationHistoryService.saveStateInformationHistory(statesEnt,history);
         return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeStates";
     }

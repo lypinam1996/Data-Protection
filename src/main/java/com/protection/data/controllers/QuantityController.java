@@ -43,6 +43,15 @@ public class QuantityController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/seeQuantities", method = RequestMethod.GET)
+    public ModelAndView getQuantity(Model model) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<QuantityEntity> quantities = quantityService.findAllQuantities();
+        modelAndView.addObject("quantities", quantities);
+        modelAndView.setViewName("seeQuantity");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id1}/{id}/seeQuantity", method = RequestMethod.GET)
     public ModelAndView getQuantities2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
@@ -60,6 +69,16 @@ public class QuantityController {
         List<QuantityhistoryEntity> history = quantityHistoryService.findQuantities(quantityEntity);
         modelAndView.addObject("quantities", history);
         modelAndView.setViewName("/seeHistoryQuantity");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/seeHistoryQuantities", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficials3(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        QuantityEntity quantityEntity = quantityService.findById(Integer.parseInt(id));
+        List<QuantityhistoryEntity> history = quantityHistoryService.findQuantities(quantityEntity);
+        modelAndView.addObject("quantities", history);
+        modelAndView.setViewName("/seeHistoryQuantities");
         return modelAndView;
     }
 
@@ -88,6 +107,7 @@ public class QuantityController {
         quantity.setUser(user);
         quantityService.saveQuantity(quantity);
         QuantityhistoryEntity quantityhistory = new QuantityhistoryEntity();
+        quantityhistory.setUsersByIdUser(user);
         int max = quantityService.findMaxOfficial();
         QuantityEntity newQuantity = quantityService.findById(max);
         quantityHistoryService.saveQuantity(newQuantity,quantityhistory);
@@ -123,6 +143,7 @@ public class QuantityController {
         quantity.setUser(user);
         quantityService.saveQuantity(quantity);
         QuantityhistoryEntity quantityhistory = new QuantityhistoryEntity();
+        quantityhistory.setUsersByIdUser(user);
         quantityHistoryService.saveQuantity(quantity,quantityhistory);
         return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeQuantity";
     }

@@ -47,6 +47,15 @@ public class FinancingController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/seeFinancings", method = RequestMethod.GET)
+    public ModelAndView getAllFinancings(Model model) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<FinancingEntity> financing = financinService.findAllFinancing();
+        modelAndView.addObject("financing", financing);
+        modelAndView.setViewName("seeFinancings");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id1}/{id}/seeFinancing", method = RequestMethod.GET)
     public ModelAndView getAllFinancing2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
@@ -64,6 +73,16 @@ public class FinancingController {
         List<FinancinghistoryEntity> history = financingHistoryService.findFinancing(financing);
         modelAndView.addObject("financing", history);
         modelAndView.setViewName("seeHistoryFinancing");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/seeHistoryFinancings", method = RequestMethod.GET)
+    public ModelAndView getHistoryFinancing3(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        FinancingEntity financing = financinService.findById(Integer.parseInt(id));
+        List<FinancinghistoryEntity> history = financingHistoryService.findFinancing(financing);
+        modelAndView.addObject("financing", history);
+        modelAndView.setViewName("seeHistoryFinancings");
         return modelAndView;
     }
 
@@ -95,6 +114,7 @@ public class FinancingController {
         FinancingEntity financingEntity = new FinancingEntity();
         model.addAttribute("financing", financingEntity);
         FinancinghistoryEntity history= new FinancinghistoryEntity();
+        history.setUsersByIdUser(user);
         int max = financinService.findMaxFinancing();
         FinancingEntity newPers = financinService.findById(max);
         financingHistoryService.saveFinancing(newPers,history);
@@ -123,6 +143,7 @@ public class FinancingController {
         financing.setUser(user);
         financinService.saveFinancing(financing);
         FinancinghistoryEntity history = new FinancinghistoryEntity();
+        history.setUsersByIdUser(user);
         financingHistoryService.saveFinancing(financing,history);
         return "redirect:/"+ user.getIdUser()+"/"+ user.getIdUser()+"/seeFinancing";
     }

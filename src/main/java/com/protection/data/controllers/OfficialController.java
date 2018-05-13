@@ -44,6 +44,16 @@ public class OfficialController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/seeOfficial", method = RequestMethod.GET)
+    public ModelAndView getOfficials3() throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OfficialEntity> officials = officialService.findAllOfficials();
+        modelAndView.addObject("officials", officials);
+        modelAndView.setViewName("seeOfficial");
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/{id1}/{id}/seeOfficials", method = RequestMethod.GET)
     public ModelAndView getOfficials2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
@@ -61,6 +71,16 @@ public class OfficialController {
         List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(officialEntity);
         modelAndView.addObject("officials", history);
         modelAndView.setViewName("/seeHistoryOfficials");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/seeHistoryOfficial", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficials3(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        OfficialEntity officialEntity = officialService.findById(Integer.parseInt(id));
+        List<OfficialhistoryEntity> history = officialhistoryService.findOfficials(officialEntity);
+        modelAndView.addObject("officials", history);
+        modelAndView.setViewName("/seeHistoryOfficial");
         return modelAndView;
     }
 
@@ -93,6 +113,7 @@ public class OfficialController {
         OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
         int max = officialService.findMaxOfficial();
         OfficialEntity newOfficial = officialService.findById(max);
+        officialhistory.setUsersByIdUser(user);
         officialhistoryService.saveOfficial(newOfficial,officialhistory);
         model.addAttribute("official", official2);
         model.addAttribute("successMessage", "Добавление прошло успешно");
@@ -124,6 +145,7 @@ public class OfficialController {
         official.setUser(user);
         officialService.saveOfficial(official);
         OfficialhistoryEntity officialhistory = new OfficialhistoryEntity();
+        officialhistory.setUsersByIdUser(user);
         officialhistoryService.saveOfficial(official,officialhistory);
         return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeOfficials";
     }

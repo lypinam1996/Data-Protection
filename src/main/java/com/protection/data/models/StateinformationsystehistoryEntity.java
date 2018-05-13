@@ -52,6 +52,7 @@ public class StateinformationsystehistoryEntity {
     private Date dateUpdate;
     private StateinformationsystemEntity stateinformationsystemByIdStateInformationSystem;
     private TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection;
+    private UsersEntity usersByIdUser;
 
     @Id
     @Column(name = "idStateInformationSystemHistory")
@@ -413,7 +414,6 @@ public class StateinformationsystehistoryEntity {
         this.attestationDate = attestationDate;
     }
 
-
     @Basic
     @Column(name = "attestationName")
     public String getAttestationName() {
@@ -452,12 +452,6 @@ public class StateinformationsystehistoryEntity {
 
     public void setActDateAttestation(Date actDateAttestation) {
         this.actDateAttestation = actDateAttestation;
-    }
-
-    @Basic
-    @Column(name = "dateUpdate")
-    public Date getDateUpdate() {
-        return dateUpdate;
     }
 
   /*  @Override
@@ -584,6 +578,12 @@ public class StateinformationsystehistoryEntity {
         return result;
     }*/
 
+    @Basic
+    @Column(name = "dateUpdate")
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
     public void setDateUpdate(Date dateUpdate) {
         this.dateUpdate = dateUpdate;
     }
@@ -606,5 +606,15 @@ public class StateinformationsystehistoryEntity {
 
     public void setTypeofcryptoprotectionByTypeofcryptoprotection(TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection) {
         this.typeofcryptoprotectionByTypeofcryptoprotection = typeofcryptoprotectionByTypeofcryptoprotection;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUsersByIdUser() {
+        return usersByIdUser;
+    }
+
+    public void setUsersByIdUser(UsersEntity usersByIdUser) {
+        this.usersByIdUser = usersByIdUser;
     }
 }

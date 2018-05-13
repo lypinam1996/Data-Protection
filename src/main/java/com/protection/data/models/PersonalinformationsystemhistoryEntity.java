@@ -58,6 +58,7 @@ public class PersonalinformationsystemhistoryEntity {
     private YesnoEntity yesnoByIdyesno2;
     private PersonalinformationsystemEntity personalinformationsystemByIdPersonalInformationSystem;
     private Date dateUpdate;
+    private UsersEntity usersByIdUser;
 
     @Basic
     @Column(name = "dateUpdate")
@@ -654,5 +655,15 @@ public class PersonalinformationsystemhistoryEntity {
 
     public void setPersonalinformationsystemByIdPersonalInformationSystem(PersonalinformationsystemEntity personalinformationsystemByIdPersonalInformationSystem) {
         this.personalinformationsystemByIdPersonalInformationSystem = personalinformationsystemByIdPersonalInformationSystem;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUsersByIdUser() {
+        return usersByIdUser;
+    }
+
+    public void setUsersByIdUser(UsersEntity usersByIdUser) {
+        this.usersByIdUser = usersByIdUser;
     }
 }

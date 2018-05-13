@@ -77,6 +77,19 @@ public class MainController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/table", method = RequestMethod.GET)
+    public ModelAndView getTasks() throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        int count = 1;
+        modelAndView.addObject("count1", count);
+        modelAndView.addObject("count2", count);
+        modelAndView.addObject("count3", count);
+        modelAndView.addObject("count4", count);
+        modelAndView.addObject("count5", count);
+        modelAndView.setViewName("table");
+        return modelAndView;
+    }
+
    @RequestMapping(value = "/seeUser", method = RequestMethod.GET)
     public ModelAndView getOfficials(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

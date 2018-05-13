@@ -144,6 +144,7 @@ public class SpecialistController {
 
         SpecialistshistoryEntity specialistshistory = new SpecialistshistoryEntity();
         specialistshistory.setUser(user);
+        specialistshistory.setUser(user);
         int max = specialistService.findMaxSpecials();
         SpecialistsEntity newspecialistsEntity = specialistService.findById(max);
         specialistHistotyService.saveSpecialist(newspecialistsEntity,specialistshistory);

@@ -4,6 +4,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,15 @@ public class UsersEntity {
     private List<StateinformationsystemEntity> stateinformationsystem;
     private List<PersonalinformationsystemEntity> personalinformationsystem;
     private List<FinancingEntity> financing;
+    private Collection<FinancinghistoryEntity> financinghistoriesByIdUser;
+    private Collection<OfficialhistoryEntity> officialhistoriesByIdUser;
+    private Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdUser;
+    private Collection<QuantityhistoryEntity> quantityhistoriesByIdUser;
+    private Collection<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdUser;
+
+    public void setControl(Integer control) {
+        this.control = control;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<FinancingEntity> getFinancing() {
@@ -67,7 +77,6 @@ public class UsersEntity {
         this.specialistshistory = specialistshistory;
     }
 
-
     @OneToMany(mappedBy = "user")
     public List<QuantityEntity> getQuantities() {
         return quantities;
@@ -95,8 +104,8 @@ public class UsersEntity {
         this.officials = officials;
     }
 
-
-
+    @Basic
+    @Column(name = "control")
     public int getControl() {
         return control;
     }
@@ -270,5 +279,51 @@ public class UsersEntity {
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "usersByIdUser")
+    public Collection<FinancinghistoryEntity> getFinancinghistoriesByIdUser() {
+        return financinghistoriesByIdUser;
+    }
+
+    public void setFinancinghistoriesByIdUser(Collection<FinancinghistoryEntity> financinghistoriesByIdUser) {
+        this.financinghistoriesByIdUser = financinghistoriesByIdUser;
+    }
+
+    @OneToMany(mappedBy = "usersByIdUser")
+    public Collection<OfficialhistoryEntity> getOfficialhistoriesByIdUser() {
+        return officialhistoriesByIdUser;
+    }
+
+    public void setOfficialhistoriesByIdUser(Collection<OfficialhistoryEntity> officialhistoriesByIdUser) {
+        this.officialhistoriesByIdUser = officialhistoriesByIdUser;
+    }
+
+    @OneToMany(mappedBy = "usersByIdUser")
+    public Collection<PersonalinformationsystemhistoryEntity> getPersonalinformationsystemhistoriesByIdUser() {
+        return personalinformationsystemhistoriesByIdUser;
+    }
+
+    public void setPersonalinformationsystemhistoriesByIdUser(Collection<PersonalinformationsystemhistoryEntity> personalinformationsystemhistoriesByIdUser) {
+        this.personalinformationsystemhistoriesByIdUser = personalinformationsystemhistoriesByIdUser;
+    }
+
+    @OneToMany(mappedBy = "usersByIdUser")
+    public Collection<QuantityhistoryEntity> getQuantityhistoriesByIdUser() {
+        return quantityhistoriesByIdUser;
+    }
+
+    public void setQuantityhistoriesByIdUser(Collection<QuantityhistoryEntity> quantityhistoriesByIdUser) {
+        this.quantityhistoriesByIdUser = quantityhistoriesByIdUser;
+    }
+
+
+    @OneToMany(mappedBy = "usersByIdUser")
+    public Collection<StateinformationsystehistoryEntity> getStateinformationsystehistoriesByIdUser() {
+        return stateinformationsystehistoriesByIdUser;
+    }
+
+    public void setStateinformationsystehistoriesByIdUser(Collection<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdUser) {
+        this.stateinformationsystehistoriesByIdUser = stateinformationsystehistoriesByIdUser;
     }
 }

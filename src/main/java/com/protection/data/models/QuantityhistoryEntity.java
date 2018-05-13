@@ -13,6 +13,7 @@ public class QuantityhistoryEntity {
     private String subdivision;
     private Date dateUpdate;
     private QuantityEntity quantitise;
+    private UsersEntity usersByIdUser;
 
     @ManyToOne
     @JoinColumn(name = "idQuantity", referencedColumnName = "idQuantity")
@@ -23,8 +24,6 @@ public class QuantityhistoryEntity {
     public void setQuantitise(QuantityEntity quantitise) {
         this.quantitise = quantitise;
     }
-
-
 
     @Id
     @Column(name = "idQuantityHistory")
@@ -112,5 +111,15 @@ public class QuantityhistoryEntity {
         result = 31 * result + (subdivision != null ? subdivision.hashCode() : 0);
         result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUsersByIdUser() {
+        return usersByIdUser;
+    }
+
+    public void setUsersByIdUser(UsersEntity usersByIdUser) {
+        this.usersByIdUser = usersByIdUser;
     }
 }

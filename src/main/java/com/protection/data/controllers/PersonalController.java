@@ -53,6 +53,15 @@ public class PersonalController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/seePersonal", method = RequestMethod.GET)
+    public ModelAndView getAllPersonals3(Model model) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<PersonalinformationsystemEntity> personal = personalService.findAllPersonal();
+        modelAndView.addObject("personals", personal);
+        modelAndView.setViewName("seePersonal");
+        return modelAndView;
+    }
+
 
 
     @RequestMapping(value = "/{id1}/{id}/seePersonals", method = RequestMethod.GET)
@@ -72,6 +81,16 @@ public class PersonalController {
         List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
         modelAndView.addObject("personals", history);
         modelAndView.setViewName("seeHistoryPersonals");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/seeHistoryPersonal", method = RequestMethod.GET)
+    public ModelAndView getHistoryPersonals3(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
+        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
+        modelAndView.addObject("personals", history);
+        modelAndView.setViewName("seeHistoryPersonal");
         return modelAndView;
     }
 
@@ -116,6 +135,7 @@ public class PersonalController {
         PersonalinformationsystemhistoryEntity history= new PersonalinformationsystemhistoryEntity();
         int max = personalService.findMaxPersonal();
         PersonalinformationsystemEntity newPers = personalService.findById(max);
+        history.setUsersByIdUser(user);
         personalInformationSystemHistoryService.saveHistory(newPers,history);
         model.addAttribute("personal", personal1);
         model.addAttribute("successMessage", "Добавление прошло успешно");
@@ -169,6 +189,7 @@ public class PersonalController {
         personal.setUser(user);
         personalService.savePersonal(personal);
         PersonalinformationsystemhistoryEntity history = new PersonalinformationsystemhistoryEntity();
+        history.setUsersByIdUser(user);
         personalInformationSystemHistoryService.saveHistory(personal,history);
         return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seePersonals";
     }

@@ -377,4 +377,5 @@ public class SpecialistshistoryEntity {
         result = 31 * result + (reconciliationDate != null ? reconciliationDate.hashCode() : 0);
         return result;
     }
+
 }

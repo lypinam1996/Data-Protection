@@ -20,6 +20,7 @@ public class FinancinghistoryEntity {
     private String allThisYear;
     private String allNextYear;
     private Date updateDate;
+    private UsersEntity usersByIdUser;
 
     @Id
     @Column(name = "idfinancinghistory")
@@ -161,5 +162,15 @@ public class FinancinghistoryEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    public UsersEntity getUsersByIdUser() {
+        return usersByIdUser;
+    }
+
+    public void setUsersByIdUser(UsersEntity usersByIdUser) {
+        this.usersByIdUser = usersByIdUser;
     }
 }
