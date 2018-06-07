@@ -61,16 +61,26 @@ public class AuthenticationController {
             bindingResult
                     .rejectValue("login", "error.login",
                             "*Данный логин занят");
-
+            List<SubjectrfEntity> subjects = subjectService.findAllSubjects();
+            List<AuthoritiesEntity> authorities = authority.findAllAuthorities();
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("subjects", subjects);
+            modelAndView.addObject("authorities", authorities);
+            modelAndView.setViewName("registration");
         }
         if (bindingResult.hasErrors()) {
+            List<SubjectrfEntity> subjects = subjectService.findAllSubjects();
+            List<AuthoritiesEntity> authorities = authority.findAllAuthorities();
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("subjects", subjects);
+            modelAndView.addObject("authorities", authorities);
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "Регистрация прошла успешно");
             modelAndView.addObject("login", user.getLogin());
             modelAndView.addObject("password", user.getPassword());
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("successRegistration");
         }
         return modelAndView;
     }

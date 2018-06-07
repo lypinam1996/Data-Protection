@@ -1,9 +1,9 @@
 package com.protection.data.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import com.protection.data.constraint.ValidPassword;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import java.util.List;
 public class UsersEntity {
     private int idUser;
     private String login;
+    @ValidPassword
     private String password;
     private String mailingAddress;
     private String name;
@@ -156,6 +157,7 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "login")
+    @Size(min = 6, message = "Логин должен состоять минимум из 6-ти символов")
     public String getLogin() {
         return login;
     }
@@ -166,6 +168,7 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "password")
+    @Size(min = 6, message = "Пароль должен состоять минимум из 6-ти символов")
     public String getPassword() {
         return password;
     }
