@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("OfficialDAO")
@@ -20,11 +21,19 @@ public class OfficailDAOImpl extends AbstractDAO<Integer,OfficialEntity> impleme
     }
 
     @Override
-    public OfficialEntity FindByTitle(String title) {
+    public List<OfficialEntity> findByBirth(Date birth) {
+        Criteria criteria = getSession().createCriteria(OfficialEntity.class);
+        criteria.add(Restrictions.eq("birth", birth));
+        return (List<OfficialEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
+
+    @Override
+    public List<OfficialEntity> FindByTitle(String title) {
         Criteria criteria = getSession().createCriteria(OfficialEntity.class);
         criteria.add(Restrictions.eq("title", title));
-        return (OfficialEntity) criteria.uniqueResult();
+        return (List<OfficialEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
 
     @Override
     public List<OfficialEntity> findAllOfficials() {

@@ -1,5 +1,6 @@
 package com.protection.data.DAO;
 
+import com.protection.data.models.AuthoritiesEntity;
 import com.protection.data.models.UsersEntity;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface UserDAO {
     void confirmRegistration(UsersEntity user);
     void deleteUser(int id_lock);
     List<UsersEntity> findAllUsersWhereControlEquals2();
+    public List<UsersEntity> findByAuth(AuthoritiesEntity authorities);
 }

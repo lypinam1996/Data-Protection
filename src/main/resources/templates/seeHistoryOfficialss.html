@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
+<head>
+    <title>Financing</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body style="font-family: Arial;background-color: #f7f9f9">
+<div class="wrapper" style="margin-bottom: 30px">
+    <div class="container " style="margin-top: 50px" >
+        <div class="row" style="border: 2px">
+            <div class="col-sm-2"><img  th:src="@{/img/logo.png}" alt="logo" width="100" height="100"/></div>
+            <div class="col-sm-6" style="margin-top: 40px"><span style="font-weight:bold">ВОРОНЕЖСКАЯ ОБЛАСТЬ</span></div>
+            <div class="col-sm-3" style="margin-top: 10px">
+                <nav class="navbar navbar-light" style="margin-top: 10px;margin-left: 55px">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Меню
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 7%">
+                        <form th:action="@{/home}" method="get">
+                            <button style="background-color: white;border: none;outline: none" type="submit">На главную</button>
+                        </form>
+                        <div th:switch="${user.idUser}">
+                            <p th:case="1">
+                                <input type="button" style="background-color: white;border: none;outline: none; margin-top: 20px" onclick="history.back()" value="Назад"/>
+                            </p>
+                            <p th:case="*">
+                            <form class="form-inline" th:action="@{/seeOfficial}" method="get">
+                                <button type="submit" style="background-color: white;border: none;outline: none">Назад</button>
+                            </form>
+                            </p>
+                        </div>
+                        <form class="form-inline" th:action="@{/logout}" method="post">
+                            <button type="submit" style="background-color: white;border: none;outline: none">Выход</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 50px;margin-bottom: 50px" id="tableWrap">
+        <h3 align="center">Сведения о должностных лицах,
+            в полномочии которых входит руководство деятельностью по защите информации.</h3>
+        <table class="table table-hover" style="font-size: 8pt">
+            <tr>
+                <div th:switch="${user.idUser}">
+                    <p th:case="1">
+                    <td>Субъект РФ</td>
+                    <td>Наименование органа власти</td>
+                    <td>Почтовый адрес</td>
+                    </p>
+                    <p th:case="*">
+                    </p>
+                </div>
+                <td>Наименование должности</td>
+                <td>Фамилия</td>
+                <td>Имя</td>
+                <td>Отчество</td>
+                <td>Дата рождения</td>
+                <td>Контактный телефон</td>
+                <td>e-mail</td>
+                <td>Наименование высшего учебного заведения</td>
+                <td>Специальность по диплому</td>
+                <td>Год окончания</td>
+                <td>Примечание</td>
+            </tr>
+            <tr th:each="o : ${officials}">
+                <div th:switch="${user.idUser}">
+                    <p th:case="1">
+                    <td th:text="${o.usersByIdUser.subject.titleSubject}">&nbsp;</td>
+                    <td th:text="${o.usersByIdUser.authority.titleAuthorities}">&nbsp;</td>
+                    <td th:text="${o.usersByIdUser.mailingAddress}">&nbsp;</td>
+                    </p>
+                    <p th:case="*">
+                    </p>
+                </div>
+                <td th:text="${o.title}">&nbsp;</td>
+                <td th:text="${o.surname}">&nbsp;</td>
+                <td th:text="${o.name}">&nbsp;</td>
+                <td th:text="${o.patronymic}">&nbsp;</td>
+                <div th:switch="${o.birth}">
+                    <p th:case="null"></p>
+                    <p th:case="*"><td th:text="${#dates.format(o.birth, 'dd-MM-yy')}">&nbsp;</td></p>
+                </div>
+                <td th:text="${o.phone}">&nbsp;</td>
+                <td th:text="${o.email}">&nbsp;</td>
+                <td th:text="${o.institution}">&nbsp;</td>
+                <td th:text="${o.specialty}">&nbsp;</td>
+                <td th:text="${o.year}">&nbsp;</td>
+                <td th:text="${o.remark}">&nbsp;</td>
+            </tr>
+        </table>
+    <div th:switch="${user.idUser}">
+        <p th:case="1">
+        <form th:action="@{${user.idUser}+'/excelOfficialHistory'}" method="get">
+            <button  type="submit" style="background-color: red; outline: none;color: white; width: 100px;border-color: red;font-size: 12pt">Excel</button>
+        </form>
+        </p>
+        <p th:case="*">
+        </p>
+    </div>
+</div>
+</body>
+</html>

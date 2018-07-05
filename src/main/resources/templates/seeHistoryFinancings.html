@@ -7,59 +7,121 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-<body>
-<form th:action="@{/home}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
-    <button class="btn btn-md btn-warning btn-block"  type="submit">На главную</button>
-</form>
-<form th:action="@{/logout}" method="post" style="position: fixed; right: 0px;left: 0px;top:38px">
-    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
-</form>
-<div style="margin-top: 100px">
-        <h3 align="center">Текущее и планируемое финансирование мероприятий.</h3>
-        <table class="table table-hover" style="font-size: 8pt">
-            <tr>
+<body style="font-family: Arial;background-color: #f7f9f9">
+<div class="wrapper" style="margin-bottom: 30px">
+    <div class="container " style="margin-top: 50px" >
+        <div class="row" style="border: 2px">
+            <div class="col-sm-2"><img  th:src="@{/img/logo.png}" alt="logo" width="100" height="100"/></div>
+            <div class="col-sm-6" style="margin-top: 40px"><span style="font-weight:bold">ВОРОНЕЖСКАЯ ОБЛАСТЬ</span></div>
+            <div class="col-sm-3" style="margin-top: 10px">
+                <nav class="navbar navbar-light" style="margin-top: 10px;margin-left: 55px">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Меню
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 7%">
+                        <form th:action="@{/home}" method="get">
+                            <button style="background-color: white;border: none;outline: none" type="submit">На главную</button>
+                        </form>
+                        <div th:switch="${user.idUser}">
+                            <p th:case="1">
+                                <input type="button" style="background-color: white;border: none;outline: none; margin-top: 20px" onclick="history.back()" value="Назад"/>
+                            </p>
+                            <p th:case="*">
+                            <form class="form-inline" th:action="@{/seeFinancing}" method="get">
+                                <button type="submit" style="background-color: white;border: none;outline: none">Назад</button>
+                            </form>
+                            </p>
+                        </div>
+                        <form class="form-inline" th:action="@{/logout}" method="post">
+                            <button type="submit" style="background-color: white;border: none;outline: none">Выход</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 50px;margin-bottom: 50px" id="tableWrap">
+    <h3 align="center">Сведения по текущему и планируемому финансированию мероприятий по защите информации</h3>
+    <table class="table table-hover" style="font-size: 8pt">
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
                 <td></td>
                 <td></td>
-                <td>На защиту информации, содержащей сведения,</td>
-                <td>составляющие государственную тайну</td>
-                <td>На защиту информации ограниченного доступа,</td>
-                <td>не содержащей сведения, составляющие государственную тайну</td>
-                <td>На защиту персональных данных в информационных</td>
-                <td>системах персональных данных</td>
-                <td>Всего</td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td colspan="8">
+                Текущее и планируемое финансирование мероприятий(тыс. рублей)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
                 <td></td>
                 <td></td>
-            </tr>
-            <tr>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td colspan="2">На защиту информации, содержащей сведения, составляющие государственную тайну</td>
+            <td colspan="2">На защиту информации ограниченного доступа, не содержащей сведения, составляющие государственную тайну</td>
+            <td colspan="2">На защиту персональных данных в информационных системах персональных данных</td>
+            <td colspan="2">Всего</td>
+            <td></td>
+        </tr>
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
                 <td>Субъект РФ</td>
                 <td>Наименование органа власти</td>
-                <td>Текущий год</td>
-                <td>Следующий год</td>
-                <td>Текущий год</td>
-                <td>Следующий год</td>
-                <td>Текущий год</td>
-                <td>Следующий год</td>
-                <td>Текущий год</td>
-                <td>Следующий год</td>
-                <td>Дата изменения</td>
-            </tr>
-            <tr th:each="o : ${financing}">
-                <td th:text="${o.user.subject.titleSubject}">&nbsp;</td>
-                <td th:text="${o.user.authority.titleAuthorities}">&nbsp;</td>
-                <td th:text="${o.sSThisYear}">&nbsp;</td>
-                <td th:text="${o.sSNextYear}">&nbsp;</td>
-                <td th:text="${o.nosSThisYear}">&nbsp;</td>
-                <td th:text="${o.nosSNextYear}">&nbsp;</td>
-                <td th:text="${o.personalInformationThisYear}">&nbsp;</td>
-                <td th:text="${o.personalInformationNextYear}">&nbsp;</td>
-                <td th:text="${o.allThisYear}">&nbsp;</td>
-                <td th:text="${o.allNextYear}">&nbsp;</td>
-                <td th:text="${o.allNextYear}">&nbsp;</td>
-                <td th:text="${o.updateDate}">&nbsp;</td>
-            </tr>
-        </table>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td>Текущий год</td>
+            <td>Следующий год</td>
+            <td>Текущий год</td>
+            <td>Следующий год</td>
+            <td>Текущий год</td>
+            <td>Следующий год</td>
+            <td>Текущий год</td>
+            <td>Следующий год</td>
+            <td>Дата обновления</td>
+        </tr>
+        <tr th:each="o : ${financing}">
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td th:text="${o.usersByIdUser.subject.titleSubject}">&nbsp;</td>
+                <td th:text="${o.usersByIdUser.authority.titleAuthorities}">&nbsp;</td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td th:text="${o.sSThisYear}">&nbsp;</td>
+            <td th:text="${o.sSNextYear}">&nbsp;</td>
+            <td th:text="${o.nosSThisYear}">&nbsp;</td>
+            <td th:text="${o.nosSNextYear}">&nbsp;</td>
+            <td th:text="${o.personalInformationThisYear}">&nbsp;</td>
+            <td th:text="${o.personalInformationNextYear}">&nbsp;</td>
+            <td th:text="${o.allThisYear}">&nbsp;</td>
+            <td th:text="${o.allNextYear}">&nbsp;</td>
+            <td th:text="${o.updateDate}">&nbsp;</td>
+        </tr>
+    </table>
+    <div th:switch="${user.idUser}">
+        <p th:case="1">
+        <form th:action="@{${user.idUser}+'/excelFinancingHistory'}" method="get">
+            <button  type="submit" style="background-color: red; outline: none;color: white; width: 100px;border-color: red;font-size: 12pt">Excel</button>
+        </form>
+        </p>
+        <p th:case="*">
+        </p>
+    </div>
 </div>
-
 
 </body>
 </html>

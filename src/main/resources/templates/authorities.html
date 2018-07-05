@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
 <head>
-    <title>Users</title>
+    <title>Authorities</title>
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
@@ -22,9 +22,6 @@
                         <form th:action="@{/home}" method="get">
                             <button style="background-color: white;border: none;outline: none" type="submit">На главную</button>
                         </form>
-                        <form th:action="@{/authorities}" method="get">
-                            <button style="background-color: white;border: none;outline: none" type="submit">Назад</button>
-                        </form>
                         <form class="form-inline" th:action="@{/logout}" method="post">
                             <button type="submit" style="background-color: white;border: none;outline: none">Выход</button>
                         </form>
@@ -34,38 +31,26 @@
         </div>
     </div>
 </div>
-<div class="container" style="margin-top: 50px; margin-bottom: 50px; font-size: 9pt">
-        <h3 align="center"  style="margin-bottom: 50px">Зарегистрированные пользователи</h3>
+<div class="container" style="margin-top: 50px;margin-bottom: 50px" id="tableWrap">
+        <h3 align="center">Организации</h3>
         <table class="table table-hover" style="font-size: 10pt">
             <tr>
-                <td>Фамилия</td>
-                <td>Имя</td>
-                <td>Отчество</td>
-                <td>Субъект РФ</td>
                 <td>Наименование высшего органа власти</td>
-                <td>Занимаемая должность</td>
-                <td>Контактный телефон</td>
-                <td>e-mail</td>
-                <td>Почтовый адрес</td>
-                <td>Логин</td>
+                <td></td>
                 <td></td>
             </tr>
-            <tr th:each="u : ${users}">
-                <td th:text="${u.surname}">&nbsp;</td>
-                <td th:text="${u.name}">&nbsp;</td>
-                <td th:text="${u.patronimic}">&nbsp;</td>
-                <td th:text="${u.subject.titleSubject}">&nbsp;</td>
-                <td th:text="${u.authority.titleAuthorities}">&nbsp;</td>
-                <td th:text="${u.post}">&nbsp;</td>
-                <td th:text="${u.phone}">&nbsp;</td>
-                <td th:text="${u.email}">&nbsp;</td>
-                <td th:text="${u.mailingAddress}">&nbsp;</td>
-                <td th:text="${u.login}">&nbsp;</td>
+            <tr th:each="a : ${authorities}">
+                <td th:text="${a.titleAuthorities}">&nbsp;</td>
                 <td>
-                    <a th:href="@{${u.idUser}+'/deleteUser'}">Удалить</a>
+                    <a th:href="@{${a.idAuthorities}+'/users'}">Пользователи от организации</a>
+                </td>
+                <td>
+                    <a th:href="@{${a.idAuthorities}+'/tables'}">Заполненные данные от организации</a>
                 </td>
             </tr>
         </table>
 </div>
+
+
 </body>
 </html>

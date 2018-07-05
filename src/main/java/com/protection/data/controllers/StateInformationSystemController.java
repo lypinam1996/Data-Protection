@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,7 +43,11 @@ public class StateInformationSystemController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        List<StateinformationsystemEntity> states = stateInformationService.findStateInformation(user);
+        List<StateinformationsystemEntity> states = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            states.addAll(stateInformationService.findStateInformation(users.get(i)));
+        }
         modelAndView.addObject("states", states);
         modelAndView.setViewName("seeStates");
         return modelAndView;
@@ -61,7 +66,11 @@ public class StateInformationSystemController {
     public ModelAndView getStates2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
         ModelAndView modelAndView = new ModelAndView();
-        List<StateinformationsystemEntity> states = stateInformationService.findStateInformation(user);
+        List<StateinformationsystemEntity> states = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            states.addAll(stateInformationService.findStateInformation(users.get(i)));
+        }
         modelAndView.addObject("states", states);
         modelAndView.setViewName("seeStates");
         return modelAndView;

@@ -48,25 +48,43 @@ public class MainController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView getTasks(Model model) throws IOException {
-        // Exel exel = new Exel();
-        //exel.writeIntoExcel("a.ods");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
         if (user.getStatus().getTitle().equals("ADMIN")) {
             modelAndView.setViewName("adminMainPage");
         } else {
-            List<OfficialEntity> officials = officialService.findOfficials(user);
+            List<OfficialEntity> officials = new ArrayList<>();
+            List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+            for(int i=0;i<users.size();i++){
+                officials.addAll(officialService.findOfficials(users.get(i)));
+            }
             int count = officials.size();
             modelAndView.addObject("count", count);
-            List<QuantityEntity> quantity = quantityService.findQuantities(user);
-            int count2 = quantity.size();
+            List<QuantityEntity> quantities = new ArrayList<>();
+            List<UsersEntity> users3 = userService.findByAuth(user.getAuthority());
+            for(int i=0;i<users3.size();i++){
+                quantities.addAll(quantityService.findQuantities(users3.get(i)));
+            }
+            int count2 = quantities.size();
             modelAndView.addObject("count2", count2);
-            List<StateinformationsystemEntity> states   = stateInformationService.findStateInformation(user);
+            List<StateinformationsystemEntity> states = new ArrayList<>();
+            List<UsersEntity> users5 = userService.findByAuth(user.getAuthority());
+            for(int i=0;i<users5.size();i++){
+                states.addAll(stateInformationService.findStateInformation(users5.get(i)));
+            }
             int count3 = states.size();
-            List<PersonalinformationsystemEntity> personal   = personalService.findPersonal(user);
+            List<PersonalinformationsystemEntity> personal = new ArrayList<>();
+            List<UsersEntity> users2 = userService.findByAuth(user.getAuthority());
+            for(int i=0;i<users2.size();i++){
+                personal.addAll(personalService.findPersonal(users2.get(i)));
+            }
             int count4 = personal.size();
-            List<FinancingEntity> financing   = financinService.findFinancing(user);
+            List<FinancingEntity> financing = new ArrayList<>();
+            List<UsersEntity> users4 = userService.findByAuth(user.getAuthority());
+            for(int i=0;i<users4.size();i++){
+                financing.addAll(financinService.findFinancing(users4.get(i)));
+            }
             int count5 = financing.size();
              modelAndView.addObject("states", states);
             modelAndView.addObject("count3", count3);
@@ -77,18 +95,6 @@ public class MainController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/table", method = RequestMethod.GET)
-    public ModelAndView getTasks() throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        int count = 1;
-        modelAndView.addObject("count1", count);
-        modelAndView.addObject("count2", count);
-        modelAndView.addObject("count3", count);
-        modelAndView.addObject("count4", count);
-        modelAndView.addObject("count5", count);
-        modelAndView.setViewName("table");
-        return modelAndView;
-    }
 
    @RequestMapping(value = "/seeUser", method = RequestMethod.GET)
     public ModelAndView getOfficials(Model model) throws IOException {

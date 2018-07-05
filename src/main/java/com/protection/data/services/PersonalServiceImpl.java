@@ -48,7 +48,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public List<PersonalinformationsystemEntity> findPersonal(UsersEntity user) {
-        return personalInformationDAO.findAllPersonal();
+        return personalInformationDAO.findPersonal(user);
     }
 
     @Override

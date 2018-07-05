@@ -71,20 +71,35 @@ public class AdminController {
         return model;
     }
 
-    @RequestMapping(value="/users", method = RequestMethod.GET)
-    public ModelAndView users() {
-        List<UsersEntity> usersRequests = users.findAllUsersWhereControlEquals2();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        usersRequests.remove(users.FindByLogin(auth.getName()));
+    @RequestMapping(value="/{id}/users", method = RequestMethod.GET)
+    public ModelAndView user(Model model, @PathVariable int id) {
+        AuthoritiesEntity authorities = authority.findById(id);
+        List<UsersEntity> user1 = users.findByAuth(authorities);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("users", usersRequests);
+        if(!user1.isEmpty()) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            user1.remove(users.FindByLogin(auth.getName()));
+            modelAndView.addObject("user1", user1.get(0));
+            modelAndView.addObject("users", user1);
+        }
         modelAndView.setViewName("users");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/authorities", method = RequestMethod.GET)
+    public ModelAndView authorities() {
+        List<AuthoritiesEntity> authorities = authority.findAllAuthorities();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("authorities", authorities);
+        modelAndView.setViewName("authorities");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)
     public ModelAndView getTables(Model model, @PathVariable int id) throws IOException {
-        UsersEntity user = users.findById(id);
+        AuthoritiesEntity authorities= authority.findById(id);
+        List<UsersEntity> user1 = users.findByAuth(authorities);
+        UsersEntity user = user1.get(0);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", user);
@@ -107,11 +122,33 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/table", method = RequestMethod.GET)
+    public ModelAndView getTasks() throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OfficialEntity> officials = officialService.findAllOfficials();
+        int count = officials.size();
+        modelAndView.addObject("count", count);
+        List<QuantityEntity> quantity = quantityService.findAllQuantities();
+        int count2 = quantity.size();
+        modelAndView.addObject("count2", count2);
+        List<StateinformationsystemEntity> states   = stateInformationService.findAllStateInformation();
+        int count3 = states.size();
+        List<PersonalinformationsystemEntity> personal   = personalService.findAllPersonal();
+        int count4 = personal.size();
+        List<FinancingEntity> financing   = financinService.findAllFinancing();
+        int count5 = financing.size();
+        modelAndView.addObject("count3", count3);
+        modelAndView.addObject("count4", count4);
+        modelAndView.addObject("count5", count5);
+        modelAndView.setViewName("table");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id1}/{id}/deleteUser", method = RequestMethod.GET)
     public ModelAndView deleteFinancing(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         users.deleteUser(id);
-        model.setViewName("delete");
+        model.setViewName("successDeleting");
         return model;
     }
 }

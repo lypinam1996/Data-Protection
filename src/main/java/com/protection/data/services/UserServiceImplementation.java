@@ -2,6 +2,7 @@ package com.protection.data.services;
 
 import com.protection.data.DAO.StatusDAO;
 import com.protection.data.DAO.UserDAO;
+import com.protection.data.models.AuthoritiesEntity;
 import com.protection.data.models.StatusesEntity;
 import com.protection.data.models.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<UsersEntity> findAllUsersWhereControlEquals2() {
         return userDao.findAllUsersWhereControlEquals2();
+    }
+
+    @Override
+    public List<UsersEntity> findByAuth(AuthoritiesEntity authorities) {
+        return userDao.findByAuth(authorities);
     }
 
 

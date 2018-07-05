@@ -1,5 +1,6 @@
 package com.protection.data.DAO;
 
+import com.protection.data.models.AuthoritiesEntity;
 import com.protection.data.models.UsersEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -22,6 +23,13 @@ public class UserDAOImplementation extends AbstractDAO<Integer,UsersEntity> impl
         Criteria criteria = getSession().createCriteria(UsersEntity.class);
         criteria.add(Restrictions.eq("login", title));
         return (UsersEntity) criteria.uniqueResult();
+    }
+
+    @Override
+    public List<UsersEntity> findByAuth(AuthoritiesEntity authorities) {
+        Criteria criteria = getSession().createCriteria(UsersEntity.class);
+        criteria.add(Restrictions.eq("authority", authorities));
+        return (List<UsersEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

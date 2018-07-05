@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,7 +48,11 @@ public class PersonalController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        List<PersonalinformationsystemEntity> personal = personalService.findPersonal(user);
+        List<PersonalinformationsystemEntity> personal = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            personal.addAll(personalService.findPersonal(users.get(i)));
+        }
         modelAndView.addObject("personals", personal);
         modelAndView.setViewName("seePersonals");
         return modelAndView;
@@ -68,7 +73,11 @@ public class PersonalController {
     public ModelAndView getAllPersonals2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
         ModelAndView modelAndView = new ModelAndView();
-        List<PersonalinformationsystemEntity> personal = personalService.findPersonal(user);
+        List<PersonalinformationsystemEntity> personal = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            personal.addAll(personalService.findPersonal(users.get(i)));
+        }
         modelAndView.addObject("personals", personal);
         modelAndView.setViewName("seePersonals");
         return modelAndView;

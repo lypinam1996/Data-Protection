@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,11 @@ public class SpecialistController {
          Authentication auth = SecurityContextHolder.getContext().getAuthentication();
          UsersEntity user = userService.FindByLogin(auth.getName());
         QuantityEntity quantity = quantityService.findById(Integer.parseInt(id));
-         List<SpecialistsEntity> specialists = specialistService.findSpecialist(user,quantity);
+         List<SpecialistsEntity> specialists = new ArrayList<>();
+         List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+         for(int i=0;i<users.size();i++){
+             specialists.addAll(specialistService.findSpecialist(users.get(i),quantity));
+         }
         ModelAndView model = new ModelAndView();
         model.addObject("specialists", specialists);
         model.setViewName("seeSpecialist");
@@ -54,7 +59,11 @@ public class SpecialistController {
     public ModelAndView getQuantities2(@PathVariable String id, @PathVariable String id1) {
         UsersEntity user = userService.findById(Integer.parseInt(id1));
         QuantityEntity quantity = quantityService.findById(Integer.parseInt(id));
-        List<SpecialistsEntity> specialists = specialistService.findSpecialist(user,quantity);
+        List<SpecialistsEntity> specialists = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            specialists.addAll(specialistService.findSpecialist(users.get(i),quantity));
+        }
         ModelAndView model = new ModelAndView();
         model.addObject("specialists", specialists);
         model.setViewName("seeSpecialist");

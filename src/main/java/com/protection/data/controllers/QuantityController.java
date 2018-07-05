@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,11 @@ public class QuantityController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        List<QuantityEntity> quantities = quantityService.findQuantities(user);
+        List<QuantityEntity> quantities = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            quantities.addAll(quantityService.findQuantities(users.get(i)));
+        }
         modelAndView.addObject("quantities", quantities);
         modelAndView.setViewName("seeQuantity");
         return modelAndView;
@@ -56,7 +61,11 @@ public class QuantityController {
     public ModelAndView getQuantities2(Model model,@PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
         ModelAndView modelAndView = new ModelAndView();
-        List<QuantityEntity> quantities = quantityService.findQuantities(user);
+        List<QuantityEntity> quantities = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            quantities.addAll(quantityService.findQuantities(users.get(i)));
+        }
         modelAndView.addObject("quantities", quantities);
         modelAndView.setViewName("seeQuantity2");
         return modelAndView;

@@ -2,11 +2,12 @@ package com.protection.data.DAO;
 
 import com.protection.data.models.PersonalinformationsystemEntity;
 import com.protection.data.models.PersonalinformationsystemhistoryEntity;
-import com.protection.data.models.UsersEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Repository("PersonalInformationalSystemHistoryDAO")
@@ -86,6 +87,9 @@ public class PersonalInformationSystemHistoryDAOImp extends AbstractDAO<Integer,
         personalinformationsystemhistory.setTypethreatByIdTypeThreat(personalinformationsystem.getTypethreatByIdTypeThreat());
         personalinformationsystemhistory.setYesnoByIdYesNo(personalinformationsystem.getYesnoByIdYesNo());
         personalinformationsystemhistory.setYesnoByIdyesno2(personalinformationsystem.getYesnoByIdyesno2());
+        Calendar currenttime = Calendar.getInstance();
+        Date sqldate = new Date((currenttime.getTime()).getTime());
+        personalinformationsystemhistory.setDateUpdate(sqldate);
         getSession().save(personalinformationsystemhistory);
     }
 }

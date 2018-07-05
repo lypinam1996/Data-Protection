@@ -1,6 +1,7 @@
 package com.protection.data.models;
 
 import com.protection.data.constraint.ValidPassword;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -168,7 +169,7 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "password")
-    @Size(min = 6, message = "Пароль должен состоять минимум из 6-ти символов")
+    @Size(min = 6, message = " должен состоять минимум из 6-ти символов")
     public String getPassword() {
         return password;
     }

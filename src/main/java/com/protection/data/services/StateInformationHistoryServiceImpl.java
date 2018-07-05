@@ -1,60 +1,43 @@
 package com.protection.data.services;
 
-import com.protection.data.DAO.StateInformationDAO;
+import com.protection.data.DAO.StateInformationHistoryDAO;
+import com.protection.data.models.StateinformationsystehistoryEntity;
 import com.protection.data.models.StateinformationsystemEntity;
-import com.protection.data.models.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("StateInformationService")
+@Service("StateInformationHistoryService")
 @Transactional
-public class StateInformationHistoryServiceImpl implements StateInformationService {
+public class StateInformationHistoryServiceImpl implements StateInformationHistoryService {
 
     @Autowired
-    private StateInformationDAO stateInformationDAO;
+    private StateInformationHistoryDAO historyDAO;
 
     @Override
-    public void updateOfficial(StateinformationsystemEntity official) {
-        stateInformationDAO.updateOfficial(official);
+    public StateinformationsystehistoryEntity findById(int id) {
+        return historyDAO.findById(id);
     }
 
     @Override
-    public void deleteUser(int id) {
-        stateInformationDAO.deleteUser(id);
+    public StateinformationsystehistoryEntity FindByTitle(String title) {
+        return historyDAO.FindByTitle(title);
     }
 
     @Override
-    public int findMaxOfficial() {
-        return stateInformationDAO.findMaxOfficial();
+    public List<StateinformationsystehistoryEntity> findAllStateInformationHistories() {
+        return historyDAO.findAllStateInformationHistories();
     }
 
     @Override
-    public StateinformationsystemEntity findById(int id) {
-        return stateInformationDAO.findById(id);
+    public List<StateinformationsystehistoryEntity> findStateInformationHistories(StateinformationsystemEntity stateinformationsystem) {
+        return historyDAO.findStateInformationHistories(stateinformationsystem);
     }
 
     @Override
-    public StateinformationsystemEntity FindByTitle(String title) {
-        return stateInformationDAO.FindByTitle(title);
+    public void saveStateInformationHistory(StateinformationsystemEntity stateinformationsystem, StateinformationsystehistoryEntity stateinformationsystehistory) {
+        historyDAO.saveStateInformationHistory(stateinformationsystem, stateinformationsystehistory);
     }
-
-    @Override
-    public List<StateinformationsystemEntity> findAllStateInformation() {
-        return stateInformationDAO.findAllStateInformation();
-    }
-
-    @Override
-    public List<StateinformationsystemEntity> findStateInformation(UsersEntity user) {
-        return stateInformationDAO.findStateInformation(user);
-    }
-
-    @Override
-    public void saveStateInformation(StateinformationsystemEntity stateinformationsystem) {
-        stateInformationDAO.saveStateInformation(stateinformationsystem);
-    }
-
-
 }

@@ -1,31 +1,46 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
 <head>
-    <title>Login</title>
+    <title>Hello</title>
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-<body>
-<form th:action="@{/registration}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Регистрация</button>
-</form>
-
-<div class="container">
+<body style="font-family: Arial; background-color: #f7f9f9">
+<div class="wrapper" style="margin-bottom: 30px">
+    <div class="container " style="margin-top: 40px" >
+        <div class="row" style="border: 2px">
+            <div class="col-sm-2"><img  th:src="@{/img/logo.png}" alt="logo" width="100" height="100"/></div>
+            <div class="col-sm-7" style="margin-top: 40px"><span style="font-weight:bold">ВОРОНЕЖСКАЯ ОБЛАСТЬ</span></div>
+            <div class="col-sm-2" style="margin-top: 10px">
+                <form th:action="@{/registration}" method="get" style="margin-top: 20px">
+                    <button class="btn" type="Submit" style="background-color: red; outline: none;color: white; width: 150px;border-color: red;font-size: 10pt">РЕГИСТРАЦИЯ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 40px">
+    <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4" style=" border: 3px  solid gainsboro; padding: 4%;background-color: white">
     <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 align="center">Добро пожаловать</h3>
+        <h3 align="center">Вход</h3>
         <br/>
         <input type="text" id="login" name="login"  th:placeholder="login"
-               class="form-control" /> <br/>
+               class="form-control" style="border-radius: 0%"/> <br/>
         <input type="password"  th:placeholder="Password"
-               id="password" name="password" class="form-control" /> <br />
+               id="password" name="password" class="form-control" style="border-radius: 0%"/> <br />
         <div align="center" th:if="${param.error}">
             <p style="font-size: 20; color: #FF1C19;">Некоторые поля были введены неверно, пожалуйста, исправьте их</p>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Вход</button>
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" style="background-color: #005eb1;background-color: #005eb1">Войти</button>
     </form>
+    </div>
+    <div class="col-sm-4"></div>
+    </div>
 </div>
+
 </body>
 </html>

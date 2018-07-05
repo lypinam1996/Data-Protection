@@ -1,5 +1,8 @@
 package com.protection.data.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,7 +13,7 @@ public class AuthoritiesEntity {
     private String titleAuthorities;
     private List<UsersEntity> users;
 
-
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "authority")
     public List<UsersEntity> getUsers() {
         return users;

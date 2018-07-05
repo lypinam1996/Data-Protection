@@ -22,7 +22,7 @@ public class OfficialServiceImpl implements OfficialService{
     }
 
     @Override
-    public OfficialEntity FindByTitle(String title) {
+    public List<OfficialEntity> FindByTitle(String title) {
         return official.FindByTitle(title);
     }
 
@@ -36,7 +36,7 @@ public class OfficialServiceImpl implements OfficialService{
     }
     @Override
     public void saveOfficial(OfficialEntity official1){
-        official.saveOfficial(official1);
+         official.saveOfficial(official1);
     }
 
     @Override

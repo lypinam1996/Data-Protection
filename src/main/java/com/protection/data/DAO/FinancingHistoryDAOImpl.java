@@ -7,6 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Repository("FinancingHistoryDAO")
@@ -57,6 +59,9 @@ public class FinancingHistoryDAOImpl extends AbstractDAO<Integer,Financinghistor
         quantityhistoryEntity.setPersonalInformationThisYear(quantity.getPersonalInformationThisYear());
         quantityhistoryEntity.setsSNextYear(quantity.getsSNextYear());
         quantityhistoryEntity.setsSThisYear(quantity.getsSThisYear());
+        Calendar currenttime = Calendar.getInstance();
+        Date sqldate = new Date((currenttime.getTime()).getTime());
+        quantityhistoryEntity.setUpdateDate(sqldate);
         getSession().save(quantityhistoryEntity);
     }
 }

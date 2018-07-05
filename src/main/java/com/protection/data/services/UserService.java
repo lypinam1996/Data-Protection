@@ -1,6 +1,7 @@
 package com.protection.data.services;
 
 
+import com.protection.data.models.AuthoritiesEntity;
 import com.protection.data.models.UsersEntity;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface UserService {
     void deleteUser(int id_lock);
     void updateUser(UsersEntity user);
     List<UsersEntity> findAllUsersWhereControlEquals2();
+    public List<UsersEntity> findByAuth(AuthoritiesEntity authorities);
 }

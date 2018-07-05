@@ -34,7 +34,6 @@ public class AuthenticationController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-       // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return modelAndView;
     }
 
@@ -87,7 +86,7 @@ public class AuthenticationController {
 
     @RequestMapping("/")
     String index() {
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return "index";
+        return "firstPage";
     }
+
 }
