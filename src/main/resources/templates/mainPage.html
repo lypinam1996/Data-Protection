@@ -65,11 +65,11 @@
             <td >Сведения о государственных информационных системах и (или) отдельных их частях.</td>
             <div th:switch="${count3}">
                 <p th:case="0">
-                <td><a th:href="@{'/addStates'}">Добавить</a></td>
+                <td><a th:href="@{'/addState'}">Добавить</a></td>
                 </p>
                 <p th:case="*">
                 <td><a th:href="@{'/addStates'}">Добавить</a></td>
-                <td><a th:href="@{'/seeStates'}">Просмотреть</a></td>
+                <td><a th:href="@{'/seeState'}">Просмотреть</a></td>
                 </p>
             </div>
         </tr>

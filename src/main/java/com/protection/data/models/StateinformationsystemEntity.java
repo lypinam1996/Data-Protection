@@ -31,7 +31,7 @@ public class StateinformationsystemEntity {
     private String numberAboutExploitation;
     private Date dateAboutExploitation;
     private Date commissioning;
-    private Integer restrictedAccessInformation;
+    private String restrictedAccessInformation;
     private String cryptoProtection;
     private String separateParts;
     private String legalActRegister;
@@ -276,11 +276,11 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "restrictedAccessInformation")
-    public Integer getRestrictedAccessInformation() {
+    public String getRestrictedAccessInformation() {
         return restrictedAccessInformation;
     }
 
-    public void setRestrictedAccessInformation(Integer restrictedAccessInformation) {
+    public void setRestrictedAccessInformation(String restrictedAccessInformation) {
         this.restrictedAccessInformation = restrictedAccessInformation;
     }
 
