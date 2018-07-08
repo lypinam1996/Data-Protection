@@ -50,7 +50,7 @@ public class StateInformationHistoryDAOImpl extends AbstractDAO<Integer, Statein
         stateinformationsystehistory.setCommissioning(stateinformationsystem.getCommissioning());
         stateinformationsystehistory.setCryptoProtection(stateinformationsystem.getCryptoProtection());
         stateinformationsystehistory.setDateAboutCreating(stateinformationsystem.getDateAboutCreating());
-        stateinformationsystehistory.setDateAboutExploitation(stateinformationsystehistory.getDateAboutExploitation());
+        stateinformationsystehistory.setDateAboutExploitation(stateinformationsystem.getDateAboutExploitation());
         stateinformationsystehistory.setDateAct(stateinformationsystem.getDateAct());
         stateinformationsystehistory.setDateClassification(stateinformationsystem.getDateClassification());
         stateinformationsystehistory.setDateOfAttestation(stateinformationsystem.getDateOfAttestation());
@@ -81,7 +81,7 @@ public class StateInformationHistoryDAOImpl extends AbstractDAO<Integer, Statein
         stateinformationsystehistory.setThreatsResultsDate(stateinformationsystem.getThreatsResultsDate());
         stateinformationsystehistory.setThreatsResultsNumber(stateinformationsystem.getThreatsResultsNumber());
         stateinformationsystehistory.setTitle(stateinformationsystem.getTitle());
-       // stateinformationsystehistory.setTypeofcryptoprotectionByIdClass(stateinformationsystem.getTypeofcryptoprotectionByIdClass());
+        stateinformationsystehistory.setTypeofcryptoprotectionByTypeofcryptoprotection(stateinformationsystem.getTypeofcryptoprotectionByTypeofcryptoprotection());
         getSession().save(stateinformationsystehistory);
     }
 }

@@ -141,38 +141,58 @@ public class StateInformationSystemController {
     }
 
 
-    @RequestMapping(value = "/{id}/seeHistiryStates", method = RequestMethod.GET)
-    public ModelAndView getHistoryStates(@PathVariable String id) throws IOException {
+    @RequestMapping(value = "/{id}/seeHistoryState", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficial(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView =history(id);
+        return modelAndView;
+    }
+
+    private ModelAndView history(String id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
-        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
+        modelAndView.addObject("user", user);
+        StateinformationsystemEntity official = stateInformationService.findById(Integer.parseInt(id));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(official);
         modelAndView.addObject("states", history);
         modelAndView.setViewName("seeHistoryStates");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/{id}/seeHistiryState", method = RequestMethod.GET)
-    public ModelAndView getHistoryStates3(@PathVariable String id) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
-        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
-        modelAndView.addObject("states", history);
-        modelAndView.setViewName("seeHistoryState");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistiryStates", method = RequestMethod.GET)
-    public ModelAndView getHistoryStates2(@PathVariable String id) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        StateinformationsystemEntity stateinformationsystemEntity = stateInformationService.findById(Integer.parseInt(id));
-        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(stateinformationsystemEntity);
-        modelAndView.addObject("states", history);
-        modelAndView.setViewName("seeHistoryStates");
+    @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryState", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficial2(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = history(id);
         return modelAndView;
     }
 
 
-    @RequestMapping(value = "/addStates", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id2}/{id}/{id3}/{id1}/excelStatesHistory", method = RequestMethod.GET)
+    public @ResponseBody void downloadFiles2(HttpServletRequest request,
+                                             HttpServletResponse response,@PathVariable String id,@PathVariable String id3) throws IOException {
+        StateinformationsystemEntity official = stateInformationService.findById(Integer.parseInt(id3));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findStateInformationHistories(official);
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ExelStates exel = new ExelStates();
+        exel.writeHistoryExcel(history,official);
+        File downloadFile = new File("states.xls");
+        excel(request,response,downloadFile);
+    }
+
+
+    @RequestMapping(value = "/{id2}/{id}/excelStatesHistory", method = RequestMethod.GET)
+    public @ResponseBody void downloadFiles4(HttpServletRequest request,
+                                             HttpServletResponse response,@PathVariable String id2) throws IOException {
+        StateinformationsystemEntity financing = stateInformationService.findById(Integer.parseInt(id2));
+        List<StateinformationsystehistoryEntity> history = stateInformationHistoryService.findAllStateInformationHistories();
+        ExelStates exel = new ExelStates();
+        exel.writeHistoryExcel(history,financing);
+        File downloadFile = new File("states.xls");
+        excel(request,response,downloadFile);
+    }
+
+
+
+    @RequestMapping(value = "/addState", method = RequestMethod.GET)
     public String getSongs(Model model) {
         List<TypeofcryptoprotectionEntity> typeofcryptoprotectionEntities = cryptoProtectionService.findAllSubjects();
         StateinformationsystemEntity stateinformationsystemEntity = new StateinformationsystemEntity();
@@ -181,7 +201,7 @@ public class StateInformationSystemController {
         return "addStates";
     }
 
-    @RequestMapping(value = "/addStates", method = RequestMethod.POST)
+    @RequestMapping(value = "/addState", method = RequestMethod.POST)
     public String saveOfficials(@ModelAttribute("state") StateinformationsystemEntity stateinformationsystemEntity, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
@@ -205,7 +225,7 @@ public class StateInformationSystemController {
         StateinformationsystemEntity state = stateInformationService.findById(Integer.parseInt(id));
         ModelAndView model = new ModelAndView();
         model.addObject("state", state);
-        model.setViewName("editStates");
+        model.setViewName("editState");
         return model;
     }
 
@@ -214,7 +234,7 @@ public class StateInformationSystemController {
         StateinformationsystemEntity state = stateInformationService.findById(Integer.parseInt(id));
         ModelAndView model = new ModelAndView();
         model.addObject("state", state);
-        model.setViewName("editStates");
+        model.setViewName("editState");
         return model;
     }
 
@@ -226,21 +246,21 @@ public class StateInformationSystemController {
         StateinformationsystehistoryEntity history = new StateinformationsystehistoryEntity();
         history.setUsersByIdUser(user);
         stateInformationHistoryService.saveStateInformationHistory(statesEnt,history);
-        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seeStates";
+        return "successEditing";
     }
 
     @RequestMapping(value = "/{id}/deleteStates", method = RequestMethod.GET)
     public ModelAndView deleteState(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         stateInformationService.deleteUser(id);
-        model.setViewName("delete");
+        model.setViewName("successDeleting");
         return model;
     }
     @RequestMapping(value = "/{id3}/{id2}/{id}/deleteStates", method = RequestMethod.GET)
     public ModelAndView deleteState2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         stateInformationService.deleteUser(id);
-        model.setViewName("delete");
+        model.setViewName("successDeleting");
         return model;
     }
 

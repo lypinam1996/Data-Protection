@@ -48,7 +48,7 @@ public class StateinformationsystehistoryEntity {
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
-    private Date actDateAttestation;
+    private String actDateAttestation;
     private Date dateUpdate;
     private StateinformationsystemEntity stateinformationsystemByIdStateInformationSystem;
     private TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection;
@@ -446,15 +446,15 @@ public class StateinformationsystehistoryEntity {
 
     @Basic
     @Column(name = "actDateAttestation")
-    public Date getActDateAttestation() {
+    public String getActDateAttestation() {
         return actDateAttestation;
     }
 
-    public void setActDateAttestation(Date actDateAttestation) {
+    public void setActDateAttestation(String actDateAttestation) {
         this.actDateAttestation = actDateAttestation;
     }
 
-  /*  @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -517,7 +517,6 @@ public class StateinformationsystehistoryEntity {
             return false;
         if (attestationDate != null ? !attestationDate.equals(that.attestationDate) : that.attestationDate != null)
             return false;
-        if (idClass != null ? !idClass.equals(that.idClass) : that.idClass != null) return false;
         if (attestationName != null ? !attestationName.equals(that.attestationName) : that.attestationName != null)
             return false;
         if (actAttestation != null ? !actAttestation.equals(that.actAttestation) : that.actAttestation != null)
@@ -569,14 +568,13 @@ public class StateinformationsystehistoryEntity {
         result = 31 * result + (attestation != null ? attestation.hashCode() : 0);
         result = 31 * result + (attestationNumberLisence != null ? attestationNumberLisence.hashCode() : 0);
         result = 31 * result + (attestationDate != null ? attestationDate.hashCode() : 0);
-        result = 31 * result + (idClass != null ? idClass.hashCode() : 0);
         result = 31 * result + (attestationName != null ? attestationName.hashCode() : 0);
         result = 31 * result + (actAttestation != null ? actAttestation.hashCode() : 0);
         result = 31 * result + (actNumberAttestation != null ? actNumberAttestation.hashCode() : 0);
         result = 31 * result + (actDateAttestation != null ? actDateAttestation.hashCode() : 0);
         result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
         return result;
-    }*/
+    }
 
     @Basic
     @Column(name = "dateUpdate")

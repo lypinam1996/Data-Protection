@@ -1,181 +1,276 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:pages="http://pagesdialect.sourceforge.net">
 <head>
-    <title>See personal information systems</title>
+    <title>Financing</title>
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-<body>
-<form th:action="@{/home}" method="get" style="position: fixed; right: 0px;left: 0px;top:0px">
-    <button class="btn btn-md btn-warning btn-block" type="submit">На главную</button>
-</form>
-<form th:action="@{/logout}" method="post" style="position: fixed; right: 0px;left: 0px;top:38px">
-    <button class="btn btn-md btn-warning btn-block" type="submit">Выход</button>
-</form>
-
-<div  style="margin-top: 150px" id="tableWrap">
-        <h3 align="center">Сведения об информационных системах персональных данных и (или) отдельных их частях.</h3>
-        <table class="table table-hover" style="font-size: 10px">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Ответственный</td><td> за </td><td>обеспечение </td><td>безопасности </td><td>персональных </td><td>данных</td><td> в ИСПДн </td><td>(сотрудник </td><td>или </td><td>подразделение)</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Угрозы   </td>
-                <td>бузопасности</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Модель угроз</td>
-                <td>безопасности</td>
-                <td>информации</td>
-                <td>Аттестация</td>
-                <td>информационной</td>
-                <td>системы</td>
-                <td>(самостоятельно</td>
-                <td>или </td>
-                 <td>   с </td>
-                <td>привлечением</td>
-                <td>лицензиата</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td>Наименование ИСПДн</td>
-                <td>ИСПДн является государственной (муниципальной) системой?</td>
-                <td>Наименование оператора ИСПДн</td>
-                <td>Цель обработки персональных данных</td>
-                <td>Имя сотрудника</td>
-                <td>Фамилия сотрудника</td>
-                <td>Отчество сотрудника</td>
-                <td>Должность сотрудника</td>
-                <td>Наименование подразделения</td>
-                <td>Контактный телефон</td>
-                <td>e-mail</td>
-                <td>Правовой акт о возложении обязанностей (название)</td>
-                <td>Номер акта</td>
-                <td>Дата</td>
-                <td>Нормативно правовой акт о создании ИСПДн (название)</td>
-                <td>Номер</td>
-                <td>Дата</td>
-                <td>Нормативно правовой акт о порядке и сроках ввода в эксплуатацию ИСПДн (название)</td>
-                <td>Номер</td>
-                <td>Дата</td>
-                <td>Дата ввода в эксплуатацию</td>
-                <td>Категории обрабатываемых данных</td>
-                <td>Тип криптозащиты</td>
-                <td>Сведения об отдельных частях ГИС</td>
-                <td>Включение в Pеестр операторов, осуществляющих обработку персональных данных, дата и регистрационный номер </td>
-                <td>Номер</td>
-                <td>Дата</td>
-                <td>Категории субъектов, персональные данные которых обрабатываются</td>
-
-                <td>Количество субъектов персональных данных</td>
-                <td>Тип актуальных угроз безопасности</td>
-                <td>Уровень защищённости персональных данных, который необходимо обеспечить при их обработке в ИСПДн</td>
-                <td>Использование в ИСПДн шифровальных (криптографических) средств информации</td>
-
-                <td>Результаты рассмотрения ФСТЕК РФ</td>
-                <td>Дата</td>
-                <td>Номер</td>
-                <td>Дата проведения</td>
-                <td>Наименование документа</td>
-                <td>Номер</td>
-                <td>Дата</td>
-                <td>Наименование привлечённого лицензиата</td>
-                <td>Лицензия на осуществление деятельности по технической защите конфиденциальной информации</td>
-                <td>Номер</td>
-                <td>Дата</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr th:each="o : ${personals}">
-                <td th:text="${o.title}">&nbsp;</td>
-                <td th:text="${o.yesnoByIdYesNo.title}">&nbsp;</td>
-                <td th:text="${o.operator}">&nbsp;</td>
-                <td th:text="${o.purpose}">&nbsp;</td>
-                <td th:text="${o.name}">&nbsp;</td>
-                <td th:text="${o.surname}">&nbsp;</td>
-                <td th:text="${o.patronimyc}">&nbsp;</td>
-                <td th:text="${o.post}">&nbsp;</td>
-                <td th:text="${o.subdivision}">&nbsp;</td>
-                <td th:text="${o.phone}">&nbsp;</td>
-                <td th:text="${o.email}">&nbsp;</td>
-                <td th:text="${o.legalAct}">&nbsp;</td>
-                <td th:text="${o.number}">&nbsp;</td>
-                <td th:text="${o.dateAct}">&nbsp;</td>
-                <td th:text="${o.legalActAboutCreating}">&nbsp;</td>
-                <td th:text="${o.numberAboutCreating}">&nbsp;</td>
-                <td th:text="${o.dateAboutCreating}">&nbsp;</td>
-                <td th:text="${o.legalActAboutExploitation}">&nbsp;</td>
-                <td th:text="${o.numberAboutExploitation}">&nbsp;</td>
-                <td th:text="${o.dateAboutExploitation}">&nbsp;</td>
-                <td th:text="${o.commissioning}">&nbsp;</td>
-                <td th:text="${o.personaldataByIdPersonalData.title}">&nbsp;</td>
-                <td th:text="${o.cryptoProtection}">&nbsp;</td>
-                <td th:text="${o.separateParts}">&nbsp;</td>
-                <td th:text="${o.legalActRegister}">&nbsp;</td>
-                <td th:text="${o.numberRegister}">&nbsp;</td>
-                <td th:text="${o.dateRegister}">&nbsp;</td>
-                <td th:text="${o.categoryofsubjectByIdCategoryOfSubject.title}">&nbsp;</td>
-                <td th:text="${o.countsubjectsByIdCountSubjects.title}">&nbsp;</td>
-                <td th:text="${o.typethreatByIdTypeThreat.title}">&nbsp;</td>
-
-                <td th:text="${o.securitylevelByIdSecuritylevel.title}">&nbsp;</td>
-                <td th:text="${o.yesnoByIdyesno2.title}">&nbsp;</td>
-                <td th:text="${o.threatsResults}">&nbsp;</td>
-                <td th:text="${o.threatsResultsDate}">&nbsp;</td>
-                <td th:text="${o.threatsResultsNumber}">&nbsp;</td>
-                <td th:text="${o.attestationName}">&nbsp;</td>
-                <td th:text="${o.actAttestation}">&nbsp;</td>
-                <td th:text="${o.actNumberAttestation}">&nbsp;</td>
-                <td th:text="${o.actDateAttestation}">&nbsp;</td>
-                <td th:text="${o.dateOfAttestation}">&nbsp;</td>
-                <td th:text="${o.attestation}">&nbsp;</td>
-                <td th:text="${o.attestationNumberLisence}">&nbsp;</td>
-                <td th:text="${o.attestationDate}">&nbsp;</td>
-                <td>
-                    <a th:href="@{${o.idPersonalInformationSystem}+'/editPersonal'}">Редактировать</a>
-                </td>
-                <td>
-                    <a th:href="@{${o.idPersonalInformationSystem}+'/seeHistoryPersonals'}">История</a>
-                </td>
-                <td>
-                    <a th:href="@{${o.idPersonalInformationSystem}+'/deletePersonal'}">Удалить</a>
-                </td>
-            </tr>
-        </table>
+<body style="font-family: Arial;background-color: #f7f9f9">
+<div class="wrapper" style="margin-bottom: 30px">
+    <div class="container " style="margin-top: 50px" >
+        <div class="row" style="border: 2px">
+            <div class="col-sm-2"><img  th:src="@{/img/logo.png}" alt="logo" width="100" height="100"/></div>
+            <div class="col-sm-6" style="margin-top: 40px"><span style="font-weight:bold">ВОРОНЕЖСКАЯ ОБЛАСТЬ</span></div>
+            <div class="col-sm-3" style="margin-top: 10px">
+                <nav class="navbar navbar-light" style="margin-top: 10px;margin-left: 55px">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Меню
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 7%">
+                        <form th:action="@{/home}" method="get">
+                            <button style="background-color: white;border: none;outline: none" type="submit">На главную</button>
+                        </form>
+                        <div th:switch="${user.idUser}">
+                            <p th:case="1">
+                            <input type="button" style="background-color: white;border: none;outline: none; margin-top: 20px" onclick="history.back()" value="Назад"/>
+                            </p>
+                            <p th:case="*">
+                            </p>
+                        </div>
+                        <form class="form-inline" th:action="@{/logout}" method="post">
+                            <button type="submit" style="background-color: white;border: none;outline: none">Выход</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
-<button>click me</button>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.js"></script>
-<script type="text/javascript">
-    $(function(){
-        $('button').click(function(){
-            var url='data:application/vnd.ms-excel,' + encodeURIComponent($('#tableWrap').html())
-            location.href=url
-            return false
-        })
-    })
-</script>
+<div class="container" style="margin-top: 50px;margin-bottom: 50px" id="tableWrap">
+    <h3 align="center">Сведения об информационных системах персональных данных и (или) отдельных их частях.</h3>
+    <table class="table table-hover" style="font-size: 8pt">
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td>Субъект РФ</td>
+                <td>Наименование органа власти</td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td colspan="46" style="text-align: center">
+                Информационная система персональных данных (ИСПДн).
+            </td>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td></td>
+                <td></td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+        </tr>
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td></td>
+                <td></td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="10">Ответственный за обеспечение безопасности персональных данных в ИСПДн (сотрудник  или  подразделение)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="3">Угрозы безопасности</td>
+            <td></td>
+            <td colspan="3">Модель угроз безопасности информации</td>
+            <td colspan="8">Аттестация информационной системы (самостоятельно или с привлечением лицензиата</td>
+            <td></td>
+            <td></td>
+            <td></td>
 
+        </tr>
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td></td>
+                <td></td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td colspan="4"></td>
+            <td colspan="4">Для сотрудника</td>
+            <td>Для подразделения</td>
+            <td colspan="5">Данные, заполняемые как для сотрудника, так и для подразделения</td>
+            <td colspan="3">Нормативно правовой акт о создании ИСПДн</td>
+            <td colspan="3">Нормативно правовой акт о порядке и сроках ввода в эксплуатацию ИСПДн </td>
+            <td colspan="4"></td>
+            <td colspan="3">Включение в Единый реестр операторов, осуществляющих обработку персональных данных</td>
+            <td colspan="3"></td>
+            <td colspan="5"></td>
+            <td colspan="3">Данные заполняемые в обоих случаях</td>
+            <td></td>
+            <td colspan="4">Для лицензиата</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td></td>
+                <td></td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td>Наименование ИСПДн</td>
+            <td>ИСПДн является государственной (муниципальной) информационной системой</td>
+            <td>Наименование оператора ИСПДн</td>
+            <td>Цель обработки персональных данных</td>
+            <td>Имя сотрудника</td>
+            <td>Фамилия сотрудника</td>
+            <td>Отчество сотрудника</td>
+            <td>Должность сотрудника</td>
+            <td>Наименование подразделения</td>
+            <td>Контактный телефон</td>
+            <td>e-mail</td>
+            <td>Правовой акт о возложении обязанностей (название)</td>
+            <td>Номер акта</td>
+            <td>Дата</td>
+            <td>Название</td>
+            <td>Номер</td>
+            <td>Дата</td>
+            <td>Название</td>
+            <td>Номер</td>
+            <td>Дата</td>
+            <td>Дата ввода в эксплуатацию</td>
+            <td>Категории обрабатываемых в ИСПДн персональных данных</td>
+            <td>Тип криптозащиты</td>
+            <td>Сведения об отдельных частях ГИС</td>
+            <td>Название </td>
+            <td>Номер</td>
+            <td>Дата</td>
+            <td>Категории субъектов персональные данные которых обрабатываются</td>
+            <td>Количество субъектов персональных данных</td>
+            <td>Тип актуальных угроз безопасности</td>
+            <td>Уровень защищённости персональных данных, который необходимо обеспечить при их обработке</td>
+            <td>Использование в ИСПДн шифровальных (криптографических) средств защиты информации</td>
+            <td>Результаты рассмотрения ФСТЕК РФ</td>
+            <td>Дата ответа</td>
+            <td>Номер ответа</td>
+            <td>Дата проведения</td>
+            <td>Наименование документа</td>
+            <td>Номер документа</td>
+            <td>Дата</td>
+            <td>Наименование привлечённого лицензиата</td>
+            <td>Лицензия на осуществление деятельности по технической защите конфиденциальной информации</td>
+            <td>Номер лицензии</td>
+            <td>Дата</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each="o : ${personals}">
+            <div th:switch="${user.idUser}">
+                <p th:case="1">
+                <td th:text="${o.user.subject.titleSubject}">&nbsp;</td>
+                <td th:text="${o.user.authority.titleAuthorities}">&nbsp;</td>
+                </p>
+                <p th:case="*">
+                </p>
+            </div>
+            <td th:text="${o.title}">&nbsp;</td>
+            <td th:text="${o.yesnoByIdYesNo.title}">&nbsp;</td>
+            <td th:text="${o.operator}">&nbsp;</td>
+            <td th:text="${o.purpose}">&nbsp;</td>
+            <td th:text="${o.name}">&nbsp;</td>
+            <td th:text="${o.surname}">&nbsp;</td>
+            <td th:text="${o.patronimyc}">&nbsp;</td>
+            <td th:text="${o.post}">&nbsp;</td>
+            <td th:text="${o.subdivision}">&nbsp;</td>
+            <td th:text="${o.phone}">&nbsp;</td>
+            <td th:text="${o.email}">&nbsp;</td>
+            <td th:text="${o.legalAct}">&nbsp;</td>
+            <td th:text="${o.number}">&nbsp;</td>
+            <td th:text="${o.dateAct}">&nbsp;</td>
+            <td th:text="${o.legalActAboutCreating}">&nbsp;</td>
+            <td th:text="${o.numberAboutCreating}">&nbsp;</td>
+            <td th:text="${o.dateAboutCreating}">&nbsp;</td>
+            <td th:text="${o.legalActAboutExploitation}">&nbsp;</td>
+            <td th:text="${o.numberAboutExploitation}">&nbsp;</td>
+            <td th:text="${o.dateAboutExploitation}">&nbsp;</td>
+            <td th:text="${o.commissioning}">&nbsp;</td>
+            <td th:text="${o.personaldataByIdPersonalData.title}">&nbsp;</td>
+            <td th:text="${o.cryptoProtection}">&nbsp;</td>
+            <td th:text="${o.separateParts}">&nbsp;</td>
+            <td th:text="${o.legalActRegister}">&nbsp;</td>
+            <td th:text="${o.numberRegister}">&nbsp;</td>
+            <td th:text="${o.dateRegister}">&nbsp;</td>
+
+            <div th:switch="${o.categoryofsubjectByIdCategoryOfSubject}">
+                <p th:case="null"><td></td></p>
+                <p th:case="*"><td th:text="${o.categoryofsubjectByIdCategoryOfSubject.title}">&nbsp;</td></p>
+            </div>
+            <div th:switch="${o.countsubjectsByIdCountSubjects}">
+                <p th:case="null"><td></td></p>
+                <p th:case="*"><td th:text="${o.countsubjectsByIdCountSubjects.title}">&nbsp;</td></p>
+            </div>
+            <div th:switch="${o.typethreatByIdTypeThreat}">
+                <p th:case="null"><td></td></p>
+                <p th:case="*"><td th:text="${o.typethreatByIdTypeThreat.title}">&nbsp;</td></p>
+            </div>
+            <div th:switch="${o.securitylevelByIdSecuritylevel}">
+                <p th:case="null"><td></td></p>
+                <p th:case="*"><td th:text="${o.securitylevelByIdSecuritylevel.title}">&nbsp;</td></p>
+            </div>
+
+
+
+
+            <td th:text="${o.yesnoByIdyesno2.title}">&nbsp;</td>
+
+            <td th:text="${o.threatsResults}">&nbsp;</td>
+            <td th:text="${o.threatsResultsDate}">&nbsp;</td>
+            <td th:text="${o.threatsResultsNumber}">&nbsp;</td>
+
+            <td th:text="${o.dateOfAttestation}">&nbsp;</td>
+            <td th:text="${o.actAttestation}">&nbsp;</td>
+            <td th:text="${o.actNumberAttestation}">&nbsp;</td>
+            <td th:text="${o.actDateAttestation}">&nbsp;</td>
+            <td th:text="${o.attestationName}">&nbsp;</td>
+            <td th:text="${o.attestation}">&nbsp;</td>
+            <td th:text="${o.attestationNumberLisence}">&nbsp;</td>
+            <td th:text="${o.attestationDate}">&nbsp;</td>
+            <td>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/editStates'}">Редактировать</a>
+            </td>
+            <td>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/seeHistoryState'}">История</a>
+            </td>
+            <td>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/deleteStates'}">Удалить</a>
+            </td>
+        </tr>
+    </table>
+
+<div th:switch="${user.idUser}">
+    <p th:case="1">
+    <form th:action="@{${user.idUser}+'/excelPersonals'}" method="get">
+        <button  type="submit" style="background-color: red; outline: none;color: white; width: 100px;border-color: red;font-size: 12pt">Excel</button>
+    </form>
+    </p>
+    <p th:case="*">
+    </p>
+</div>
+</div>
 </body>
 </html>

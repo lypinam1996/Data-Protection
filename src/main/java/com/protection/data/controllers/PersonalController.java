@@ -43,47 +43,53 @@ public class PersonalController {
     @Autowired
     SecurityLevelService securityLevelService;
 
-    @RequestMapping(value = "/seePersonals", method = RequestMethod.GET)
-    public ModelAndView getAllPersonals(Model model) throws IOException {
+    @RequestMapping(value = "/seePersonal", method = RequestMethod.GET)
+    public ModelAndView getOfficials(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        List<PersonalinformationsystemEntity> personal = new ArrayList<>();
-        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
-        for(int i=0;i<users.size();i++){
-            personal.addAll(personalService.findPersonal(users.get(i)));
-        }
-        modelAndView.addObject("personals", personal);
+        modelAndView.addObject("user", user);
+        List<PersonalinformationsystemEntity> personals = see(user);
+        modelAndView.addObject("personals", personals);
         modelAndView.setViewName("seePersonals");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/seePersonal", method = RequestMethod.GET)
-    public ModelAndView getAllPersonals3(Model model) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        List<PersonalinformationsystemEntity> personal = personalService.findAllPersonal();
-        modelAndView.addObject("personals", personal);
-        modelAndView.setViewName("seePersonal");
-        return modelAndView;
+    private List<PersonalinformationsystemEntity>  see(UsersEntity user){
+        List<PersonalinformationsystemEntity> personals = new ArrayList<>();
+        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
+        for(int i=0;i<users.size();i++){
+            personals.addAll(personalService.findPersonal(users.get(i)));
+        }
+        return personals;
     }
 
-
-
-    @RequestMapping(value = "/{id1}/{id}/seePersonals", method = RequestMethod.GET)
-    public ModelAndView getAllPersonals2(Model model,@PathVariable String id) throws IOException {
+    @RequestMapping(value = "/{id2}/{id}/seePersonal", method = RequestMethod.GET)//стр админа со стороны организации
+    public ModelAndView getOfficial(Model model, @PathVariable String id) throws IOException {
         UsersEntity user = userService.findById(Integer.parseInt(id));
         ModelAndView modelAndView = new ModelAndView();
-        List<PersonalinformationsystemEntity> personal = new ArrayList<>();
-        List<UsersEntity> users = userService.findByAuth(user.getAuthority());
-        for(int i=0;i<users.size();i++){
-            personal.addAll(personalService.findPersonal(users.get(i)));
-        }
-        modelAndView.addObject("personals", personal);
+        List<PersonalinformationsystemEntity> personals = see(user);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user2 = userService.FindByLogin(auth.getName());
+        modelAndView.addObject("user", user2);
+        modelAndView.addObject("personals", personals);
         modelAndView.setViewName("seePersonals");
         return modelAndView;
     }
 
-   @RequestMapping(value = "/{id}/seeHistoryPersonals", method = RequestMethod.GET)
+    @RequestMapping(value = "/seePersonals", method = RequestMethod.GET)// все со стороны админа
+    public ModelAndView getAllOfficials(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        List<PersonalinformationsystemEntity> personals = personalService.findAllPersonal();
+        modelAndView.addObject("personals", personals);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user = userService.FindByLogin(auth.getName());
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("seePersonals");
+        return modelAndView;
+    }
+
+   @RequestMapping(value = "/{id}/seePersonals", method = RequestMethod.GET)
     public ModelAndView getHistoryPersonals(@PathVariable String id) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));

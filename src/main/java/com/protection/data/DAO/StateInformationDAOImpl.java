@@ -57,6 +57,7 @@ public class StateInformationDAOImpl extends AbstractDAO<Integer, Stateinformati
 
     @Override
     public void saveStateInformation(StateinformationsystemEntity stateinformationsystem) {
+
         getSession().saveOrUpdate(stateinformationsystem);
     }
 

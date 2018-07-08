@@ -28,8 +28,7 @@ public class CryptoFormatter implements Formatter<StateinformationsystemEntity> 
         statusEntity.setThreatsResultsDate(Date.valueOf(data[30]));
         statusEntity.setDateOfAttestation(Date.valueOf(data[32]));
         statusEntity.setAttestationDate(Date.valueOf(data[35]));
-        statusEntity.setActDateAttestation(Date.valueOf(data[39]));
-        return statusEntity;
+       return statusEntity;
 
     }
 

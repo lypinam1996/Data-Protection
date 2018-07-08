@@ -1,8 +1,5 @@
 package com.protection.data.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -49,7 +46,7 @@ public class StateinformationsystemEntity {
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
-    private Date actDateAttestation;
+    private String actDateAttestation;
     private List<StateinformationsystehistoryEntity> stateinformationsystehistoriesByIdStateInformationSystem;
     private UsersEntity user;
     private TypeofcryptoprotectionEntity typeofcryptoprotectionByTypeofcryptoprotection;
@@ -456,9 +453,16 @@ public class StateinformationsystemEntity {
 
     @Basic
     @Column(name = "actDateAttestation")
-    public Date getActDateAttestation() {
+    public String getActDateAttestation() {
         return actDateAttestation;
     }
+
+    public void setActDateAttestation(String actDateAttestation) {
+        this.actDateAttestation = actDateAttestation;
+    }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -580,9 +584,6 @@ public class StateinformationsystemEntity {
         return result;
     }
 
-    public void setActDateAttestation(Date actDateAttestation) {
-        this.actDateAttestation = actDateAttestation;
-    }
 
     @OneToMany(mappedBy = "stateinformationsystemByIdStateInformationSystem")
     public List<StateinformationsystehistoryEntity> getStateinformationsystehistoriesByIdStateInformationSystem() {
