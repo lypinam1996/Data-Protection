@@ -247,13 +247,13 @@
             <td th:text="${o.attestationNumberLisence}">&nbsp;</td>
             <td th:text="${o.attestationDate}">&nbsp;</td>
             <td>
-                <a th:href="@{${o.idPersonalInformationSystem}+'/editStates'}">Редактировать</a>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/editPersonal'}">Редактировать</a>
             </td>
             <td>
-                <a th:href="@{${o.idPersonalInformationSystem}+'/seeHistoryState'}">История</a>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/seeHistoryPersonals'}">История</a>
             </td>
             <td>
-                <a th:href="@{${o.idPersonalInformationSystem}+'/deleteStates'}">Удалить</a>
+                <a th:href="@{${o.idPersonalInformationSystem}+'/deletePersonal'}">Удалить</a>
             </td>
         </tr>
     </table>

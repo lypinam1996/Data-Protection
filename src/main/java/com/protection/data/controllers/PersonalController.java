@@ -146,24 +146,52 @@ public class PersonalController {
     }
 
 
-    @RequestMapping(value = "/{id}/seeHistoryPersonal", method = RequestMethod.GET)
-    public ModelAndView getHistoryPersonals3(@PathVariable String id) throws IOException {
+    @RequestMapping(value = "/{id}/seeHistoryPersonals", method = RequestMethod.GET)
+    public ModelAndView getHistoryOfficial(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView =history(id);
+        return modelAndView;
+    }
+
+    private ModelAndView history(String id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UsersEntity user = userService.FindByLogin(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
-        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
+        modelAndView.addObject("user", user);
+        PersonalinformationsystemEntity official = personalService.findById(Integer.parseInt(id));
+        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(official);
         modelAndView.addObject("personals", history);
-        modelAndView.setViewName("seeHistoryPersonal");
+        modelAndView.setViewName("seeHistoryPersonals");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id1}/{id2}/{id}/seeHistoryPersonals", method = RequestMethod.GET)
-    public ModelAndView getHistoryPersonals2(@PathVariable String id) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
-        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
-        modelAndView.addObject("personals", history);
-        modelAndView.setViewName("seeHistoryPersonals");
+    public ModelAndView getHistoryOfficial2(@PathVariable String id) throws IOException {
+        ModelAndView modelAndView = history(id);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id2}/{id}/{id3}/{id1}/excelHistoryPersonal", method = RequestMethod.GET)
+    public @ResponseBody void downloadFiles2(HttpServletRequest request,
+                                             HttpServletResponse response,@PathVariable String id,@PathVariable String id3) throws IOException {
+        PersonalinformationsystemEntity official = personalService.findById(Integer.parseInt(id3));
+        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(official);
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        ExelPersonal exel = new ExelPersonal();
+        exel.writePersonIntoExcel(history,official);
+        File downloadFile = new File("person.xls");
+        excel(request,response,downloadFile);
+    }
+
+
+    @RequestMapping(value = "/{id2}/{id}/excelHistoryPersonal", method = RequestMethod.GET)
+    public @ResponseBody void downloadFiles4(HttpServletRequest request,
+                                             HttpServletResponse response,@PathVariable String id2) throws IOException {
+        PersonalinformationsystemEntity financing = personalService.findById(Integer.parseInt(id2));
+        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findAllPersonalInformationSystemHistories();
+        ExelPersonal exel = new ExelPersonal();
+        exel.writePersonIntoExcel(history,financing);
+        File downloadFile = new File("person.xls");
+        excel(request,response,downloadFile);
     }
 
    @RequestMapping(value = "/addPersonal", method = RequestMethod.GET)
@@ -251,7 +279,7 @@ public class PersonalController {
         PersonalinformationsystemhistoryEntity history = new PersonalinformationsystemhistoryEntity();
         history.setUsersByIdUser(user);
         personalInformationSystemHistoryService.saveHistory(personal,history);
-        return "redirect:" + user.getIdUser()+"/"+ user.getIdUser()+ "/seePersonals";
+        return "successEditing";
     }
 
     @RequestMapping(value = "/{id}/deletePersonal", method = RequestMethod.GET)
@@ -266,7 +294,7 @@ public class PersonalController {
     public ModelAndView deletePersonals2(@PathVariable int id){
         ModelAndView model = new ModelAndView();
         personalService.deletePersonal(id);
-        model.setViewName("delete");
+        model.setViewName("successDeliting");
         return model;
     }
 
