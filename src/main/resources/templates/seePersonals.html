@@ -232,10 +232,6 @@
                 <p th:case="null"><td></td></p>
                 <p th:case="*"><td th:text="${o.securitylevelByIdSecuritylevel.title}">&nbsp;</td></p>
             </div>
-
-
-
-
             <td th:text="${o.yesnoByIdyesno2.title}">&nbsp;</td>
 
             <td th:text="${o.threatsResults}">&nbsp;</td>
@@ -264,7 +260,7 @@
 
 <div th:switch="${user.idUser}">
     <p th:case="1">
-    <form th:action="@{${user.idUser}+'/excelPersonals'}" method="get">
+    <form th:action="@{${user.idUser}+'/excelPersonal'}" method="get">
         <button  type="submit" style="background-color: red; outline: none;color: white; width: 100px;border-color: red;font-size: 12pt">Excel</button>
     </form>
     </p>

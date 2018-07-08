@@ -1,19 +1,24 @@
 package com.protection.data.controllers;
 
+import com.protection.data.Exel.ExelPersonal;
 import com.protection.data.models.*;
 import com.protection.data.services.*;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,15 +94,57 @@ public class PersonalController {
         return modelAndView;
     }
 
-   @RequestMapping(value = "/{id}/seePersonals", method = RequestMethod.GET)
-    public ModelAndView getHistoryPersonals(@PathVariable String id) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        PersonalinformationsystemEntity personal = personalService.findById(Integer.parseInt(id));
-        List<PersonalinformationsystemhistoryEntity> history = personalInformationSystemHistoryService.findPersonalInformationSystemHistories(personal);
-        modelAndView.addObject("personals", history);
-        modelAndView.setViewName("seeHistoryPersonals");
-        return modelAndView;
+    private void excel(HttpServletRequest request,
+                       HttpServletResponse response, File downloadFile) {
+        ServletContext context = request.getServletContext();
+        FileInputStream inputStream = null;
+        OutputStream outStream = null;
+        try {
+            inputStream = new FileInputStream(downloadFile);
+            response.setContentLength((int) downloadFile.length());
+            response.setContentType(context.getMimeType("person.xls"));
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+            response.setHeader(headerKey, headerValue);
+            outStream = response.getOutputStream();
+            IOUtils.copy(inputStream, outStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != inputStream)
+                    inputStream.close();
+                if (null != inputStream)
+                    outStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
+
+    @RequestMapping(value = "/{id2}/{id}/{id1}/excelPersonal", method = RequestMethod.GET)
+    public @ResponseBody
+    void downloadFiles(HttpServletRequest request,
+                       HttpServletResponse response, @PathVariable String id) throws IOException {
+        UsersEntity user = userService.findById(Integer.parseInt(id));
+        List<PersonalinformationsystemEntity> official = see(user);
+        ExelPersonal exel = new ExelPersonal();
+        exel.writePersonIntoExcel(official);
+        File downloadFile = new File("person.xls");
+        excel(request,response,downloadFile);
+    }
+
+    @RequestMapping(value = "/{id}/excelPersonal", method = RequestMethod.GET)
+    public @ResponseBody void downloadFiles3(HttpServletRequest request,
+                                             HttpServletResponse response,@PathVariable String id) throws IOException {
+        List<PersonalinformationsystemEntity> official    = personalService.findAllPersonal();
+        ExelPersonal exel = new ExelPersonal();
+        exel.writePersonIntoExcel(official);
+        File downloadFile = new File("person.xls");
+        excel(request,response,downloadFile);
+    }
+
 
     @RequestMapping(value = "/{id}/seeHistoryPersonal", method = RequestMethod.GET)
     public ModelAndView getHistoryPersonals3(@PathVariable String id) throws IOException {
@@ -118,7 +165,6 @@ public class PersonalController {
         modelAndView.setViewName("seeHistoryPersonals");
         return modelAndView;
     }
-
 
    @RequestMapping(value = "/addPersonal", method = RequestMethod.GET)
     public String getPersonals(Model model) {
@@ -156,7 +202,6 @@ public class PersonalController {
         model.addAttribute("successMessage", "Добавление прошло успешно");
         return "addPersonal";
     }
-
 
     @RequestMapping(value = "/{id}/editPersonal", method = RequestMethod.GET)
     public String addPersonals(@PathVariable String id, Model model) {
