@@ -12,7 +12,7 @@ public class OfficialhistoryEntity {
     private String surname;
     private String name;
     private String patronymic;
-    private Timestamp birth;
+    private String birth;
     private String phone;
     private String email;
     private String institution;
@@ -85,11 +85,11 @@ public class OfficialhistoryEntity {
 
     @Basic
     @Column(name = "birth")
-    public Timestamp getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Timestamp birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

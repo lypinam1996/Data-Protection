@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -19,14 +18,14 @@ public class PersonalInfFormatter implements Formatter<Personalinformationsystem
     public PersonalinformationsystemEntity parse(String s, Locale locale) throws ParseException {
         PersonalinformationsystemEntity statusEntity = new PersonalinformationsystemEntity();
         String[] data = s.split("_");
-        statusEntity.setDateAct(Date.valueOf(data[12]));
-        statusEntity.setDateAboutCreating(Date.valueOf(data[16]));
-        statusEntity.setDateAboutExploitation(Date.valueOf(data[19]));
-        statusEntity.setCommissioning(Date.valueOf(data[20]));
-        statusEntity.setThreatsResultsDate(Date.valueOf(data[30]));
-        statusEntity.setDateOfAttestation(Date.valueOf(data[32]));
-        statusEntity.setAttestationDate(Date.valueOf(data[35]));
-        statusEntity.setActDateAttestation(Date.valueOf(data[39]));
+        statusEntity.setDateAct(data[12]);
+        statusEntity.setDateAboutCreating(data[16]);
+        statusEntity.setDateAboutExploitation(data[19]);
+        statusEntity.setCommissioning(data[20]);
+        statusEntity.setThreatsResultsDate(data[30]);
+        statusEntity.setDateOfAttestation(data[32]);
+        statusEntity.setAttestationDate(data[35]);
+        statusEntity.setActDateAttestation(data[39]);
         return statusEntity;
 
     }

@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
@@ -42,8 +41,7 @@ public class OfficailHistoryDAOImpl extends AbstractDAO<Integer,OfficialhistoryE
     }
     @Override
     public void saveOfficial(OfficialEntity official,OfficialhistoryEntity officialhistory) {
-        Timestamp sqldate2 = new Timestamp(official.getBirth().getTime());
-        officialhistory.setBirth(sqldate2);
+        officialhistory.setBirth(official.getBirth());
         officialhistory.setEmail(official.getEmail());
         officialhistory.setInstitution(official.getInstitution());
         officialhistory.setName(official.getName());

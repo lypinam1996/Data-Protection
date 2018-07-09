@@ -20,33 +20,33 @@ public class PersonalinformationsystemEntity {
     private String email;
     private String legalAct;
     private String number;
-    private Date dateAct;
+    private String dateAct;
     private String subdivision;
     private String legalActAboutCreating;
     private String numberAboutCreating;
-    private Date dateAboutCreating;
+    private String dateAboutCreating;
     private String legalActAboutExploitation;
     private String numberAboutExploitation;
-    private Date dateAboutExploitation;
-    private Date commissioning;
+    private String dateAboutExploitation;
+    private String commissioning;
     private String personSecuritylevel;
-    private Date dateSecuritylevel;
+    private String dateSecuritylevel;
     private String cryptoProtection;
     private String separateParts;
     private String legalActRegister;
     private String numberRegister;
-    private Date dateRegister;
+    private String dateRegister;
     private String threatsResults;
-    private Date threatsResultsDate;
+    private String threatsResultsDate;
     private String threatsResultsNumber;
-    private Date dateOfAttestation;
+    private String dateOfAttestation;
     private String attestation;
     private String attestationNumberLisence;
-    private Date attestationDate;
+    private String attestationDate;
     private String attestationName;
     private String actAttestation;
     private String actNumberAttestation;
-    private Date actDateAttestation;
+    private String actDateAttestation;
     private PersonaldataEntity personaldataByIdPersonalData;
     private CategoryofsubjectEntity categoryofsubjectByIdCategoryOfSubject;
     private YesnoEntity yesnoByIdYesNo;
@@ -189,11 +189,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAct")
-    public Date getDateAct() {
+    public String getDateAct() {
         return dateAct;
     }
 
-    public void setDateAct(Date dateAct) {
+    public void setDateAct(String dateAct) {
         this.dateAct = dateAct;
     }
 
@@ -229,11 +229,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAboutCreating")
-    public Date getDateAboutCreating() {
+    public String getDateAboutCreating() {
         return dateAboutCreating;
     }
 
-    public void setDateAboutCreating(Date dateAboutCreating) {
+    public void setDateAboutCreating(String dateAboutCreating) {
         this.dateAboutCreating = dateAboutCreating;
     }
 
@@ -259,21 +259,21 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateAboutExploitation")
-    public Date getDateAboutExploitation() {
+    public String getDateAboutExploitation() {
         return dateAboutExploitation;
     }
 
-    public void setDateAboutExploitation(Date dateAboutExploitation) {
+    public void setDateAboutExploitation(String dateAboutExploitation) {
         this.dateAboutExploitation = dateAboutExploitation;
     }
 
     @Basic
     @Column(name = "commissioning")
-    public Date getCommissioning() {
+    public String getCommissioning() {
         return commissioning;
     }
 
-    public void setCommissioning(Date commissioning) {
+    public void setCommissioning(String commissioning) {
         this.commissioning = commissioning;
     }
 
@@ -289,11 +289,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateSecuritylevel")
-    public Date getDateSecuritylevel() {
+    public String getDateSecuritylevel() {
         return dateSecuritylevel;
     }
 
-    public void setDateSecuritylevel(Date dateSecuritylevel) {
+    public void setDateSecuritylevel(String dateSecuritylevel) {
         this.dateSecuritylevel = dateSecuritylevel;
     }
 
@@ -339,11 +339,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateRegister")
-    public Date getDateRegister() {
+    public String getDateRegister() {
         return dateRegister;
     }
 
-    public void setDateRegister(Date dateRegister) {
+    public void setDateRegister(String dateRegister) {
         this.dateRegister = dateRegister;
     }
 
@@ -359,11 +359,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "threatsResultsDate")
-    public Date getThreatsResultsDate() {
+    public String getThreatsResultsDate() {
         return threatsResultsDate;
     }
 
-    public void setThreatsResultsDate(Date threatsResultsDate) {
+    public void setThreatsResultsDate(String threatsResultsDate) {
         this.threatsResultsDate = threatsResultsDate;
     }
 
@@ -379,11 +379,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "dateOfAttestation")
-    public Date getDateOfAttestation() {
+    public String getDateOfAttestation() {
         return dateOfAttestation;
     }
 
-    public void setDateOfAttestation(Date dateOfAttestation) {
+    public void setDateOfAttestation(String dateOfAttestation) {
         this.dateOfAttestation = dateOfAttestation;
     }
 
@@ -409,11 +409,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "attestationDate")
-    public Date getAttestationDate() {
+    public String getAttestationDate() {
         return attestationDate;
     }
 
-    public void setAttestationDate(Date attestationDate) {
+    public void setAttestationDate(String attestationDate) {
         this.attestationDate = attestationDate;
     }
 
@@ -449,11 +449,11 @@ public class PersonalinformationsystemEntity {
 
     @Basic
     @Column(name = "actDateAttestation")
-    public Date getActDateAttestation() {
+    public String getActDateAttestation() {
         return actDateAttestation;
     }
 
-    public void setActDateAttestation(Date actDateAttestation) {
+    public void setActDateAttestation(String actDateAttestation) {
         this.actDateAttestation = actDateAttestation;
     }
 

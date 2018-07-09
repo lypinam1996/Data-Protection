@@ -81,10 +81,7 @@
                 <td th:text="${o.surname}">&nbsp;</td>
                 <td th:text="${o.name}">&nbsp;</td>
                 <td th:text="${o.patronymic}">&nbsp;</td>
-                <div th:switch="${o.birth}">
-                    <p th:case="null"></p>
-                    <p th:case="*"><td th:text="${#dates.format(o.birth, 'dd-MM-yy')}">&nbsp;</td></p>
-                </div>
+                <td th:text="${o.birth}">&nbsp;</td>
                 <td th:text="${o.phone}">&nbsp;</td>
                 <td th:text="${o.email}">&nbsp;</td>
                 <td th:text="${o.institution}">&nbsp;</td>

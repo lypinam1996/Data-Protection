@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -24,7 +23,7 @@ public class OfficialsFormatter implements Formatter<OfficialEntity> {
         statusEntity.setSurname(data[2]);
         statusEntity.setName(data[3]);
         statusEntity.setPatronymic(data[4]);
-        statusEntity.setBirth(Date.valueOf(data[5]));
+        statusEntity.setBirth(data[5]);
         statusEntity.setPhone(data[6]);
         statusEntity.setEmail(data[7]);
         statusEntity.setInstitution(data[8]);

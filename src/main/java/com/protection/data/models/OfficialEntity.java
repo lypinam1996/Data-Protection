@@ -13,7 +13,7 @@ public class OfficialEntity {
     private String surname;
     private String name;
     private String patronymic;
-    private Date birth ;
+    private String birth ;
     private String phone;
     private String email;
     private String institution;
@@ -94,11 +94,11 @@ public class OfficialEntity {
 
     @Basic
     @Column(name = "birth")
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 
