@@ -49,4 +49,9 @@ public class SpecialistHistoryServiceImpl implements SpecialistHistotyService {
         return specialist.findSpecialist2(user,id);
     }
 
+    @Override
+    public List<SpecialistshistoryEntity> findSpecialist2(SpecialistsEntity id) {
+        return specialist.findSpecialist2(id);
+    }
+
 }

@@ -14,4 +14,5 @@ public interface SpecialistHistoryDAO {
     void saveSpecialist(SpecialistsEntity official, SpecialistshistoryEntity officialhistory);
     void deleteSpecialist(int id);
     List<SpecialistshistoryEntity> findSpecialist2(UsersEntity user, SpecialistsEntity id);
+    List<SpecialistshistoryEntity> findSpecialist2( SpecialistsEntity id);
 }

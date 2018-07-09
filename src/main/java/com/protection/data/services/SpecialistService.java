@@ -14,4 +14,6 @@ public interface SpecialistService {
     void saveSpecialist(SpecialistsEntity specialist);
     void deleteSpecialist(int id);
     int findMaxSpecials();
+    List<SpecialistsEntity> findSpecialist( QuantityEntity id);
+
 }

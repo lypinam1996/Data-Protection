@@ -12,5 +12,6 @@ public interface SpecialistDAO {
     List<SpecialistsEntity> findSpecialist(UsersEntity user,  QuantityEntity id);
     void saveSpecialist(SpecialistsEntity specialist);
     void deleteSpecialist(int id);
+    List<SpecialistsEntity> findSpecialist( QuantityEntity id);
     int findMaxSpecials();
 }

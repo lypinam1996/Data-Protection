@@ -18,6 +18,8 @@ public class SpecialistServiceImpl implements SpecialistService {
     SpecialistDAO specialist;
 
 
+
+
     @Override
     public SpecialistsEntity findById(int id) {
         return specialist.findById(id);
@@ -51,5 +53,10 @@ public class SpecialistServiceImpl implements SpecialistService {
     @Override
     public int findMaxSpecials() {
         return specialist.findMaxSpecials();
+    }
+
+    @Override
+    public List<SpecialistsEntity> findSpecialist(QuantityEntity id) {
+        return specialist.findSpecialist(id);
     }
 }

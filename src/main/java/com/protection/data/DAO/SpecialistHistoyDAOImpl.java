@@ -42,6 +42,12 @@ public class SpecialistHistoyDAOImpl extends AbstractDAO<Integer,Specialistshist
         criteria.add(Restrictions.eq("specialist", id));
         return (List<SpecialistshistoryEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+    @Override
+    public List<SpecialistshistoryEntity> findSpecialist2( SpecialistsEntity id){
+        Criteria criteria = getSession().createCriteria(SpecialistshistoryEntity.class);
+        criteria.add(Restrictions.eq("specialist", id));
+        return (List<SpecialistshistoryEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
 
     @Override
     public List<SpecialistshistoryEntity> findSpecialist(UsersEntity user, QuantityEntity id){
@@ -75,10 +81,10 @@ public class SpecialistHistoyDAOImpl extends AbstractDAO<Integer,Specialistshist
         officialhistory.setWorkExperience(official.getWorkExperience());
         officialhistory.setInstitution2(official.getInstitution2());
         officialhistory.setSpecialty2(official.getSpecialty2());
-        officialhistory.setPeriodStudy(official.getPeriodStudy());
-        officialhistory.setHours(official.getHours());
-        officialhistory.setInstitution2(official.getInstitution3());
-        officialhistory.setSpecialty2(official.getSpecialty3());
+        officialhistory.setPeriodStudy3(official.getPeriodStudy());
+        officialhistory.setHours3(official.getHours());
+        officialhistory.setInstitution3(official.getInstitution3());
+        officialhistory.setSpecialty3(official.getSpecialty3());
         officialhistory.setPeriodStudy(official.getPeriodStudy3());
         officialhistory.setHours(official.getHours3());
         officialhistory.setReconciliationDate(official.getReconciliationDate());

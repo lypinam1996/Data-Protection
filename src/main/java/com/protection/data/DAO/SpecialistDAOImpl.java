@@ -40,6 +40,13 @@ public class SpecialistDAOImpl extends AbstractDAO<Integer,SpecialistsEntity> im
         criteria.add(Restrictions.eq("quantity", id));
         return (List<SpecialistsEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @Override
+    public List<SpecialistsEntity> findSpecialist( QuantityEntity id){
+        Criteria criteria = getSession().createCriteria(SpecialistsEntity.class);
+        criteria.add(Restrictions.eq("quantity", id));
+        return (List<SpecialistsEntity>) criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
     @Override
     public void saveSpecialist(SpecialistsEntity quantity) {
         getSession().saveOrUpdate(quantity);
